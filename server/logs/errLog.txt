@@ -1,0 +1,29 @@
+20250221	02:10:26	9383debb-98a9-4b68-9b71-5f625e9f57a3	TypeError:Cannot read properties of undefined (reading 'username')
+20250221	02:14:13	c6b5a4db-8f4b-4dfd-8d3d-65eb446c12b0	TypeError:Cannot read properties of undefined (reading 'username')
+20250221	02:21:10	896aa35f-340b-4430-a747-32c49dced434	TypeError:Cannot read properties of undefined (reading 'username')
+20250221	02:23:19	01162185-63cb-46cf-bce0-426726a2b04f	TypeError:Cannot read properties of undefined (reading 'firstname')
+20250221	02:24:29	78b55038-f3e4-4435-9671-b68843ccc156	TypeError:Cannot read properties of undefined (reading 'firstname')
+20250221	05:05:40	cf78c7ee-027e-4188-abb6-9963d39ad3b8	TypeError:Cannot read properties of undefined (reading 'userId')
+20250221	05:27:33	23956c2b-558f-4e20-bc37-43ee26351d55	TypeError:Cannot read properties of undefined (reading 'userId')
+20250221	05:29:23	582219bd-fe12-4dcf-bb5a-1fc7c4611b08	TypeError:Cannot read properties of undefined (reading 'userId')
+20250221	05:33:04	7689b8f0-d207-414b-80c2-f4f6571e00d2	TypeError:Cannot read properties of undefined (reading 'id')
+20250221	05:33:04	ed0946aa-c74c-4b06-8b05-e153dbf80438	TypeError:Cannot read properties of undefined (reading 'id')
+20250223	12:18:24	ce607fd7-cce9-434c-972f-49ba73cbe1da	TypeError:req.roles.map is not a function
+20250223	12:31:44	a31267d0-5d3d-4062-85f0-bc6f7bb9783d	TypeError:req.roles.map is not a function
+20250223	01:13:13	bc645620-6cfa-47b4-9e29-ed89c94a8605	TypeError:req.roles.map is not a function
+20250223	01:19:05	7fe0f861-c8a5-4b70-be1e-5d5dc20b4722	TypeError:req.roles.map is not a function
+20250223	01:20:14	6fd08c8b-8b44-4ad3-89d6-20116a36c56a	TypeError:req.roles.map is not a function
+20250223	01:21:27	cbadfd79-c188-4763-a260-d70e89277c08	TypeError:req.roles.map is not a function
+20250223	01:37:05	b99b9d4a-0577-456a-a2dd-8f13f2cc8c17	TypeError:req.roles.map is not a function
+20250223	07:10:24	dc34eab6-2d0b-4e22-b79b-c75690dcaac1	TypeError:req.roles.map is not a function
+20250224	02:03:45	2391e590-6532-4208-a293-61dbb9dbd353	TypeError:req.roles.includes is not a function
+20250224	02:09:58	2c7fcffe-e66f-4ac6-b555-58b681ab4806	TypeError:allowedRoles.includes is not a function
+20250224	02:14:40	c7068529-6373-4610-9216-3428ff3a20e4	TypeError:req.roles.includes is not a function
+20250224	02:17:15	13c23735-0c11-4c7d-9b02-137eefef6213	TypeError:Cannot read properties of undefined (reading 'includes')
+20250224	02:19:23	97f3e390-5953-4f03-90b9-952f41bf83d8	TypeError:req.roles.includes is not a function
+20250224	02:38:43	a9493193-14fa-4754-84a9-ff65c559f431	TypeError:req.roles.includes is not a function
+20250224	02:43:05	841411d1-a574-42a3-aede-8d16783000d8	TypeError:req.roles is not iterable
+20250224	02:47:20	82f83767-bc0f-4509-9c0b-bdd89e7a8e83	TypeError:systemRoles[0].includes is not a function
+20250224	03:00:22	a856655e-13e4-40bd-a242-a167699c6ee7	TypeError:req.roles.map is not a function
+20250224	03:00:22	30aba6fe-6f42-4be7-a978-b5b940d071fa	TypeError:req.roles.map is not a function
+20250224	03:05:07	58e0193f-8c99-4895-8e32-843fd51bc371	TypeError:userRoles.some is not a function

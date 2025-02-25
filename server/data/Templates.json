@@ -1,0 +1,195 @@
+{
+    "templates":[
+        {
+            "name": "Professional Resume",
+            "previewImage": "https://example.com/images/professional_resume_preview.jpg",
+            "resumeData": {
+                "basics": {
+                "name": "John Doe",
+                "label": "Full Stack Developer",
+                "email": "johndoe@example.com",
+                "phone": "+1234567890",
+                "location": {
+                    "address": "123 Main Street",
+                    "city": "Anytown",
+                    "state": "State",
+                    "country": "Country",
+                    "postalCode": "12345"
+                },
+                "summary": "A passionate full stack developer with 5+ years of experience in developing scalable web applications. Skilled in JavaScript, Node.js, React, and MongoDB."
+                },
+                "education": [
+                {
+                    "institution": "University of Example",
+                    "degree": "Bachelor of Science in Computer Science",
+                    "year": "2015 - 2019",
+                    "location": "Anytown, Country"
+                }
+                ],
+                "work": [
+                {
+                    "company": "Tech Company",
+                    "position": "Senior Full Stack Developer",
+                    "startDate": "2022-01-01",
+                    "endDate": "Present",
+                    "summary": "Led the development of a web platform, integrating various services and optimizing performance.",
+                    "highlights": [
+                    "Implemented a microservices architecture with Node.js and Docker.",
+                    "Increased app performance by 40% by optimizing queries in MongoDB."
+                    ]
+                },
+                {
+                    "company": "Web Solutions",
+                    "position": "Full Stack Developer",
+                    "startDate": "2019-06-01",
+                    "endDate": "2021-12-31",
+                    "summary": "Developed dynamic web applications using React and Node.js.",
+                    "highlights": [
+                    "Collaborated with UI/UX teams to deliver interactive, responsive user interfaces.",
+                    "Built RESTful APIs and integrated them with the front end using Express and MongoDB."
+                    ]
+                }
+                ],
+                "skills": [
+                "JavaScript",
+                "Node.js",
+                "React",
+                "MongoDB",
+                "HTML5",
+                "CSS3",
+                "Git"
+                ],
+                "projects": [
+                {
+                    "name": "Personal Portfolio",
+                    "description": "A personal website showcasing my development projects and skills.",
+                    "url": "https://johndoe.com",
+                    "technologies": ["React", "Node.js", "Express"]
+                },
+                {
+                    "name": "Task Manager App",
+                    "description": "A web-based task management application built using the MERN stack.",
+                    "technologies": ["MongoDB", "Express", "React", "Node.js"]
+                }
+                ],
+                "certifications": [
+                {
+                    "name": "Certified JavaScript Developer",
+                    "issuer": "JavaScript Academy",
+                    "date": "2021-05-01"
+                }
+                ],
+                "languages": [
+                {
+                    "language": "English",
+                    "fluency": "Native"
+                },
+                {
+                    "language": "Spanish",
+                    "fluency": "Intermediate"
+                }
+                ],
+                "interests": [
+                "Open-source contributions",
+                "Machine learning",
+                "Photography"
+                ]
+            }
+        },
+        {
+            "name": "Creative Resume",
+            "previewImage": "https://example.com/images/creative_resume_preview.jpg",
+            "resumeData": {
+                "basics": {
+                "name": "Jane Smith",
+                "label": "UX/UI Designer",
+                "email": "janesmith@example.com",
+                "phone": "+1987654321",
+                "location": {
+                    "address": "456 Elm Street",
+                    "city": "Sample City",
+                    "state": "Sample State",
+                    "country": "Sample Country",
+                    "postalCode": "67890"
+                },
+                "summary": "Creative and detail-oriented UX/UI designer with 3+ years of experience in creating user-centric designs for web and mobile applications."
+                },
+                "education": [
+                {
+                    "institution": "Design Institute",
+                    "degree": "Bachelor of Arts in UX Design",
+                    "year": "2016 - 2020",
+                    "location": "Sample City, Sample Country"
+                }
+                ],
+                "work": [
+                {
+                    "company": "Design Co.",
+                    "position": "UX/UI Designer",
+                    "startDate": "2021-01-01",
+                    "endDate": "Present",
+                    "summary": "Designing intuitive and visually appealing user interfaces for mobile and web applications.",
+                    "highlights": [
+                    "Led design for a mobile app used by 100,000+ users.",
+                    "Collaborated with developers to ensure seamless user experience implementation."
+                    ]
+                },
+                {
+                    "company": "Creative Agency",
+                    "position": "Junior UX Designer",
+                    "startDate": "2020-06-01",
+                    "endDate": "2020-12-31",
+                    "summary": "Worked on web design projects focusing on enhancing user experience and visual design.",
+                    "highlights": [
+                    "Created wireframes, prototypes, and high-fidelity mockups.",
+                    "Conducted user research and usability testing to improve designs."
+                    ]
+                }
+                ],
+                "skills": [
+                "Wireframing",
+                "Prototyping",
+                "Figma",
+                "Adobe XD",
+                "HTML/CSS",
+                "User Research",
+                "Usability Testing"
+                ],
+                "projects": [
+                {
+                    "name": "E-commerce Website Redesign",
+                    "description": "Redesigned the UI/UX of an e-commerce website, increasing user engagement and conversion rates.",
+                    "technologies": ["Figma", "HTML", "CSS"]
+                },
+                {
+                    "name": "Mobile App Interface",
+                    "description": "Designed the user interface for a mobile app, focusing on ease of use and intuitive navigation.",
+                    "technologies": ["Adobe XD", "Figma"]
+                }
+                ],
+                "certifications": [
+                {
+                    "name": "Certified UX Designer",
+                    "issuer": "UX Design Institute",
+                    "date": "2022-03-01"
+                }
+                ],
+                "languages": [
+                {
+                    "language": "English",
+                    "fluency": "Native"
+                },
+                {
+                    "language": "French",
+                    "fluency": "Advanced"
+                }
+                ],
+                "interests": [
+                "User-centered design",
+                "Web accessibility",
+                "Photography"
+                ]
+            }
+        }
+    ]
+}  

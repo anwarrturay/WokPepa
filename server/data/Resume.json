@@ -1,0 +1,69 @@
+{
+    "resumes": [
+      {
+        "userId": "65c12a8f9e12b4f5d1234567",
+        "title": "Software Developer Resume",
+        "personalDetails": {
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "phone": "+1234567890"
+        },
+        "experience": [
+          {
+            "jobTitle": "Full Stack Developer",
+            "company": "Tech Innovations Ltd",
+            "startDate": "January 2020",
+            "endDate": "Present"
+          },
+          {
+            "jobTitle": "Software Engineer Intern",
+            "company": "CodeFactory",
+            "startDate": "June 2019",
+            "endDate": "December 2019"
+          }
+        ],
+        "education": [
+          {
+            "degree": "Bachelor of Science in Computer Science",
+            "school": "University of Tech",
+            "year": "2019"
+          }
+        ],
+        "skills": ["JavaScript", "React", "Node.js", "MongoDB", "Express"],
+        "templateId": "65c12f909e13c2a4b9123456"
+      },
+      {
+        "userId": "65c12b3f8e12a4f7c9876543",
+        "title": "Graphic Designer Resume",
+        "personalDetails": {
+          "name": "Sarah Smith",
+          "email": "sarahsmith@example.com",
+          "phone": "+1987654321"
+        },
+        "experience": [
+          {
+            "jobTitle": "Senior Graphic Designer",
+            "company": "Creative Agency",
+            "startDate": "March 2021",
+            "endDate": "Present"
+          },
+          {
+            "jobTitle": "Junior Designer",
+            "company": "Design Hub",
+            "startDate": "July 2018",
+            "endDate": "February 2021"
+          }
+        ],
+        "education": [
+          {
+            "degree": "Diploma in Graphic Design",
+            "school": "Art & Design Institute",
+            "year": "2017"
+          }
+        ],
+        "skills": ["Adobe Photoshop", "Illustrator", "Figma", "Branding", "UI/UX"],
+        "templateId": "65c12f909e13c2a4b9123489"
+      }
+    ]
+  }
+  

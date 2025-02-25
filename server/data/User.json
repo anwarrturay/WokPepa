@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "johndoe@example.com",
+      "encryptedPassword": "$2b$10$KRYnnNotNeLAtloLydF91e71FHA3qzyfwsr33nEq2PdNWVmNVuuKK",
+      "profession": "Software Engineer"
+    },
+    {
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "email": "janesmith@example.com",
+      "encryptedPassword": "$2b$10$X1JgI30X.fQ6Ya9X6AlzCuYF3br9VpYmNz3j3Q4wGh0zk5z6IjH4e",
+      "profession": "Graphic Designer"
+    },
+    {
+      "firstname": "Anwarr",
+      "lastname": "Turay",
+      "email": "anwarrturay@icloud.com",
+      "encryptedPassword": "$2b$10$KRYnnNotNeLAtloLydF91e71FHA3qzyfwsr33nEq2PdNWVmNVuuKK",
+      "profession": "Web developer"
+    },
+    {
+      "firstname": "Mohamed",
+      "lastname": "Osman Turay",
+      "email": "mohamedosmanturay@gmail.com",
+      "password": "$2b$10$iy35LhHsE28onbwq7oA7F.pOkUmSzqNGATAGuenzwH2pd/m3B3hTa",
+      "profession": "software engineer"
+    },
+    {
+      "firstname": "ibrahim",
+      "lastname": "sorie bangura",
+      "email": "ibangura310@gmail.com",
+      "password": "$2b$10$mmSz5bnwVvbg/tPTIf2B6.6t2WG9xuQeB22FFiBXwzdhOLoK7P70q",
+      "profession": "software engineer and freelancer"
+    }
+  ]
+}
