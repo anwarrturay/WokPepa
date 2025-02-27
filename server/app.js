@@ -31,8 +31,8 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));// middleware fo
 
 app.use("/auth", authRoute);
 app.use("/register", registerRoute);
-app.use("/resumes", resumeRoute); // create resume route.
 app.use(verifyJWT);
+app.use("/resumes", resumeRoute); // create resume route.
 app.use("/users", usersRoute);
 app.use("/users/profile", profileRoute); 
 // app.use("/templates", templateRoute);

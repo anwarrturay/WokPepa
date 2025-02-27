@@ -1,4 +1,5 @@
 const Resume = require("../models/Resume");
+const upload = require("../middleware/multerConfig");
 
 const getAllResumes = async (req, res)=>{
     const resumes = await Resume.find();
@@ -16,7 +17,7 @@ const createNewResume = async (req, res)=>{
     }
 
     // Validate the personal details
-    if (!personalDetails.name || !personalDetails.email || !personalDetails.phone) {
+    if (!personalDetails.name || !personalDetails.email || !personalDetails.phone || !personalDetails.address || !personalDetails.dob || !personalDetails.country) {
         return res.status(400).json({ message: "Personal details are incomplete" });
     }
 
@@ -34,6 +35,18 @@ const createNewResume = async (req, res)=>{
         return res.status(400).json({ message: "Skills are required" });
     }
 
+    if(!req.file){
+        return res.status(400).json({message: "No uploaded file"});
+    }
+
+    const fileBuffer = req.file.buffer;
+    console.log(fileBuffer);
+
+    const parsedDob = new Date(req.body.personalDetails.dob);
+    if (isNaN(parsedDob)) {
+        return res.status(400).json({ message: "Invalid date format for dob" });
+    }
+
     try{
         const newResume = new Resume({
             userId,
@@ -41,7 +54,10 @@ const createNewResume = async (req, res)=>{
             personalDetails:{
                 name: req.body.personalDetails.name,
                 email: req.body.personalDetails.email,
-                phone: req.body.personalDetails.phone
+                phone: req.body.personalDetails.phone,
+                address: req.body.personalDetails.address,
+                dob: parsedDob,
+                country: req.body.personalDetails.country
             },
             experience: req.body.experience.map(exp=>({
                 jobTitle: exp.jobTitle,
@@ -54,7 +70,8 @@ const createNewResume = async (req, res)=>{
                 school: edu.school,
                 year: edu.year
             })),
-            skills
+            skills,
+            image: { data: fileBuffer, contentType: req.file.mimetype }
         })
         const result = await newResume.save();
         console.log(result);
@@ -73,7 +90,7 @@ const updateResume = async (req, res) => {
 
     try {
         // Find the resume to update
-        const resume = await Resume.findOne({ _id: req.body.id }).exec();
+        const resume = await Resume.findById({ _id: req.body.id }).exec();
         if (!resume) {
             return res.status(204).json({ message: `No resume matches the ID: ${req.body.id}` });
         }
@@ -90,6 +107,9 @@ const updateResume = async (req, res) => {
                 name: req.body.personalDetails.name ?? resume.personalDetails.name,
                 email: req.body.personalDetails.email ?? resume.personalDetails.email,
                 phone: req.body.personalDetails.phone ?? resume.personalDetails.phone,
+                address: req.body.personalDetails.address ?? resume.personalDetails.address,
+                dob: req.body.personalDetails.dob ?? resume.personalDetails.dob,
+                country: req.body.personalDetails.country ?? resume.personalDetails.country
             };
         }
 
@@ -126,6 +146,10 @@ const updateResume = async (req, res) => {
             ];
         }
 
+        if (req.file) {
+            resume.image = req.file.buffer; // Save image path in DB
+        }
+
         // Save the updated resume to the database
         const updatedResume = await resume.save();
         res.status(200).json({message: "Updated Resume successfully", data:updatedResume});
@@ -138,7 +162,7 @@ const updateResume = async (req, res) => {
 const deleteResume = async (req, res)=>{
     if(req?.body?.id) return res.status(400).json({message: "resume Id required"});
 
-    const resume = await Resume.findOne({_id:req.body.id}).exec();
+    const resume = await Resume.findById({_id:req.body.id}).exec();
     if(!resume) return res.status(204).json({message: "resume not found"});
 
     const result = await resume.deleteOne({_id:req.body.id}).exec();
@@ -149,7 +173,7 @@ const deleteResume = async (req, res)=>{
 const getSpecificResume = async (req, res)=>{
    if(!req?.params?.id) return res.status(400).json({message: "Resume Id is required"});
 
-   const resume = await Resume.findOne({_id:req.body.id}).exec();
+   const resume = await Resume.findById({_id:req.body.id}).exec();
    if(!resume) return res.status(204).json({message: "Resume not found"})
 
     res.json(resume);
