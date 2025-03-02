@@ -65,10 +65,7 @@ const templates = [
 
 const seedDB = async () => {
     try {
-        await mongoose.connect(DATABASE_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(DATABASE_URI);
 
         console.log('Connected to MongoDB...');
         
@@ -79,10 +76,8 @@ const seedDB = async () => {
     } catch (error) {
         console.error('Error seeding templates:', error);
     } finally {
-        mongoose.connection.close(() => {
-            console.log('MongoDB connection closed.');
-            process.exit(0); // Ensures the script exits cleanly
-        });
+        await mongoose.disconnect();
+        console.log("Database disconnected");
     }
 };
 
