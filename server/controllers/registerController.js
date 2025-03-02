@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
-const upload = require("../middleware/multerConfig.js");
 
 const registerNewUser = async (req, res, next) => {
   const { firstname, lastname, email, password, telephone, profession } = req.body;

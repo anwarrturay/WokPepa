@@ -182,3 +182,7 @@
 20250227	03:13:25	776868a0-4e21-4a6e-a89d-067b46e79cdf	POST	undefined	/resumes
 20250227	03:13:25	9da3a8b9-f35d-4683-8c15-272d5adb84e6	POST	undefined	/resumes
 20250227	03:27:45	71bc3e1e-ca92-49ef-905c-5612f91c67a6	POST	undefined	/resumes
+20250301	01:12:33	0bcb3164-57d5-412c-a5d4-1822c79381e9	POST	undefined	/auth
+20250301	01:15:57	df8dea46-32d0-4f6d-ada2-8345d178da64	GET	undefined	/templates
+20250301	01:15:57	d6ced751-876f-43fb-b882-c2ce4d7ac2bc	GET	undefined	/templates
+20250301	01:28:34	d5eeba36-f7e1-4896-8498-73f7fea212cc	GET	undefined	/templates

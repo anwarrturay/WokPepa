@@ -6,7 +6,7 @@ const authRoute = require("./routes/auth")
 const resumeRoute = require("./routes/resumes");
 const profileRoute = require("./routes/users/profile");
 const usersRoute = require("./routes/users/users")
-// const templateRoute = require("./routes/templates")
+const templateRoute = require("./routes/templates")
 const { logger } = require("./middleware/logger")
 const errorHandler = require("./middleware/errorHandler")
 const corsOptions = require("./config/corsOptions")
@@ -32,10 +32,10 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));// middleware fo
 app.use("/auth", authRoute);
 app.use("/register", registerRoute);
 app.use(verifyJWT);
+app.use("/templates", templateRoute);
 app.use("/resumes", resumeRoute); // create resume route.
 app.use("/users", usersRoute);
 app.use("/users/profile", profileRoute); 
-// app.use("/templates", templateRoute);
 
 app.use(errorHandler);
 mongoose.connection.once('open', ()=>{
