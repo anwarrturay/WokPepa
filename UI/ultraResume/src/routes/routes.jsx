@@ -1,7 +1,8 @@
 import Auth from "../views/Auth";
 import Register from "../views/Register";
-import Dashboard from "../views/Dashboard";
+import Sidebar from "../views/Sidebar";
 import Settings from "../views/Settings";
+import Layout from "../views/Layout";
 const routes = [
     {
         path: '/',
@@ -12,8 +13,8 @@ const routes = [
         element: <Register />
     },
     {
-        path: 'dashboard',
-        element: <Dashboard />,
+        path: 'user-resume-dashboard',
+        element: <Layout />,
         children: [
             {
                 index: true,
