@@ -3,6 +3,7 @@ import Register from "../views/Register";
 import Sidebar from "../views/Sidebar";
 import Settings from "../views/Settings";
 import Layout from "../views/Layout";
+import CreateNewResume from "../views/createNewResume";
 const routes = [
     {
         path: '/',
@@ -21,6 +22,10 @@ const routes = [
                 element: <Settings />
             }
         ]
+    },
+    {
+        path: 'create-new-resume',
+        element: <CreateNewResume />
     }
 ]
 

@@ -1,20 +1,19 @@
 import React from 'react'
-import { Outlet } from 'react-router'
-import Footer from "./Footer";
-import Header from "./Header";
+import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
+import Header from './Header';
 const Layout = () => {
   return (
     <section>
-        <header>
-            <Header />
-        </header>
-        <main className='grow'>
+        <main className='flex flex-col grow'>
+          <header>
+              <Header />
+          </header>
+          <div className="flex">
+            <Sidebar />
             <Dashboard />
+          </div>
         </main>
-        <footer>
-            <Footer />
-        </footer>
     </section>
   )
 }

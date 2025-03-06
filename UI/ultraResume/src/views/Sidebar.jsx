@@ -1,50 +1,31 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Menu, X, Inbox, Mail } from "lucide-react";
+import logo from "../assets/ultraResume-book.png";
 
 const Sidebar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div>Sidebar</div>
-  )
-}
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <div
+        className={`bg-white text-white h-full transition-all duration-300 ${
+          open ? "w-60" : "w-16"
+        }`}
+      >
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-800">
+          {open && <span className="text-lg text-black font-semibold flex items-center justify-center">
+            <img src={logo} alt="ultraResume-logo" className="w-[40px] mr-1.5" />
+            UR
+            </span>}
+          <button onClick={() => setOpen(!open)}>
+            {open ? <X size={24} className="cursor-pointer text-gray-800"/> : <Menu size={24} className="cursor-pointer text-gray-800"/>}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Sidebar
-
-
-// "use client";
-
-// import { Sidebar } from "flowbite-react";
-// import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from "react-icons/hi";
-
-// export function Component() {
-//   return (
-//     <Sidebar aria-label="Sidebar with multi-level dropdown example">
-//       <Sidebar.Items>
-//         <Sidebar.ItemGroup>
-//           <Sidebar.Item href="#" icon={HiChartPie}>
-//             Dashboard
-//           </Sidebar.Item>
-//           <Sidebar.Collapse icon={HiShoppingBag} label="E-commerce">
-//             <Sidebar.Item href="#">Products</Sidebar.Item>
-//             <Sidebar.Item href="#">Sales</Sidebar.Item>
-//             <Sidebar.Item href="#">Refunds</Sidebar.Item>
-//             <Sidebar.Item href="#">Shipping</Sidebar.Item>
-//           </Sidebar.Collapse>
-//           <Sidebar.Item href="#" icon={HiInbox}>
-//             Inbox
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiUser}>
-//             Users
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiShoppingBag}>
-//             Products
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiArrowSmRight}>
-//             Sign In
-//           </Sidebar.Item>
-//           <Sidebar.Item href="#" icon={HiTable}>
-//             Sign Up
-//           </Sidebar.Item>
-//         </Sidebar.ItemGroup>
-//       </Sidebar.Items>
-//     </Sidebar>
-//   );
-// }
+export default Sidebar;

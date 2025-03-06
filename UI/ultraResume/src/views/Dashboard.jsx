@@ -1,12 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router';
-import Sidebar from './Sidebar';
+
+import MainContent from './MainContent';
 const Dashboard = () => {
   return (
     <>
-        <div className='text-center relative top-[20px] font-bold text-3xl'>Dashboard</div>
-        <Sidebar />
-        <Outlet />
+        <main className='flex items-center justify-center bg-slate-200 grow'>
+            <MainContent />
+        </main>
     </>
   )
 }
