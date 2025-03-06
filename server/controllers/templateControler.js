@@ -11,4 +11,18 @@ const getAllAvailableTemplates = async (req, res)=>{
     }
 }
 
-module.exports = getAllAvailableTemplates;
+const getSpecificTemplate = async(req, res)=>{
+    try{
+        const { id } = req.params;
+        const foundTemplate = await Template.findById({_id: id}).exec();
+        if(!foundTemplate){
+            return res.status(404).json({message: "Template Not Found"})
+        }
+        res.json(foundTemplate); // sending the templaate to the client side.
+    }catch(err){
+        res.status(500).json({message: "Server error", error: err.message});
+        console.error(err);
+    }
+}
+
+module.exports = {getAllAvailableTemplates, getSpecificTemplate};
