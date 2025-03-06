@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Menu, X, Inbox, Mail } from "lucide-react";
-import logo from "../assets/ultraResume-book.png";
-
+import { Menu, X, Plus} from "lucide-react";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen font-montserrat">
       {/* Sidebar */}
       <div
         className={`bg-white text-white h-full transition-all duration-300 ${
@@ -16,8 +14,7 @@ const Sidebar = () => {
         {/* Sidebar Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-800">
           {open && <span className="text-lg text-black font-semibold flex items-center justify-center">
-            <img src={logo} alt="ultraResume-logo" className="w-[40px] mr-1.5" />
-            UR
+            UltraResume
             </span>}
           <button onClick={() => setOpen(!open)}>
             {open ? <X size={24} className="cursor-pointer text-gray-800"/> : <Menu size={24} className="cursor-pointer text-gray-800"/>}
