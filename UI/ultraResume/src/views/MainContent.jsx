@@ -4,9 +4,9 @@ import { Search } from 'lucide-react';
 import { Link } from 'react-router';
 const MainContent = () => {
   return (
-    <section className='flex flex-col items-center justify-center relative top-[20px]'>
+    <section className='flex flex-col items-center justify-center relative top-[20px] text-[#333333]'>
         <div className='flex flex-col items-center justify-center relative'>
-            <Search className='absolute left-[10px] cursor-pointer text-gray-600'/>
+            <Search className='absolute left-[10px] cursor-pointer'/>
             <input
                 type="search"
                 name="q"
@@ -19,19 +19,19 @@ const MainContent = () => {
         <div className="flex flex-col items-center justify-center xl:flex-row">
             <Link to={'/create-new-resume'} className="flex flex-col items-center mt-10 cursor-pointer">
                 <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md">
-                    <Plus className="text-[#1023F0]" size={64} />
+                    <Plus className="text-[#2A5D9E]" size={64} />
                 </div>
                 <div className="text-sm font-montserrat font-medium mt-2">
                     New resume
                 </div>
             </Link>
             <Link to={'/create-new-resume'} className="flex flex-col items-center m-3 cursor-pointer">
-                <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md font-montserrat">
+                <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md font-montserrat font-medium">
                     Template 1
                 </div>
             </Link>
             <Link to={'/create-new-resume'} className="flex flex-col m-3 items-center cursor-pointer">
-                <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md font-montserrat">
+                <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md font-montserrat font-medium">
                     Template 2
                 </div>
             </Link>

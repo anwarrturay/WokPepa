@@ -41,7 +41,7 @@ const Auth = () => {
             <div className="flex flex-col relative top-16 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] h-[420px] mb-24 xs:w-[350px] sm:w-[420px]">
                 <div className="flex items-center justify-center">
                     {/* <img src={ultraResumeshort} alt="" className='w-[40px]'/> */}
-                    <h2 className="font-bold font-Montserrat m-3 text-3xl">Login</h2>
+                    <h2 className="font-bold font-Montserrat m-3 text-3xl text-[#333333]">Login</h2>
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col items-center mx-4 mt-8">
                     <div className="relative ">
@@ -69,7 +69,7 @@ const Auth = () => {
                     <div className="flex items-center justify-center">
                         <button 
                             type="submit" 
-                            className="bg-[#1023F0] mt-3 rounded-md text-white font-medium text-center py-2.5 w-[280px] xs:w-[312px] sm:w-[385px] text-xl cursor-pointer"
+                            className="bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 w-[280px] xs:w-[312px] sm:w-[385px] text-xl cursor-pointer"
                         >
                             Login
                         </button>
@@ -77,13 +77,13 @@ const Auth = () => {
                 </form>
                 <p className="font-Montserrat mb-3 ml-3 mt-3 text-base text-center">
                     Do not have an account?{' '}
-                    <span className="text-[#1023F0] cursor-pointer font-medium" onClick={() => navigate('/register')}>
+                    <span className="text-[#2A5D9E] cursor-pointer font-medium" onClick={() => navigate('/register')}>
                         Create one
                     </span>
                 </p>
-                <div className="text-center text-2xl text-[#c4c4c4] font-medium mb-1">Or</div>
+                <div className="text-center text-2xl text-[#333333] font-medium mb-1">Or</div>
                 <div className="flex items-center justify-center">
-                    <button className="py-1 rounded-md border border-[#ccc] text-base flex items-center justify-center w-[310px]">
+                    <button className="py-1 rounded-md border border-[#ccc] text-base text-[#333333] flex items-center justify-center w-[310px]">
                         <img src={google} alt="" className='w-[40px] mr-2'/>
                         Continue with google
                     </button>

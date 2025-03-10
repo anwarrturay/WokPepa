@@ -5,7 +5,7 @@ import MainContent from './MainContent';
 const Dashboard = () => {
   return (
     <>
-        <main className='flex items-center justify-center bg-slate-200 grow'>
+        <main className='flex items-center justify-center bg-[#F5F5F5] grow'>
             <MainContent />
         </main>
     </>
