@@ -7,6 +7,7 @@ const resumeRoute = require("./routes/resumes");
 const profileRoute = require("./routes/users/profile");
 const usersRoute = require("./routes/users/users")
 const templateRoute = require("./routes/templates")
+const logoutRoute = require("./routes/logout")
 const { logger } = require("./middleware/logger")
 const errorHandler = require("./middleware/errorHandler")
 const corsOptions = require("./config/corsOptions")
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }));// middleware fo
 
 app.use("/auth", authRoute);
 app.use("/register", registerRoute);
+app.use("/logout", logoutRoute);
 app.use(verifyJWT);
 app.use("/templates", templateRoute);
 app.use("/resumes", resumeRoute); // create resume route.
