@@ -50,8 +50,7 @@ const Auth = () => {
                             ref={emailRef}
                             autoComplete="off"
                             placeholder="Email"
-                            className="mb-2 w-[280px] border border-[#ccc] rounded-md focus:ring-2 
-                            focus:ring-[#1023F0] px-2 py-2.5 outline-none xs:w-[312px] sm:w-[385px] text-lg font-[480]"
+                            className="input-field"
                             required
                         />
                     </div>
@@ -61,7 +60,7 @@ const Auth = () => {
                             ref={passwordRef}
                             autoComplete="off"
                             placeholder="Password"
-                            className="mb-2 w-[280px] border border-[#ccc] outline-none rounded-md focus:ring-2 focus:ring-[#1023F0] px-2 py-2.5 xs:w-[312px] sm:w-[385px] text-lg font-[480]"
+                            className="input-field"
                             required
                         />
                         {passwordToggleButton}
@@ -69,7 +68,7 @@ const Auth = () => {
                     <div className="flex items-center justify-center">
                         <button 
                             type="submit" 
-                            className="bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 w-[280px] xs:w-[312px] sm:w-[385px] text-xl cursor-pointer"
+                            className="submit-btn"
                         >
                             Login
                         </button>
@@ -83,7 +82,7 @@ const Auth = () => {
                 </p>
                 <div className="text-center text-2xl text-[#333333] font-medium mb-1">Or</div>
                 <div className="flex items-center justify-center">
-                    <button className="py-1 rounded-md border border-[#ccc] text-base text-[#333333] flex items-center justify-center w-[310px]">
+                    <button className="py-1 rounded-md border border-[#ccc] text-base text-[#333333] flex items-center justify-center w-[280px]">
                         <img src={google} alt="" className='w-[40px] mr-2'/>
                         Continue with google
                     </button>
