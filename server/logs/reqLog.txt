@@ -200,3 +200,17 @@
 20250306	03:02:16	fb43832c-a7a7-4ebc-8ce5-f5a6b2dec8ec	GET	undefined	/templates/67c42b886999fd82d7f47002
 20250310	02:10:27	1f338378-070c-4347-856c-a42e34ded4a1	POST	undefined	/auth
 20250310	02:10:27	acea8721-68eb-4ab3-af2c-a6be3b08fda4	GET	undefined	/logout
+20250312	05:44:20	80275ede-bc76-498a-b8a4-3b48d89655c0	POST	http://localhost:5173	/register
+20250312	05:44:20	7f1ab61c-0235-4659-80eb-af62dc96e230	POST	http://localhost:5173	/register
+20250312	05:44:20	ebc44b55-499d-44a2-af36-dfaf79f39c95	POST	http://localhost:5173	/register
+20250312	05:44:20	12748aea-17f6-48eb-8aa4-6aaff377b260	POST	http://localhost:5173	/register
+20250312	05:44:20	cf440eb1-6de5-4c59-9249-eb901544fa51	POST	http://localhost:5173	/register
+20250312	05:59:44	3e024527-710e-42eb-b519-372e0def2a31	POST	http://localhost:5173	/register
+20250312	05:59:44	fcbf0f11-466b-4199-bed8-4a80e949344f	POST	http://localhost:5173	/register
+20250312	05:59:44	c8337c0c-04ab-47bb-8c19-a9b684f38b3f	POST	http://localhost:5173	/register
+20250312	05:59:44	421285d9-4498-4b71-af49-362d643c59c9	POST	http://localhost:5173	/register
+20250312	05:59:44	37275d28-aecb-4a02-a5bd-1b25a85ba709	POST	http://localhost:5173	/register
+20250312	06:51:44	c9ec2a46-0671-4668-bcc6-f30c2732f528	POST	http://localhost:5173	/register
+20250312	06:51:44	ae03cbf0-ed5f-4dd5-bdb9-8b769a4a75f2	POST	http://localhost:5173	/register
+20250312	03:00:14	b7833796-1be8-4e6c-b255-beff2de4fdb0	POST	http://localhost:5173	/register
+20250312	03:00:14	a7eaf956-b98b-4546-8221-2dc160428a84	POST	http://localhost:5173	/register
