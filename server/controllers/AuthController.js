@@ -7,7 +7,6 @@ const handleLogin = async (req, res) => {
 
     const matchUser = await User.findOne({ email }).exec();
     if(!matchUser) return res.sendStatus(401)
-    console.log(matchUser);
 
     const matchedPassword = await bcrypt.compare(password, matchUser.password);
     if(!matchedPassword) return res.sendStatus(401);
@@ -39,10 +38,9 @@ const handleLogin = async (req, res) => {
         // saving the refreshToken we say.
         matchUser.refreshToken = refreshToken;
         console.log(matchUser.refreshToken);
-
         res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
 
-        res.status(200).json({ accessToken }); // sending the accessToken. 
+        res.status(200).json({ accessToken}); // sending the accessToken. 
     }
 }
 
