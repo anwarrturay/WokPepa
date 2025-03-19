@@ -7,6 +7,23 @@ const getAllUsers = async (req, res) =>{
     res.json(users);
 }
 
+const getSpecificUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const foundUser = await User.findById(id).exec();
+        
+        if (!foundUser) {
+            return res.status(404).json({ message: "User Not Found" });
+        }
+        
+        return res.status(200).json(foundUser);
+    } catch (error) {
+        return res.status(500).json({ message: "Server Error", error: error.message });
+    }
+};
+
+
 const updateUserDetails = async (req, res)=>{
     try{   
         const { firstname, lastname, email, telephone, password, profession } = req.body;
@@ -56,4 +73,4 @@ const deleteUsers = async (req, res) => {
     }
 };
 
-module.exports = { updateUserDetails, getAllUsers, deleteUsers };
+module.exports = { updateUserDetails, getAllUsers, deleteUsers, getSpecificUser };
