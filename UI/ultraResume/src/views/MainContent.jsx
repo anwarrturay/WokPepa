@@ -16,7 +16,7 @@ const MainContent = () => {
             />
         </div>
         <h3 className='text-base font-medium font-montserrat relative top-5'>Build a new resume with us</h3>
-        <div className="flex flex-col items-center justify-center xl:flex-row">
+        <div className="flex flex-col items-center justify-center xl:flex-row lg:flex-row md:flex-row">
             <Link to={'/create-new-resume'} className="flex flex-col items-center mt-10 cursor-pointer">
                 <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md">
                     <Plus className="text-[#2A5D9E]" size={64} />
@@ -27,7 +27,7 @@ const MainContent = () => {
             </Link>
             <Link to={'/create-new-resume'} className="flex flex-col items-center m-3 cursor-pointer">
                 <div className="w-[50mm] h-[57mm] bg-white shadow-lg border border-gray-300 flex items-center justify-center rounded-md font-montserrat font-medium">
-                    Template 1
+                    Template
                 </div>
             </Link>
             <Link to={'/create-new-resume'} className="flex flex-col m-3 items-center cursor-pointer">
