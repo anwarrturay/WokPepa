@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Menu, X, Plus, HelpCircle, Settings, LogOut, Briefcase } from "lucide-react";
-
+import { useNavigate } from "react-router";
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const logout = ()=>{
-    navigate("/logout");
+    navigate("/");
   }
 
   return (
@@ -53,7 +53,7 @@ const Sidebar = () => {
           </li>
 
           {/* Logout */}
-          <li className="flex items-center px-4 py-2 hover:bg-red-100 cursor-pointer text-red-600">
+          <li onClick={logout} className="flex items-center px-4 py-2 hover:bg-red-100 cursor-pointer text-red-600">
             <LogOut size={20} className="mr-3" />
             {open && <span>Logout</span>}
           </li>

@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import Splash from "../views/Splash";
 
 const Loading = () => {
   return (
-    <div>Loading</div>
+    <div className='flex justify-center items-center'>
+      <Splash />
+    </div>
   )
 }
 

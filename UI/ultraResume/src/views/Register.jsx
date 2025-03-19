@@ -8,6 +8,7 @@ import Failure from "../utils/Failure"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from '../utils/FieldValidations';
+import CircleAlert from '../utils/CircleAlert';
 const Register = () => {
     const register_url = "/register";
     const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,7 @@ const Register = () => {
     const togglePasswordVisibility = useCallback(() => {
         setShowPassword(prev => !prev);
     }, []);
-    
+        
 
     const handleSubmitForm = async (data)=>{
         console.log("clicked", data) // log the data that you get from the from fields
@@ -49,7 +50,6 @@ const Register = () => {
                 }
             )
             console.log(response.data);
-            console.log(response.data.accessToken)
             setSuccess(true);
             setErrMsg("");
             setTimeout(() => navigate("/"), 1500);
@@ -74,10 +74,15 @@ const Register = () => {
             </button>
     ), [showPassword, togglePasswordVisibility]);
 
+    // arranging the height of the registration based on whether their are errors or not.
+    const height = !errors.firstname && !errors.lastname && !errors.email && !errors.password && !errors.profession && !errors.image ? "h-[680px]" : "h-[1040px]"
+
+    const marginBottom = "mb-2"
+
 
   return (
     <div className="flex items-center justify-center flex-col scroll-smooth">
-        <div className="flex flex-col relative top-10 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] h-[850px] mb-24 xs:w-[350px] sm:w-[420px] md:w-[480px]">
+        <div className={`flex flex-col relative top-10 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] ${height} mb-24 xs:w-[350px] sm:w-[420px] md:w-[480px]`}>
             <div className="flex flex-col items-center justify-center">
                 <img src={ultraResumeShort} alt="" className='w-[60px]'/>
             </div>
@@ -86,64 +91,118 @@ const Register = () => {
                     {success ? <Success /> : <Failure errMsg={errMsg} />}
             </div>
             <form onSubmit={handleSubmit(handleSubmitForm)} className='flex flex-col items-center mx-4 mt-8'>
-                <input 
-                    type="text"
-                    {...register("firstname")}
-                    autoComplete="off"
-                    placeholder="Firstname"
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.firstname?.message}</p>
-                <input 
-                    type="text"
-                    {...register("lastname")}
-                    autoComplete="off"
-                    placeholder="Lastname"
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.lastname?.message}</p>
-                <input 
-                    type="email"
-                    {...register("email")}
-                    autoComplete="off"
-                    placeholder="Email"
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.email?.message}</p>
-                <input 
-                    type="number"
-                    {...register("telephone")}
-                    autoComplete="off"
-                    placeholder="Phone"
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.telephone?.message}</p>
-                <div className="relative">
+                <div className="flex flex-col">
                     <input 
-                        type={showPassword ? "text" : "password"}
-                        {...register("password")}
+                        type="text"
+                        {...register("firstname")}
                         autoComplete="off"
-                        placeholder="Password"
+                        placeholder="Firstname"
                         className="input-field"
                     />
-                    {passwordToggleButton}
+                    {errors.firstname &&
+                        <div className={`flex items-center mb-2 marginBottom ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='text-start error-msg ml-2 mt-2'>{errors.firstname?.message}</p>
+                        </div>
+                    }
                 </div>
-                <p className='error-msg'>{errors.password?.message}</p>
-                <input 
-                    type="text"
-                    {...register("profession")}
-                    autoComplete="off"
-                    placeholder="Profession"
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.profession?.message}</p>
-                <input 
-                    type="file"
-                    accept='image/*'
-                    {...register("image")}
-                    className="input-field"
-                />
-                <p className='error-msg'>{errors.image?.message}</p>
+                <div className="flex flex-col">
+                    <input 
+                        type="text"
+                        {...register("lastname")}
+                        autoComplete="off"
+                        placeholder="Lastname"
+                        className="input-field"
+                    />
+                    {errors.lastname &&
+
+                        <div className={`flex items-center ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg ml-2 mt-2'>{errors.lastname?.message}</p>
+                        </div>
+                    }
+                </div>
+                <div className="flex flex-col">
+                    <input 
+                        type="email"
+                        {...register("email")}
+                        autoComplete="off"
+                        placeholder="Email"
+                        className="input-field"
+                    />
+                    {errors.email && 
+                        <div className={`flex items-center ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg ml-2 mt-2'>{errors.email?.message}</p>
+                        </div>
+                    }
+                </div>
+                
+                <div className="flex flex-col">
+                    <input 
+                        type="number"
+                        {...register("telephone")}
+                        autoComplete="off"
+                        placeholder="Phone"
+                        className="input-field"
+                    />
+                    {errors.telephone &&
+                        
+                        <div className={`flex items-start ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg w-[240px] ml-2 mt-2'>{errors.telephone?.message}</p>
+                        </div>
+                    }
+                </div>
+                
+                <div className="flex flex-col">
+                    <div className="relative">
+                        <input 
+                            type={showPassword ? "text" : "password"}
+                            {...register("password")}
+                            autoComplete="off"
+                            placeholder="Password"
+                            className="input-field"
+                        />
+                        {passwordToggleButton}
+                    </div>
+                    {errors.password &&
+
+                        <div className={`flex items-center ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg ml-2 mt-2'>{errors.password?.message}</p>
+                        </div>
+                    }
+                </div>
+                <div className="flex flex-col">
+                    <input 
+                        type="text"
+                        {...register("profession")}
+                        autoComplete="off"
+                        placeholder="Profession"
+                        className="input-field"
+                    />
+                    {errors.profession && 
+                        <div className={`flex items-center ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg ml-2 mt-2'>{errors.profession?.message}</p>
+                        </div>
+                    }
+                </div>
+                <div className="flex flex-col">
+                    <input 
+                        type="file"
+                        accept='image/*'
+                        {...register("image")}
+                        className="input-field"
+                    />
+                    { errors.image &&
+                        <div className={`flex items-start ${marginBottom}`}>
+                            <CircleAlert />
+                            <p className='error-msg w-[200px] ml-2 mt-2'>{errors.image?.message}</p>
+                        </div>
+                    }
+                </div>
                 <button 
                     type="submit" 
                     className="submit-btn"
