@@ -1,13 +1,13 @@
-import React, {useEffect, useState, useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import logo from "../assets/ultraResume-book.png";
 import toure from "../assets/Toure.png"
-import { DataContext } from '../context/DataContext';
+import AuthContext  from '../context/AuthContext';
 import axios from '../api/axios';
 const Header = () => {
   const url = "/users"
-  const { userId } = useContext(DataContext);
-  console.log(userId);
-  const [user, setUser] = useState(null);
+  // getting the userId from AuthContext.
+  const [user, setUser] = useState();
+  const { userId } = useContext(AuthContext)
 
   useEffect(()=>{
 

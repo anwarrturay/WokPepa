@@ -11,15 +11,15 @@ import Failure  from '../utils/Failure';
 import Success from '../utils/Success';
 import CircleAlert from '../utils/CircleAlert';
 import Loading from '../utils/Loading';
-import { DataContext } from '../context/DataContext';
-import { jwtDecode } from 'jwt-decode'
+import AuthContext from "../context/AuthContext"
+import {jwtDecode} from "jwt-decode"
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
-    const { login, setUser } = useContext(DataContext);
+    const { setAuth } = useContext(AuthContext);
     const auth_url = "/auth"
     const { register, handleSubmit, formState: {errors} } = useForm({
         resolver: yupResolver(loginSchema)
@@ -39,16 +39,21 @@ const Auth = () => {
                     email: data.email,
                     password: data.password
                 },
-                {headers: {"Content-Type": "application/json"}}
+                {
+                    headers: {"Content-Type": "application/json"},
+                    withCredentials: true
+                }
             );
 
             console.log(response.data);
+            const accessToken = response.data?.accessToken;
+            const decodedToken = jwtDecode(accessToken)
+            console.log(decodedToken);
+            const roles = decodedToken.UserInfo?.roles;
+            console.log(accessToken, roles);
+            const userId = decodedToken.UserInfo.id;
+            setAuth({accessToken, roles, email:data.email, userId });
             if(response.status === 200){
-                const { accessToken } = response.data;
-                const decodedToken = jwtDecode(accessToken); // for decoding the accessToken.
-                console.log(decodedToken);
-                const userId = decodedToken.UserInfo.id
-                login(accessToken, userId);
                 setSuccess(true);
                 setErrMsg("");
                 setIsLoading(true)
