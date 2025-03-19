@@ -6,10 +6,12 @@ const handleLogin = async (req, res) => {
     if(!email || !password ) return res.status(400).json({message: "email and password are required!"});
 
     const matchUser = await User.findOne({ email }).exec();
-    if(!matchUser) return res.sendStatus(401) // unauthorised user.
+    if(!matchUser) return res.sendStatus(401)
     console.log(matchUser);
 
     const matchedPassword = await bcrypt.compare(password, matchUser.password);
+    if(!matchedPassword) return res.sendStatus(401);
+
     if(matchedPassword){
         // creating a accesstoken secret that's gonna be issued to each legitimate user.
         const roles = Object.values(matchUser.roles).filter(Boolean); // roles of foundUser.
@@ -40,7 +42,7 @@ const handleLogin = async (req, res) => {
 
         res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
 
-        res.json({ accessToken }); // sending the accessToken. 
+        res.status(200).json({ accessToken }); // sending the accessToken. 
     }
 }
 
