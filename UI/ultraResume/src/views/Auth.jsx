@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { EyeOff, Eye} from "lucide-react";
 import ultraResumeLogo from "../assets/ultraResume-full.png";
@@ -11,12 +11,15 @@ import Failure  from '../utils/Failure';
 import Success from '../utils/Success';
 import CircleAlert from '../utils/CircleAlert';
 import Loading from '../utils/Loading';
+import { DataContext } from '../context/DataContext';
+import { jwtDecode } from 'jwt-decode'
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
+    const { login, setUser } = useContext(DataContext);
     const auth_url = "/auth"
     const { register, handleSubmit, formState: {errors} } = useForm({
         resolver: yupResolver(loginSchema)
@@ -41,6 +44,11 @@ const Auth = () => {
 
             console.log(response.data);
             if(response.status === 200){
+                const { accessToken } = response.data;
+                const decodedToken = jwtDecode(accessToken); // for decoding the accessToken.
+                console.log(decodedToken);
+                const userId = decodedToken.UserInfo.id
+                login(accessToken, userId);
                 setSuccess(true);
                 setErrMsg("");
                 setIsLoading(true)
