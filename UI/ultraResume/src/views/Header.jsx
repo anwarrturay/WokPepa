@@ -1,13 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import logo from "../assets/ultraResume-book.png";
 import toure from "../assets/Toure.png"
-import AuthContext  from '../context/AuthContext';
 import axios from '../api/axios';
+import useAuth from '../hooks/useAuth';
 const Header = () => {
   const url = "/users"
   // getting the userId from AuthContext.
   const [user, setUser] = useState();
-  const { userId } = useContext(AuthContext)
+  const { userId } = useAuth();
 
   useEffect(()=>{
 

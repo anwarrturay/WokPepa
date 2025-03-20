@@ -12,7 +12,7 @@ const Failure = ({ errMsg }) => {
   return (
     <>
       {isVisible && (
-        <div className="bg-[#eea7a7] flex-col items-center justify-center rounded-md font-Montserrat w-[280px] xs:w-[312px] sm:w-[385px] py-2.5 relative flex">
+        <div className="bg-[#eea7a7] flex-col items-center justify-center rounded-sm font-Montserrat w-[280px] xs:w-[312px] sm:w-[385px] py-2.5 relative flex">
           <div className="text-[#fa3a50] font-bold flex">
             {errMsg}.
           </div>
@@ -20,7 +20,7 @@ const Failure = ({ errMsg }) => {
             onClick={removeErrorMsg} 
             className="flex justify-center items-center p-1 bg-[#000] rounded-3xl top-[-10px] right-[-12px] absolute"
           >
-            <X strokeWidth={3} className="text-[#fa3a50]" />
+            <X strokeWidth={3} className="text-[#f5f5f5]" />
           </button>
         </div>
       )}
