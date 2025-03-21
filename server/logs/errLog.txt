@@ -29,3 +29,6 @@
 20250224	03:05:07	58e0193f-8c99-4895-8e32-843fd51bc371	TypeError:userRoles.some is not a function
 20250302	12:22:44	c91a0957-fb17-484d-a2e2-d32a9b87a47b	Error:Cannot set headers after they are sent to the client
 20250312	05:44:20	505b31ef-ce35-445e-bb4d-7a25965cc844	Error:Multipart: Boundary not found
+20250321	02:14:51	201f53a9-b9f8-49c4-9c52-7b4a083f7404	Error:ENOENT: no such file or directory, open 'C:\Users\user\desktop\Utils\ultraResume\server\uploads\1742592075876.jpg'
+20250321	02:14:51	c3bc5f61-e642-4775-a48e-dc72d65fdbfb	Error:ENOENT: no such file or directory, open 'C:\Users\user\desktop\Utils\ultraResume\server\uploads\1742592140304.jpg'
+20250321	03:16:04	edf37603-9ad3-4ee0-848f-b5e68891d05d	Error:ENOENT: no such file or directory, open 'C:\Users\user\desktop\Utils\ultraResume\server\uploads\1742595396113.jpg'

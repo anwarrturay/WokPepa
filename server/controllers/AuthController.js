@@ -37,10 +37,11 @@ const handleLogin = async (req, res) => {
 
         // saving the refreshToken we say.
         matchUser.refreshToken = refreshToken;
-        console.log(matchUser.refreshToken);
-        res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+        await matchUser.save() // saving refreshToken to the database after user auth.
 
-        res.status(200).json({ accessToken}); // sending the accessToken. 
+        res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: "None", secure: process.env.NODE_ENV === "production", maxAge: 24 * 60 * 60 * 1000})
+
+        res.status(200).json({ roles, accessToken}); // sending the accessToken. 
     }
 }
 

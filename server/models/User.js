@@ -28,17 +28,21 @@ const usersSchema = new Schema({
         required:true
     },
     image: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        required: true
     },
     roles: {
         USER: {
             type:Number,
             default: 2004
         },
-        ADMIN: Number
+        ADMIN: {
+            type: Number,
+            default: null
+        }
     },
+    refreshToken: { type: String }
 
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("User", usersSchema);

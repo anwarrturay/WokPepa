@@ -24,7 +24,7 @@ const registerNewUser = async (req, res, next) => {
       "telephone": telephone,
       "password": encryptedPassword,
       "profession": profession,
-      "image": { data: req.file.buffer, contentType: req.file.mimetype }
+      "image": `/uploads/${req.file.filename}`
     })
     const result = await newUser.save();
     console.log(result);

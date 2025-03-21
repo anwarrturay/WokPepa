@@ -1,7 +1,23 @@
-const multer = require("multer");
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
-// Configure memory storage (store file in RAM as Buffer)
-const storage = multer.memoryStorage();
+// Ensure the 'uploads' directory exists
+const uploadDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+
+// Configure disk storage (store files in "uploads/" folder)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log('Saving to path:', uploadDir); // Debugging the path
+        cb(null, uploadDir); // Save images in "uploads" directory
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+    }
+});
 
 // File filter (accept images only)
 const fileFilter = (req, file, cb) => {
@@ -14,7 +30,7 @@ const fileFilter = (req, file, cb) => {
 
 // Initialize multer
 const upload = multer({
-    storage, // Use memoryStorage
+    storage, // Use diskStorage
     limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
     fileFilter
 });
