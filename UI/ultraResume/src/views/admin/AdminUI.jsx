@@ -2,7 +2,7 @@ import React from 'react'
 
 const AdminUI = () => {
   return (
-    <div>AdminUI</div>
+    <div className='text-center font-bold font-montserrat relative top-10'>AdminUI</div>
   )
 }
 

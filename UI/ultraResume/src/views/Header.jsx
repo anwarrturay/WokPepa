@@ -1,24 +1,25 @@
 import React, { useEffect, useState} from 'react'
 import logo from "../assets/ultraResume-book.png";
 import toure from "../assets/Toure.png"
-import axios from '../api/axios';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import useAuth from '../hooks/useAuth';
 const Header = () => {
-  const url = "/users"
-  // getting the userId from AuthContext.
   const [user, setUser] = useState();
-  const { userId } = useAuth();
+  const url = "/users"
+  const imageURL = "http://localhost:3500"
+  // getting the userId from AuthContext.
+  const { auth } = useAuth();
+  const userId = auth?.userId
+  const axiosPrivate = useAxiosPrivate();
+  const controller = new AbortController()
 
   useEffect(()=>{
 
     const fetchSpecificUser = async ()=>{
         try{
-            const res = await axios.get(
+            const res = await axiosPrivate.get(
               `${url}/${userId}`,
-              {
-                headers: {"Content-Type": "application/json"},
-                withCredentials: true
-              }
+              {signal: controller.signal},
             )
             console.log(res.data);
             setUser(res.data)
@@ -39,7 +40,7 @@ const Header = () => {
       </div>
       {/* User profile */}
       <div className="flex items-center justify-center rounded-4xl">
-        <img src={user ? user.image : toure} alt="toureImage" className='w-[40px] rounded-3xl mr-1' />
+        <img src={user && `${imageURL}${user.image}`} alt="toureImage" className='w-[40px] h-[40px] rounded-full m-2' />
       </div>
     </div>
   )

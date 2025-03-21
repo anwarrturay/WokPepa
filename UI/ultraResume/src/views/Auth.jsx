@@ -57,6 +57,7 @@ const Auth = () => {
       console.log(decodedToken);
       const roles = decodedToken.UserInfo?.roles;
       const userId = decodedToken.UserInfo.id;
+      console.log(userId)
       // Set auth context with necessary user info.
       setAuth({ accessToken, roles, email: data.email, userId });
       
