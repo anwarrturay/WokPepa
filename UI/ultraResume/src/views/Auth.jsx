@@ -101,7 +101,7 @@ const Auth = () => {
       ) : (
         <div className="flex flex-col items-center justify-center scroll-smooth">
           <img src={ultraResumeLogo} alt="Ultra Resume Logo" className="relative w-[120px]" />
-          <div className={`flex flex-col relative top-16 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] ${height} mb-24 xs:w-[350px] sm:w-[420px]`}>
+          <div className={`flex flex-col relative top-16 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] ${height} mb-24 xs:w-[350px] sm:w-[420px] md:w-[450px]`}>
             <div className="flex flex-col items-center justify-center">
               <h2 className="font-bold font-Montserrat m-3 text-3xl text-[#333333]">Login</h2>
               <div className="flex items-center relative top-3 justify-center">

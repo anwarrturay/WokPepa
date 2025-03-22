@@ -3,6 +3,7 @@ import logo from "../assets/ultraResume-book.png";
 import toure from "../assets/Toure.png"
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import useAuth from '../hooks/useAuth';
+import { Search } from 'lucide-react';
 const Header = () => {
   const [user, setUser] = useState();
   const url = "/users"
@@ -32,7 +33,7 @@ const Header = () => {
   }, [userId])
 
   return (
-    <div className='bg-white relative py-2 flex justify-between'>
+    <div className='bg-white relative w-[340px] xs:w-full sm:w-full md:w-full xl:w-full left-0 right-0 py-2 flex justify-between'>
       {/* Logo Section */}
       <div className="flex items-center justify-center ml-2">
             <img src={logo} alt="logoImage" className='w-[30px]'/>
@@ -40,7 +41,7 @@ const Header = () => {
       </div>
       {/* User profile */}
       <div className="flex items-center justify-center rounded-4xl">
-        <img src={user && `${imageURL}${user.image}`} alt="toureImage" className='w-[40px] h-[40px] rounded-full m-2' />
+        <img src={user && `${imageURL}${user.image}`} alt="toureImage" className='w-[40px] h-[40px] rounded-full m-2 ' />
       </div>
     </div>
   )

@@ -32,3 +32,6 @@ body{
 .error-msg{
     @apply text-red-500 font-medium relative bottom-1.5
 }
+.next-btn{
+    @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[307px] xs:w-[312px] sm:w-[385px]
+}
