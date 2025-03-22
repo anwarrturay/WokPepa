@@ -24,8 +24,6 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 3500;
 
-
-
 // Middleware
 app.use(credentials);
 app.use(cors(corsOptions));
@@ -39,9 +37,10 @@ app.use(express.json({ limit: '10mb' }));
 
 // middleware for converting a cookie into a readable form.
 app.use(cookieParser())
-
+// serving images in the backend API.
 app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
+// Public endpoints with user auth.
 app.use("/auth", authRoute);
 app.use("/register", registerRoute);
 app.use("/logout", logoutRoute);
