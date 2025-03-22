@@ -66,7 +66,7 @@ const createNewResume = async (req, res)=>{
                 endDate: exp.endDate
             })),
             education: req.body.education.map(edu => ({
-                degree: edu.degree,
+                level: edu.level,
                 school: edu.school,
                 year: edu.year
             })),
@@ -131,7 +131,7 @@ const updateResume = async (req, res) => {
             resume.education = [
                 ...(resume.education || []), // Ensure education is an array
                 ...req.body.education.map((edu) => ({
-                    degree: edu.degree ?? null,
+                    level: edu.level ?? null,
                     school: edu.school ?? null,
                     year: edu.year ?? null,
                 })),
