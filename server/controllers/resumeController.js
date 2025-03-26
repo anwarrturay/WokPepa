@@ -11,13 +11,12 @@ const getAllResumes = async (req, res) => {
 }
 
 const createNewResume = asyncHandler(async (req, res) => {
-    const { userId, title, personalDetails, experience, education, skills } = req.body;
+    const { userId, title, personalDetails, experience, education, skills, summary, projects, certifications, languages, awards, references, hobbies } = req.body;
 
     if (!userId || !title || !personalDetails || !experience || !education || !skills) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res.status(400).json({ message: "All required fields must be provided" });
     }
 
-    // Validate file upload
     if (!req.file) {
         return res.status(400).json({ message: "No uploaded file" });
     }
@@ -29,7 +28,6 @@ const createNewResume = asyncHandler(async (req, res) => {
     }
 
     try {
-        // Create a new Resume document
         const newResume = new Resume({
             userId,
             title,
@@ -39,30 +37,50 @@ const createNewResume = asyncHandler(async (req, res) => {
                 phone: personalDetails.phone,
                 address: personalDetails.address,
                 dob: parsedDob,
-                country: personalDetails.country
+                country: personalDetails.country,
+                linkedin: personalDetails.linkedin || "",
+                github: personalDetails.github || "",  
+                twitter: personalDetails.twitter || ""
             },
+            summary,
             experience: experience.map(exp => ({
                 jobTitle: exp.jobTitle,
                 company: exp.company,
                 startDate: exp.startDate,
-                endDate: exp.endDate
+                endDate: exp.endDate,
+                responsibilities: exp.responsibilities || ""
             })),
             education: education.map(edu => ({
                 level: edu.level,
                 school: edu.school,
                 startDate: edu.startDate,
-                endDate: edu.endDate
+                endDate: edu.endDate,
+                degree: edu.degree || ""
             })),
-            skills,
-            image: { data: req.file.buffer, contentType: req.file.mimetype }
+            skills, 
+            projects: projects.map(project => ({
+                name: project.name,
+                description: project.description,
+                technologies: project.technologies || []
+            })),
+            certifications: certifications.map(cert => ({
+                name: cert.name,
+                issuingOrganization: cert.issuingOrganization,
+                issueDate: cert.issueDate,
+                expirationDate: cert.expirationDate || "" 
+            })),
+            languages: languages || [], 
+            awards: awards || [],
+            references: references || [],
+            hobbies: hobbies || [], 
+            image: req.file.filename
         });
 
         const savedResume = await newResume.save();
 
-        // Ensure the directory exists before saving the file
         const resumeDir = path.join(__dirname, "../public/resumes");
         if (!fs.existsSync(resumeDir)) {
-            fs.mkdirSync(resumeDir, { recursive: true }); // Create the directory if it doesn't exist
+            fs.mkdirSync(resumeDir, { recursive: true });
         }
 
         const pdfPath = path.join(resumeDir, `${savedResume._id}.pdf`);
@@ -178,6 +196,15 @@ const generatePDF = async (resume, filePath) => {
     const stream = fs.createWriteStream(filePath);
     doc.pipe(stream);
 
+    if (resume.image) {
+        doc.fontSize(16).text("Profile Picture", { underline: true }).moveDown();
+    
+        // Check if the URL is valid
+        const imageUrl = resume.image;
+        // Use doc.image to load the image from the URL
+        doc.image(path.join(__dirname, '..', "uploads", imageUrl), { width: 100, height: 100 }).moveDown();
+    }
+
     // 🔹 Resume Title
     doc.fontSize(24).font("Helvetica-Bold").text(`Resume: ${resume.title}`, { align: "center" });
     doc.moveDown();
@@ -191,7 +218,16 @@ const generatePDF = async (resume, filePath) => {
         .text(`Address: ${resume.personalDetails.address}`)
         .text(`DOB: ${new Date(resume.personalDetails.dob).toLocaleDateString()}`)
         .text(`Country: ${resume.personalDetails.country}`)
+        .text(`LinkedIn: ${resume.personalDetails.linkedin}`)
+        .text(`GitHub: ${resume.personalDetails.github}`)
+        .text(`Twitter: ${resume.personalDetails.twitter}`)
         .moveDown();
+
+    // 🔹 Summary
+    if (resume.summary) {
+        doc.fontSize(16).text("Summary", { underline: true }).moveDown();
+        doc.fontSize(12).text(resume.summary).moveDown();
+    }
 
     // 🔹 Experience
     if (resume.experience.length > 0) {
@@ -217,6 +253,60 @@ const generatePDF = async (resume, filePath) => {
     if (resume.skills.length > 0) {
         doc.fontSize(16).text("Skills", { underline: true }).moveDown();
         doc.fontSize(12).text(resume.skills.join(", "));
+        doc.moveDown();
+    }
+
+    // 🔹 Projects
+    if (resume.projects.length > 0) {
+        doc.fontSize(16).text("Projects", { underline: true }).moveDown();
+        resume.projects.forEach((project) => {
+            doc.fontSize(14).text(`• ${project.name}`, { continued: true });
+            doc.fontSize(12).text(` (${project.technologies.join(", ")})`).moveDown();
+            doc.fontSize(12).text(`Description: ${project.description}`).moveDown();
+        });
+        doc.moveDown();
+    }
+
+    // 🔹 Certifications
+    if (resume.certifications.length > 0) {
+        doc.fontSize(16).text("Certifications", { underline: true }).moveDown();
+        resume.certifications.forEach((cert) => {
+            doc.fontSize(14).text(`• ${cert.name} by ${cert.issuingOrganization}`, { continued: true });
+            doc.fontSize(12).text(` (Issued: ${cert.issueDate}, Expiry: ${cert.expirationDate})`).moveDown();
+        });
+        doc.moveDown();
+    }
+
+    // 🔹 Languages
+    if (resume.languages.length > 0) {
+        doc.fontSize(16).text("Languages", { underline: true }).moveDown();
+        doc.fontSize(12).text(resume.languages.join(", "));
+        doc.moveDown();
+    }
+
+    // 🔹 Awards
+    if (resume.awards.length > 0) {
+        doc.fontSize(16).text("Awards", { underline: true }).moveDown();
+        resume.awards.forEach((award) => {
+            doc.fontSize(14).text(`• ${award}`, { continued: true }).moveDown();
+        });
+        doc.moveDown();
+    }
+
+    // 🔹 References
+    if (resume.references.length > 0) {
+        doc.fontSize(16).text("References", { underline: true }).moveDown();
+        resume.references.forEach((ref) => {
+            doc.fontSize(14).text(`• ${ref.name}, ${ref.position}`, { continued: true });
+            doc.fontSize(12).text(` (Contact: ${ref.contact})`).moveDown();
+        });
+        doc.moveDown();
+    }
+
+    // Hobbies
+    if (resume.hobbies.length > 0) {
+        doc.fontSize(16).text("Hobbies", { underline: true }).moveDown();
+        doc.fontSize(12).text(resume.hobbies.join(", "));
         doc.moveDown();
     }
 
