@@ -29,9 +29,9 @@ const routes = [
         path: 'create-new-resume',
         element: (
             <PersistentLogin>
-                <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <CreateNewResume />
-                </RequireAuth>
+                <RequireAuth allowedRoles={[Roles_List.USER]}> 
+                        <CreateNewResume />
+                </RequireAuth> 
             </PersistentLogin>
         )
     },

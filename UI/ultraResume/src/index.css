@@ -26,6 +26,9 @@ body{
    @apply mb-2 w-[280px] border border-[#ccc] rounded-md focus:ring-2 
         focus:ring-[#1023F0] px-2 py-2.5 outline-none xs:w-[312px] text-lg font-[480] sm:w-[385px]
 }
+.resume-field{
+    @apply border border-gray-300 w-[307px] sm:w-[390px] md:w-[480px] mx-2 my-1 px-1.5 py-3 outline-none focus:ring-2 focus:ring-[#2A5D9E]
+}
 .submit-btn{
     @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px]
 }
@@ -33,5 +36,8 @@ body{
     @apply text-red-500 font-medium relative bottom-1.5
 }
 .next-btn{
-    @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[307px] xs:w-[312px] sm:w-[385px]
+    @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[307px] xs:w-[312px] sm:w-[385px] md:w-[480px]
+}
+.back-btn{
+    @apply m-2 bg-gray-400 text-white py-2.5 text-lg rounded-md
 }

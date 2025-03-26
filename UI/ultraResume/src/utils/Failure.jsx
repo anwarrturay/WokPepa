@@ -18,7 +18,7 @@ const Failure = ({ errMsg }) => {
           </div>
           <button 
             onClick={removeErrorMsg} 
-            className="flex justify-center items-center p-1 bg-[#000] rounded-3xl top-[-10px] right-[-12px] absolute"
+            className="flex justify-center items-center p-1 bg-[#000] rounded-3xl top-[-10px] right-[-12px] absolute cursor-pointer"
           >
             <X strokeWidth={3} className="text-[#f5f5f5]" />
           </button>
