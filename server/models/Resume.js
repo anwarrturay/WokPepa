@@ -40,9 +40,10 @@ const ResumeSchema = new Schema(
     ],
     education: [
       {
-        degree: { type: String, required: true, trim: true },
+        level: { type: String, required: true, trim: true },
         school: { type: String, required: true, trim: true },
-        year: { type: String, required: true }, 
+        startDate: { type: String, required: true },
+        endDate: { type: String, required: true }
       },
     ],
     skills: [{ type: String, trim: true }],
