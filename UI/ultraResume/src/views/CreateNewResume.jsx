@@ -77,7 +77,7 @@ const CreateNewResume = () => {
     <section className="flex flex-col font-montserrat">
       <div className="flex justify-between">
         <div onClick={goHome} className="flex flex-col items-start">
-          <img src={logo} alt="" className="w-[30px] h-[30px] m-2" />
+          <img src={logo} alt="" className="w-[30px] cursor-pointer m-2" />
         </div>
         <div className="flex flex-col items-center mt-1">
           <h1 className="text-2xl font-bold">Create New Resume</h1>

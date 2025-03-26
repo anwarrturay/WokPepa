@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X, Plus, HelpCircle, Settings, LogOut, LayoutTemplate, List } from "lucide-react";
 import { useNavigate } from "react-router";
 import useLogout from "../hooks/useLogout";
@@ -15,6 +15,9 @@ const Sidebar = () => {
 	const CreateNewResume = ()=>{
 		navigate("/create-new-resume")
 	}
+
+	
+
 
   return (
 		<div className="flex h-screen font-montserrat">
@@ -43,37 +46,37 @@ const Sidebar = () => {
 			{/* Sidebar Menu Items */}
 			<ul className="mt-4 space-y-2">
 				{/* Profession */}
-				<li onClick={CreateNewResume} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer">
+				<li onClick={CreateNewResume} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<Plus size={20} className="mr-3" />
 					{open && <span>Create a new resume</span>}
 				</li>
 
 				{/* Templates */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer">
+				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<List size={20} className="mr-3" />
 					{open && <span>My Resumes</span>}
 				</li>
 
 				{/* cheqsquare */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer">
+				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<LayoutTemplate size={20} className="mr-3" />
 					{open && <span>Templates</span>}
 				</li>
 
 				{/* Help & Support */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer">
+				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<HelpCircle size={20} className="mr-3" />
 					{open && <span>Help & Support</span>}
 				</li>
 
 				{/* Settings */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer">
+				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<Settings size={20} className="mr-3" />
 					{open && <span>Settings</span>}
 				</li>
 
 				{/* Logout */}
-				<li onClick={signOut} className="flex items-center px-4 py-2 hover:bg-red-100 cursor-pointer text-red-600">
+				<li onClick={signOut} className="flex items-center px-4 py-2 hover:bg-red-100 cursor-pointer text-red-600 font-medium">
 					<LogOut size={20} className="mr-3" />
 					{open && <span>Logout</span>}
 				</li>
