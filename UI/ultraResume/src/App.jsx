@@ -7,7 +7,7 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   return (
-    showSplash ? <Splash setShowSplash={setShowSplash} /> : <RouterProvider router={router} />
+    showSplash ? <Splash setShowSplash={setShowSplash} /> : <RouterProvider path="*" router={router} />
   );
 }
 

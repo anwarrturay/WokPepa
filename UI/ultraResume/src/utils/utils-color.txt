@@ -1,3 +1,4 @@
 background-color: #F5F5F5
 20% color: #2A5D9E
 text-color: #333333
+border-color: #ccc

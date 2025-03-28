@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <section>
         <main className='flex flex-col grow'>
-          <header>
+          <header className='z-50'>
               <Header />
           </header>
           <div className="flex">

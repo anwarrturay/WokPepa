@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react'
 import { Link } from 'react-router';
+import toure from "../assets/Toure.png"
 const MainContent = () => {
   return (
     <section className='flex flex-col items-center justify-center relative top-[20px] text-[#333333] font-montserrat'>

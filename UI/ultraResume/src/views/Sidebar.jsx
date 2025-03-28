@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Plus, HelpCircle, Settings, LogOut, LayoutTemplate, List } from "lucide-react";
 import { useNavigate } from "react-router";
-import useLogout from "../hooks/useLogout";
 const Sidebar = () => {
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
-	const logout = useLogout()
-
-	const signOut = async ()=>{
-		await logout();
-		navigate("/")
-	}
 
 	const CreateNewResume = ()=>{
 		navigate("/create-new-resume")
 	}
 
-	
+	const navToSettings = ()=>{
+		navigate("/settings")
+	}
 
-
-  return (
+	return (
 		<div className="flex h-screen font-montserrat">
 			{/* Sidebar */}
 			<div
@@ -70,20 +64,14 @@ const Sidebar = () => {
 				</li>
 
 				{/* Settings */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
+				<li onClick={navToSettings} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<Settings size={20} className="mr-3" />
 					{open && <span>Settings</span>}
-				</li>
-
-				{/* Logout */}
-				<li onClick={signOut} className="flex items-center px-4 py-2 hover:bg-red-100 cursor-pointer text-red-600 font-medium">
-					<LogOut size={20} className="mr-3" />
-					{open && <span>Logout</span>}
 				</li>
 			</ul>
 			</div>
 		</div>
-  );
+	);
 };
 
 export default Sidebar;

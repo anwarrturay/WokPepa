@@ -6,25 +6,27 @@ import Loading from "./Loading";
 const PersistentLogin = ({ children })=>{
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth } = useAuth();
+    const { auth, persist } = useAuth();
 
     useEffect(()=>{
         let isMounted = true;
             const verifyRefreshToken = async ()=>{
                 try{
-                    await refresh() // generates a new accesstoken secret key.
+                    const accessToken = await refresh();
+                    console.log(accessToken)
                 }catch(err){
-                    console.error(err); // logging the error.
+                    console.error(err);
                 }finally{
-                    isMounted && setIsLoading(false) // setting isLoading back to false.
+                    isMounted && setIsLoading(false);
                 }
             }
+            
             !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false); // so if the accesstoken is undefined or null then generate a new accesstoken secret else set isLoading to false.
 
             return ()=>{
                 isMounted = false
             }
-    }, [])
+    }, [auth])
 
     useEffect(()=>{
         console.log(`isLoading: ${isLoading}`)
@@ -33,9 +35,11 @@ const PersistentLogin = ({ children })=>{
 
     return (
         <>
-            { isLoading 
-                ? <Loading />
-                : children
+            { !persist
+                ? children
+                    : isLoading 
+                        ? <Loading />
+                        : children
             }
         </>
     )

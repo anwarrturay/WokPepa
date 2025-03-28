@@ -12,9 +12,10 @@ const useRefreshToken = () => {
                 { withCredentials: true }
             );
             setAuth(prev=>{
-                console.log(JSON.stringify(prev)),
-                console.log(response.data.accessToken),
-                {
+                console.log("Previous auth state: ",JSON.stringify(prev)),
+                console.log("New access token secret: ", response.data.accessToken)
+
+               return {
                     ...prev, 
                     roles: response.data.roles,
                     accessToken:response.data.accessToken
@@ -23,7 +24,7 @@ const useRefreshToken = () => {
 
             return response.data.accessToken;
         }catch(err){
-            console.error(err);
+            console.error("Refresh Token error: ", err);
         }
     }
 
