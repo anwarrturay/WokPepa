@@ -46,7 +46,7 @@ const Header = () => {
             !tooltipRef.current.contains(event.target) &&
             !profileRef.current.contains(event.target)
             ) {
-            setTooltipOpen(false);
+                setTooltipOpen(false);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
@@ -55,12 +55,9 @@ const Header = () => {
         };
     }, []);
 
-    const navToAccount = ()=>{
-        navigate(`/account/${userId}`)
-    }
 
     const openProfileModal = () => {
-        setTooltipOpen(false); // optionally close the tooltip
+        setTooltipOpen(false);
         setIsProfileModalOpen(true);
     };
 
@@ -128,25 +125,21 @@ const Header = () => {
                         </button>
                 </div>
                 )}
-                {/* Profile Modal */}                
+                {/* Profile */}                
                 {isProfileModalOpen && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                        <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
-                            <button 
-                                onClick={closeProfileModal} 
-                                className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
-                            >
-                                <X size={24} />
-                            </button>
-                            <div className="flex flex-col items-center">
-                                <img 
-                                    src={user && `${imageURL}${user.image}`} 
-                                    alt="full-profile" 
-                                    className="w-64 h-64 rounded-full object-cover mb-4"
-                                />
-                                <h2 className="text-xl font-bold mb-2">{user && `${user.firstname} ${user.lastname}`}</h2>
-                                <p className="text-gray-600">{user?.email || "email@example.com"}</p>
-                            </div>
+                    <div 
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                        onClick={closeProfileModal}
+                    >
+                        <div 
+                            className="flex flex-col items-center rounded-lg"
+                            onClick={(e) => e.stopPropagation()} 
+                        >
+                            <img 
+                                src={user && `${imageURL}${user.image}`} 
+                                alt="full-profile" 
+                                className="w-[600px] h-[600px] object-cover mb-4"
+                            />
                         </div>
                     </div>
                 )}

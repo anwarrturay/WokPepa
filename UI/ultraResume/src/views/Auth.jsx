@@ -116,13 +116,13 @@ const Auth = () => {
                 <form onSubmit={handleSubmit(handleSubmitForm)} className="flex flex-col items-center mx-4 mt-8">
                     <div className="flex flex-col">
                         <div className="relative flex flex-col">
-                        <input
-                            type="email"
-                            {...register("email")}
-                            autoComplete="off"
-                            placeholder="Email"
-                            className="input-field"
-                        />
+                            <input
+                                type="email"
+                                {...register("email")}
+                                autoComplete="off"
+                                placeholder="Email"
+                                className="input-field"
+                            />
                         </div>
                         {errors.email && (
                         <div className="flex items-center mb-3">
