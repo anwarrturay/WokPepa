@@ -114,7 +114,7 @@ const Header = () => {
                             Preferences
                             <ChevronRight size={18} />
                         </button>
-                        <button className="flex items-center text-sm w-full text-left py-1 hover:bg-gray-100 px-2 rounded mb-2 cursor-pointer">
+                        <button onClick={()=> navigate("/help-support")} className="flex items-center text-sm w-full text-left py-1 hover:bg-gray-100 px-2 rounded mb-2 cursor-pointer">
                             <CircleHelp size={20} className="mr-2"/>
                             Help & Support
                             <ChevronRight size={18} />
