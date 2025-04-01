@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import routes from './routes/Routes';
 import Splash from "./views/Splash";
+import useAuth from "./hooks/useAuth";
 const router = createBrowserRouter(routes);
 function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
+  
+  const { showSplash } = useAuth();
   return (
-    showSplash ? <Splash setShowSplash={setShowSplash} /> : <RouterProvider path="*" router={router} />
+    showSplash ? <Splash /> : <RouterProvider path="*" router={router} />
   );
 }
 

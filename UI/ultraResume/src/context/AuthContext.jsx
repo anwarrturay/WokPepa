@@ -7,6 +7,8 @@ export const AuthProvider = ({children}) =>{
     const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist") || false))
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("account");
+     const [isLoading, setIsLoading] = useState(false);
+     const [showSplash, setShowSplash] = useState(true);
 
     return(
         <AuthContext.Provider value={{
@@ -17,8 +19,14 @@ export const AuthProvider = ({children}) =>{
             isOpen,
             setIsOpen,
             activeSection,
-            setActiveSection}}>
+            setActiveSection,
+            isLoading,
+            setIsLoading,
+            showSplash,
+            setShowSplash
+            }}>
             {children}
+            
         </AuthContext.Provider>
     );
 

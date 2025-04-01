@@ -6,6 +6,7 @@ import toure from "../assets/Toure.png";
 import { CircleUserRound, LogOut, AppWindowMac, CircleHelp, Eye, ChevronRight, X } from 'lucide-react';
 import useLogout from "../hooks/useLogout";
 import { useNavigate } from "react-router";
+
 const Header = () => {
     const [user, setUser] = useState();
     const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -104,7 +105,9 @@ const Header = () => {
                             <Eye size={20} className="mr-2"/>
                             View Profile
                         </button>
-                        <button onClick={()=> navigate("/settings")} className="flex items-center text-sm w-full text-left py-1 hover:bg-gray-100 px-2 rounded mb-2 cursor-pointer">
+                        <button onClick={()=> {
+                                navigate("/settings")
+                            }} className="flex items-center text-sm w-full text-left py-1 hover:bg-gray-100 px-2 rounded mb-2 cursor-pointer">
                             <CircleUserRound size={20} className="mr-2"/>
                             Account
                             <ChevronRight size={18} />

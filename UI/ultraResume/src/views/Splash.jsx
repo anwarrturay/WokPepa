@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import logo from "../assets/ultraResume-full.png";
-
-const Splash = ({ setShowSplash }) => {
+import useAuth from "../hooks/useAuth";
+const Splash = () => {
+  const { setShowSplash } = useAuth();
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);

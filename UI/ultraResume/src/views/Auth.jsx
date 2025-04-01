@@ -42,12 +42,12 @@ const Auth = () => {
         const response = await axios.post(
             auth_url,
             {
-            email: data.email,
-            password: data.password
+                email: data.email,
+                password: data.password
             },
             {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true
             }
         );
 
@@ -67,15 +67,15 @@ const Auth = () => {
             }, 1500);
         }
         } catch (err) {
-        setSuccess(false);
-        setIsLoading(false);
-        if (!err?.response) {
-            setErrMsg("No Server Response");
-        } else if (err.response?.status === 401) {
-            setErrMsg("Incorrect email or password");
-        } else {
-            setErrMsg("Login failed, Please try again");
-        }
+            setSuccess(false);
+            setIsLoading(false);
+            if (!err?.response) {
+                setErrMsg("No Server Response");
+            } else if (err.response?.status === 401) {
+                setErrMsg("Incorrect email or password");
+            } else {
+                setErrMsg("Login failed, Please try again");
+            }
         }
     };
 
@@ -119,7 +119,6 @@ const Auth = () => {
                             <input
                                 type="email"
                                 {...register("email")}
-                                autoComplete="off"
                                 placeholder="Email"
                                 className="input-field"
                             />
@@ -136,7 +135,7 @@ const Auth = () => {
                         <input
                             type={showPassword ? "text" : "password"}
                             {...register("password")}
-                            autoComplete="off"
+                           
                             placeholder="Password"
                             className="input-field"
                         />
