@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import logo from "../assets/ultraResume-full.png";
-import useAuth from "../hooks/useAuth";
+import logo from "../../assets/ultraResume-full.png";
+import useAuth from "../../hooks/useAuth";
 const Splash = () => {
   const { setShowSplash } = useAuth();
   useEffect(() => {

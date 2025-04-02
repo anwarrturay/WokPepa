@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { X,  CircleUserRound, AppWindowMac, FileUser, Bell, Contact } from "lucide-react";
-import logo from "../../assets/ultraResume-book.png";
-import useToggleSidebar from "./hooks/useToggleSidebar"
-import useAuth from '../../hooks/useAuth';
+import logo from "../../../assets/ultraResume-book.png";
+import useToggleSidebar from "../hooks/useToggleSidebar"
+import useAuth from '../../../hooks/useAuth';
 const Sidebar = () => {
     const { activeSection, setActiveSection, isOpen} = useAuth();
     const toggleSidebar  = useToggleSidebar();

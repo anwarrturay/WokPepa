@@ -1,14 +1,13 @@
 import React, { useState,  } from 'react';
 import { PanelRightOpen } from "lucide-react"
-import logo from "../../assets/ultraResume-book.png";
+import logo from "../../../assets/ultraResume-book.png";
 import { useNavigate } from 'react-router';
 import Sidebar from './Sidebar';
-import useToggleSidebar from './hooks/useToggleSidebar';
-// import Loading from '../../utils/Loading';
-import Profile from './components/Profile';
-import MyDetails from './components/MyDetails'
-import Password from './components/Password';
-import useAuth from '../../hooks/useAuth';
+import useToggleSidebar from '../hooks/useToggleSidebar';
+import Profile from './Profile';
+import MyDetails from './MyDetails'
+import Password from './Password';
+import useAuth from '../../../hooks/useAuth';
 const Settings = () => {
 
     const [activeSubSection, setActiveSubSection] = useState("my-details");

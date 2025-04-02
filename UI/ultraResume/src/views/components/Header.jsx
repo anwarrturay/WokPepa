@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import logo from "../assets/ultraResume-book.png";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import useAuth from "../hooks/useAuth";
-import toure from "../assets/Toure.png";
+import logo from "../../assets/ultraResume-book.png";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 import { CircleUserRound, LogOut, AppWindowMac, CircleHelp, Eye, ChevronRight, X } from 'lucide-react';
-import useLogout from "../hooks/useLogout";
+import useLogout from "../../hooks/useLogout";
 import { useNavigate } from "react-router";
 
 const Header = () => {

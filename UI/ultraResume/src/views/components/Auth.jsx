@@ -1,27 +1,26 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
-import { EyeOff, Eye } from "lucide-react";
-import ultraResumeLogo from "../assets/ultraResume-full.png";
+import ultraResumeLogo from "../../assets/ultraResume-full.png";
 // import google from "../assets/google.png";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '../utils/LoginValidation';
-import axios from '../api/axios';
-import Failure from '../utils/Failure';
-import Success from '../utils/Success';
-import CircleAlert from '../utils/CircleAlert';
-import Loading from '../utils/Loading';
-import useAuth from "../hooks/useAuth";
+import { loginSchema } from '../../utils/LoginValidation';
+import axios from '../../api/axios';
+import Failure from '../../utils/Failure';
+import Success from '../../utils/Success';
+import CircleAlert from '../../utils/CircleAlert';
+import Loading from '../../utils/Loading';
+import useAuth from "../../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
-
+import PasswordVisibility from '../../utils/PasswordVisibility';
 const Auth = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { setAuth, persist, setPersist } = useAuth();
+    const { passwordToggleButton, showPassword } = PasswordVisibility();
     const auth_url = "/auth";
     // Determine where to redirect after login; default to dashboard.
     const from = location.state?.from?.pathname || "/user-resume-dashboard";
@@ -30,10 +29,6 @@ const Auth = () => {
         resolver: yupResolver(loginSchema)
     });
 
-    // Toggle password visibility to show or hide text.
-    const togglePasswordVisibility = useCallback(() => {
-        setShowPassword(prev => !prev);
-    }, []);
 
     const handleSubmitForm = async (data) => {
         console.log("form submitted:", data);
@@ -87,15 +82,6 @@ const Auth = () => {
         localStorage.setItem("persist", persist)
     }, [persist])
 
-    const passwordToggleButton = useMemo(() => (
-        <button
-        type="button"
-        onClick={togglePasswordVisibility}
-        className="absolute right-3 xs:right-[14px] sm:right-[14px] top-3 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
-        >
-        {showPassword ? <EyeOff /> : <Eye />}
-        </button>
-    ), [showPassword, togglePasswordVisibility]);
 
     const height = !errors.email && !errors.password ? "h-[390px]" : "h-[460px]";
 
@@ -119,6 +105,7 @@ const Auth = () => {
                             <input
                                 type="email"
                                 {...register("email")}
+                                autoComplete='off'
                                 placeholder="Email"
                                 className="input-field"
                             />
@@ -135,7 +122,7 @@ const Auth = () => {
                         <input
                             type={showPassword ? "text" : "password"}
                             {...register("password")}
-                           
+                            autoComplete='off'
                             placeholder="Password"
                             className="input-field"
                         />

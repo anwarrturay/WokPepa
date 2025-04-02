@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import logo from "../assets/ultraResume-book.png";
+import logo from "../../assets/ultraResume-book.png";
 import {useNavigate} from "react-router";
-import { countries, skillsList } from "../utils/Countries";
+import { countries, skillsList } from "../../utils/Countries";
 
 const CreateNewResume = () => {
   const [step, setStep] = useState(1);

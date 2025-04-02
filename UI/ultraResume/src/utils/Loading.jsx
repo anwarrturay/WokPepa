@@ -1,5 +1,5 @@
 import React from 'react';
-import Splash from "../views/Splash";
+import Splash from "../views/components/Splash";
 
 const Loading = () => {
   return (

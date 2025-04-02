@@ -1,16 +1,16 @@
-import Auth from "../views/Auth";
-import Register from "../views/Register";
-import Layout from "../views/Layout";
-import CreateNewResume from "../views/createNewResume";
+import Auth from "../views/components/Auth";
+import Register from "../views/components/Register";
+import Layout from "../views/components/Layout";
+import CreateNewResume from "../views/components/createNewResume";
 import RequireAuth from "../utils/RequireAuth";
 import Roles_List from "../utils/Roles_List"
 import AdminUI from "../views/admin/AdminUI";
 import PersistentLogin from "../utils/PersistentLogin";
-import Preferences from "../views/settings/Preferences";
-import Account from "../views/settings/Account";
-import PrivacyPolicy from "../views/settings/PrivacyPolicy";
-import HelpSupport from "../views/settings/HelpSupport";
-import Settings from "../views/settings/Settings";
+import Preferences from "../views/settings/components/Preferences"
+import Account from "../views/settings/components/Account";
+import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
+import HelpSupport from "../views/settings/components/HelpSupport";
+import Settings from "../views/settings/components/Settings";
 const routes = [
     {
         path: '/',
