@@ -5,12 +5,13 @@ import { imageSchema } from '../../../utils/schemas/imageSchema';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAuth from '../../../hooks/useAuth';
 import { BASE_URL } from '../../../api/axios';
+import { useNavigate } from 'react-router';
 const Profile = () => {
   const { setIsLoading } = useAuth();
   const axiosPrivate = useAxiosPrivate();
   const { auth, user, setUser } = useAuth();
   const userId = auth?.userId;
-
+  const navigate = useNavigate();
   const [previewImage, setPreviewImage] = useState(null);
 
   const { 
@@ -89,6 +90,7 @@ const Profile = () => {
           ...prevUser,
           image: updatedImageUrl
         }));
+        navigate("/user-resume-dashboard")
       }
     } catch (err) {
       console.error("Error updating image:", err);
