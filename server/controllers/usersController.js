@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const upload = require("../middleware/multerConfig");
+const fs = require("fs");
+const path = require("path");
 
 const getAllUsers = async (req, res) =>{
     const users = await User.find();
@@ -24,35 +26,42 @@ const getSpecificUser = async (req, res) => {
 };
 
 
-const updateUserDetails = async (req, res)=>{
-    try{   
+const updateUserDetails = async (req, res) => {
+    try {   
         const { firstname, lastname, email, telephone, password, profession } = req.body;
-        const id = req.params.id
+        const id = req.params.id;
 
         const updateData = { firstname, lastname, email, telephone, password, profession };
 
-        if(password) {
+        if (password) {
             const hashedPwd = await bcrypt.hash(password, 10);
-            updateData.password = hashedPwd
+            updateData.password = hashedPwd;
         }
 
-        if (req.file) {
-            updateData.image = req.file.buffer; // Save image path in DB
-        }
-    
-        const specificUser = await User.findByIdAndUpdate(
-            id,
-            updateData,
-            { new: true, runValidators: true } // Returns updated user & runs schema validation
-        );
+        // Fetch the existing user to get the old image
+        const specificUser = await User.findById(id);
         if (!specificUser) return res.status(404).json({ message: "User not found" });
-        res.status(200).json({ message: "User updated successfully", data: specificUser });
-        
-    }catch(err){
+
+        if (req.file) {
+            // Delete old image if it exists
+            if (specificUser.image) {
+                const oldImagePath = path.join(__dirname, "..", "uploads", specificUser.image);
+                if (fs.existsSync(oldImagePath)) {
+                    fs.unlinkSync(oldImagePath); // Delete old image
+                }
+            }
+            updateData.image = `/uploads/${req.file.filename}` // Save new image filename to DB
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
+
+        res.status(200).json({ message: "User updated successfully", data: updatedUser });
+
+    } catch (err) {
         console.error(err);
-        return res.status(500).json({message: "Server error", error: err.message});
+        return res.status(500).json({ message: "Server error", error: err.message });
     }
-}
+};
 
 const deleteUsers = async (req, res) => {
     try {

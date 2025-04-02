@@ -28,19 +28,18 @@ const PORT = process.env.PORT || 3500;
 app.use(credentials);
 app.use(cors(corsOptions));
 
-app.use(logger); // custom logger for logging req methods and url accessing our rest api.
+app.use(logger); 
 
-app.use(express.urlencoded({ limit: '10mb', extended: false }));// middleware for parsing form data.
+app.use(express.urlencoded({ limit: '10mb', extended: false }));
 
-// middleware for converting formdata to json.
 app.use(express.json({ limit: '10mb' }));
 
-// middleware for converting a cookie into a readable form.
+
 app.use(cookieParser())
-// serving images in the backend API.
+
 app.use("/uploads", express.static(path.join(__dirname, 'uploads')));
 
-// Public endpoints with user auth.
+// Public endpoints without user auth.
 app.use("/auth", authRoute);
 app.use("/register", registerRoute);
 app.use("/logout", logoutRoute);
@@ -50,7 +49,7 @@ app.use(verifyJWT);
 
 // protected routes.
 app.use("/templates", templateRoute);
-app.use("/resumes", resumeRoute); // create resume route.
+app.use("/resumes", resumeRoute); 
 app.use("/users", usersRoute);
 app.use("/users/profile", profileRoute); 
 
