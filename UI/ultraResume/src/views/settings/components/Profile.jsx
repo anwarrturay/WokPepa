@@ -4,12 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { imageSchema } from '../../../utils/schemas/imageSchema';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAuth from '../../../hooks/useAuth';
-
+import { BASE_URL } from '../../../api/axios';
 const Profile = () => {
   const { setIsLoading } = useAuth();
-  const imageURL = "http://localhost:3500";
   const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
+  const { auth, user, setUser } = useAuth();
   const userId = auth?.userId;
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -43,7 +42,11 @@ const Profile = () => {
             setValue("lastname", res.data.lastname || "");
           }
           if (res.data.image !== watch("image")) {
-            setValue("image", res.data.image || "");
+            const imageUrl = res.data.image.startsWith("/uploads") 
+              ? `${BASE_URL}${res.data.image}`
+              : res.data.image;
+            setValue("image", imageUrl || "");
+            setPreviewImage(imageUrl || "");
           }
         }
       } catch (error) {
@@ -56,35 +59,53 @@ const Profile = () => {
     if (userId) fetchUser();
   }, [userId, setValue, axiosPrivate, watch]);
 
+
+
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
-
-    setPreviewImage(URL.createObjectURL(file));
+  
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewImage(imageUrl);
+    
     setValue("image", file, { shouldValidate: true });
-
+  
     const formData = new FormData();
     formData.append("image", file);
-
+  
     try {
       const response = await axiosPrivate.patch(`/users/profile/${userId}`, formData);
-      if (response.status === 200) {
-        alert("Image changed successfully");
-        setValue("image", response.data.image);
-        setPreviewImage(`${imageURL}${response.data.image}`);
+      console.log(response.data);
+  
+      if (response.status === 200) {  
+        const updatedImageUrl = response.data.image?.startsWith("/uploads")
+          ? `${BASE_URL}${response.data.image}`
+          : response.data.image;
+  
+        setValue("image", updatedImageUrl);
+        setPreviewImage(updatedImageUrl);
+  
+        setUser(prevUser => ({
+          ...prevUser,
+          image: updatedImageUrl
+        }));
       }
     } catch (err) {
       console.error("Error updating image:", err);
     }
-  };
+  };  
+  
 
   return (
     <div className='flex flex-col xl:flex-row items-center space-x-4 mb-7'>
-      <img 
-        src={previewImage || (watch("image") instanceof File ? URL.createObjectURL(watch("image")) : `${imageURL}${watch("image")}`)} 
-        alt="Profile" 
-        className="w-24 h-24 rounded-full border object-cover"
-      />
+        <img 
+          src={previewImage || (watch("image") instanceof File 
+            ? URL.createObjectURL(watch("image")) 
+            : watch("image"))} 
+          alt="Profile" 
+          className="w-24 h-24 rounded-full border object-cover"
+        />
+
       <div className="flex flex-col">
         <div className="text-2xl font-medium m-2 text-center">
           {watch("firstname")} {watch("lastname")}

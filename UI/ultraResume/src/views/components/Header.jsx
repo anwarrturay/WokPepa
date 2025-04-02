@@ -5,9 +5,8 @@ import useAuth from "../../hooks/useAuth";
 import { CircleUserRound, LogOut, AppWindowMac, CircleHelp, Eye, ChevronRight, X } from 'lucide-react';
 import useLogout from "../../hooks/useLogout";
 import { useNavigate } from "react-router";
-
+import { BASE_URL } from "../../api/axios";
 const Header = () => {
-    const [user, setUser] = useState();
     const [tooltipOpen, setTooltipOpen] = useState(false);
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
     const tooltipRef = useRef(null);
@@ -16,8 +15,7 @@ const Header = () => {
     const logout = useLogout()
   
     const url = "/users";
-    const imageURL = "http://localhost:3500";
-    const { auth } = useAuth();
+    const { auth, user, setUser } = useAuth();
     const userId = auth?.userId;
     const axiosPrivate = useAxiosPrivate();
 
@@ -78,7 +76,7 @@ const Header = () => {
             {/* User profile */}
             <div className="relative flex items-center mr-4">
                 <img
-                src={user && `${imageURL}${user.image}`}
+                src={user && `${BASE_URL}${user.image}`}
                 alt="user-image"
                 className="w-[40px] h-[40px] rounded-full cursor-pointer"
                 ref={profileRef}
@@ -92,7 +90,7 @@ const Header = () => {
                     className="absolute top-[50px] right-0 bg-white shadow-lg rounded-lg p-3 w-56 z-50 font-montserrat font-medium"
                 >
                         <div className="flex items-center justify-center">
-                            <img src={user && `${imageURL}${user.image}`} alt="user-profile" className="w-[70px] h-[70px] rounded-full"/>
+                            <img src={user && `${BASE_URL}${user.image}`} alt="user-profile" className="w-[70px] h-[70px] rounded-full"/>
                         </div>
                         <div className="text-gray-700 font-semibold text-center m-2">{user && `${user.firstname} ${user.lastname}`}</div>
                         <div className="text-sm text-gray-500">{user?.email || "email@example.com"}</div>
@@ -138,7 +136,7 @@ const Header = () => {
                             onClick={(e) => e.stopPropagation()} 
                         >
                             <img 
-                                src={user && `${imageURL}${user.image}`} 
+                                src={user && `${BASE_URL}${user.image}`} 
                                 alt="full-profile" 
                                 className="w-[600px] h-[600px] object-cover mb-4"
                             />

@@ -13,7 +13,7 @@ const PersistentLogin = ({ children })=>{
             const verifyRefreshToken = async ()=>{
                 try{
                     const accessToken = await refresh();
-                    console.log(accessToken)
+                    // console.log(accessToken)
                 }catch(err){
                     console.error(err);
                 }finally{
@@ -28,10 +28,10 @@ const PersistentLogin = ({ children })=>{
             }
     }, [auth])
 
-    useEffect(()=>{
-        console.log(`isLoading: ${isLoading}`)
-        console.log(`accessToken: ${JSON.stringify(auth?.accessToken)}`)
-    }, [isLoading])
+    // useEffect(()=>{
+    //     console.log(`isLoading: ${isLoading}`)
+    //     console.log(`accessToken: ${JSON.stringify(auth?.accessToken)}`)
+    // }, [isLoading])
 
     return (
         <>

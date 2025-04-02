@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) =>{
     const [activeSection, setActiveSection] = useState("account");
      const [isLoading, setIsLoading] = useState(false);
      const [showSplash, setShowSplash] = useState(true);
+     const [user, setUser] = useState();
 
     return(
         <AuthContext.Provider value={{
@@ -23,7 +24,9 @@ export const AuthProvider = ({children}) =>{
             isLoading,
             setIsLoading,
             showSplash,
-            setShowSplash
+            setShowSplash,
+            user,
+            setUser
             }}>
             {children}
             
