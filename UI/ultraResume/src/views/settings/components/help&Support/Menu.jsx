@@ -1,6 +1,11 @@
 import React from 'react'
-import ultraResumeLogo from "../../../assets/ultraResume-full.png";
+import ultraResumeLogo from "../../../../assets/ultraResume-full.png";
+import { ArrowLeft } from 'lucide-react';
+import useAuth from '../../../../hooks/useAuth';
+import { useNavigate } from 'react-router';
 const Menu = () => {
+  const navigate = useNavigate();
+  const { setActiveSectionHS } = useAuth();
   return (
     <>
           <header className='flex m-3 justify-between'>
@@ -15,13 +20,13 @@ const Menu = () => {
             </div>
 
             <div className="flex flex-col bg-[#e4e4e4] divide-y divide-[#ccc] m-3 rounded-2xl text-sm font-medium w-xs sm:w-sm md:w-md lg:w-lg xl:w-xl 2xl:w-2xl 3xl:w-3xl">
-              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSection("helpCenter")}>
+              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSectionHS("helpCenter")}>
                 Help Center
               </div>
-              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSection("channelReports")}>
+              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSectionHS("channelReports")}>
                 Channel Reports
               </div>
-              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSection("terms")}>
+              <div className='h-8 mx-2 my-3 cursor-pointer' onClick={() => setActiveSectionHS("terms")}>
                 Terms and Conditions
               </div>
             </div>

@@ -9,7 +9,7 @@ import PersistentLogin from "../utils/PersistentLogin";
 import Preferences from "../views/settings/components/Preferences"
 import Account from "../views/settings/components/Account";
 import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
-import HelpSupport from "../views/settings/components/HelpSupport";
+import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
 const routes = [
     {

@@ -6,36 +6,36 @@ import ChannelReports from './ChannelReports';
 import TermsConditions from './TermsConditions';
 import HelpCenter from './HelpCenter';
 import Menu from './Menu';
+import useAuth from '../../../../hooks/useAuth';
 const HelpSupport = () => {
-  const navigate = useNavigate();
 
-  const [activeSection, setActiveSection] = useState("menu");
+  const {activeSectionHS, setActiveSectionHS} = useAuth();
 
   return (
     <section className='font-montserrat'>
-      {activeSection !== "menu" && (
+      {activeSectionHS !== "menu" && (
         <header className='flex m-3'>
-          <ArrowLeft onClick={() => setActiveSection("menu")} size={20} className='mr-3 cursor-pointer' />
+          <ArrowLeft onClick={() => setActiveSectionHS("menu")} size={20} className='mr-3 cursor-pointer' />
         </header>
       )}
 
-      {activeSection === "menu" && (
+      {activeSectionHS === "menu" && (
         <Menu />
       )}
 
-      {activeSection === "helpCenter" && (
+      {activeSectionHS === "helpCenter" && (
         <HelpCenter />
       )}
 
-      {activeSection === "channelReports" && (
+      {activeSectionHS === "channelReports" && (
         <ChannelReports />
       )}
 
-      {activeSection === "terms" && (
+      {activeSectionHS === "terms" && (
         <TermsConditions />
       )}
 
-      {activeSection === "menu" && <Footer />}
+      {activeSectionHS === "menu" && <Footer />}
     </section>
   );
 };

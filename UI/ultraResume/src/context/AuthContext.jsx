@@ -10,6 +10,7 @@ export const AuthProvider = ({children}) =>{
      const [isLoading, setIsLoading] = useState(false);
      const [showSplash, setShowSplash] = useState(true);
      const [user, setUser] = useState();
+     const [activeSectionHS, setActiveSectionHS] = useState("menu");
 
     return(
         <AuthContext.Provider value={{
@@ -26,7 +27,9 @@ export const AuthProvider = ({children}) =>{
             showSplash,
             setShowSplash,
             user,
-            setUser
+            setUser,
+            activeSectionHS,
+            setActiveSectionHS
             }}>
             {children}
             
