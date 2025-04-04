@@ -8,6 +8,7 @@ const authRoute = require("./routes/auth")
 const resumeRoute = require("./routes/resumes");
 const profileRoute = require("./routes/users/profile");
 const usersRoute = require("./routes/users/users")
+const reportRoute = require("./routes/users/reports")
 const templateRoute = require("./routes/templates")
 const logoutRoute = require("./routes/logout")
 const refreshRoute = require("./routes/refresh");
@@ -52,6 +53,7 @@ app.use("/templates", templateRoute);
 app.use("/resumes", resumeRoute); 
 app.use("/users", usersRoute);
 app.use("/users/profile", profileRoute); 
+app.use("/users/reports", reportRoute)
 
 app.use(errorHandler);
 
