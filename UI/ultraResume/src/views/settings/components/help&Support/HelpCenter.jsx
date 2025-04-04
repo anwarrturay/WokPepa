@@ -41,14 +41,14 @@ const HelpCenter = () => {
       {/* Troubleshooting Section */}
       <div className="mb-6">
         <h3 className="text-md font-medium mb-2">Troubleshooting</h3>
-        <p className="text-sm text-gray-700">
+        <div className="text-sm text-gray-700">
           If you're experiencing issues:
           <ul className="list-disc ml-6">
             <li>Ensure your browser is updated.</li>
             <li>Try clearing cache and refreshing the page.</li>
             <li>If errors persist, contact support below.</li>
           </ul>
-        </p>
+        </div>
       </div>
       
       {/* Contact Support */}

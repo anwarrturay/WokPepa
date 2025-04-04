@@ -58,7 +58,7 @@ const Sidebar = () => {
 				</li>
 
 				{/* Help & Support */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
+				<li onClick={()=>navigate("/help-support")} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<HelpCircle size={20} className="mr-3" />
 					{open && <span>Help & Support</span>}
 				</li>
