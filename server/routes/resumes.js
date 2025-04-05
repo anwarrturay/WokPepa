@@ -6,18 +6,18 @@ const {
     updateResume, 
     deleteResume, 
     getSpecificResume, 
-    generateResumePDF 
+    // generateResumePDF 
 } = require("../controllers/resumeController");
 const verifyRoles = require("../middleware/verifyRoles");
 const ROLES_LIST = require("../config/roles_list");
 const upload = require("../middleware/multerConfig");
 router.route("/")
     .get(verifyRoles(ROLES_LIST.USER), getAllResumes)
-    .post(upload.single("image"), verifyRoles(ROLES_LIST.USER), createNewResume)
     .put(verifyRoles(ROLES_LIST.USER), updateResume)        
     .delete(verifyRoles(ROLES_LIST.USER), deleteResume);
-router.route("/:id/pdf").get(verifyRoles(ROLES_LIST.USER), generateResumePDF)
-router.route("/:userId")
-    .get(getSpecificResume)
+router.post("/:id", upload.single("image"), verifyRoles(ROLES_LIST.USER), createNewResume)
+router.route("/:id/pdf").get(verifyRoles(ROLES_LIST.USER), getSpecificResume)
+// router.route("/:userId")
+//     .get(getSpecificResume)
 
 module.exports = router;

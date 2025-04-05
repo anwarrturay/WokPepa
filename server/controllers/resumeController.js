@@ -11,9 +11,12 @@ const getAllResumes = async (req, res) => {
 }
 
 const createNewResume = asyncHandler(async (req, res) => {
-    const { userId, title, personalDetails, experience, education, skills, summary, projects, certifications, languages, awards, references, hobbies } = req.body;
+    const { title, personalDetails, experience, education, skills, summary, projects, certifications, languages, awards, references, hobbies } = req.body;
 
-    if (!userId || !title || !personalDetails || !experience || !education || !skills) {
+    const userId = req.params?.id
+    if(!userId) return res.status(404).json({message: "Not Found"});
+
+    if (!title || !personalDetails || !experience || !education || !skills) {
         return res.status(400).json({ message: "All required fields must be provided" });
     }
 
@@ -21,7 +24,6 @@ const createNewResume = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "No uploaded file" });
     }
 
-    // Validate Date of Birth
     const parsedDob = new Date(personalDetails.dob);
     if (isNaN(parsedDob.getTime())) {
         return res.status(400).json({ message: "Invalid date format for DOB" });
@@ -185,10 +187,12 @@ const deleteResume = async (req, res) => {
 const getSpecificResume = async (req, res) => {
     if (!req?.params?.id) return res.status(400).json({ message: "Resume Id is required" });
 
-    const resume = await Resume.findById({ _id: req.params.id }).exec();
+    const { id } = req.params;
+
+    const resume = await Resume.findById(id);
     if (!resume) return res.status(204).json({ message: "Resume not found" })
 
-    res.json(resume);
+    res.status(200).json(resume);
 }
 
 const generatePDF = async (resume, filePath) => {
@@ -199,17 +203,14 @@ const generatePDF = async (resume, filePath) => {
     if (resume.image) {
         doc.fontSize(16).text("Profile Picture", { underline: true }).moveDown();
     
-        // Check if the URL is valid
         const imageUrl = resume.image;
-        // Use doc.image to load the image from the URL
         doc.image(path.join(__dirname, '..', "uploads", imageUrl), { width: 100, height: 100 }).moveDown();
     }
 
-    // 🔹 Resume Title
     doc.fontSize(24).font("Helvetica-Bold").text(`Resume: ${resume.title}`, { align: "center" });
     doc.moveDown();
 
-    // 🔹 Personal Details
+
     doc.fontSize(16).text("Personal Details", { underline: true });
     doc.fontSize(12)
         .text(`Name: ${resume.personalDetails.name}`)
@@ -223,13 +224,11 @@ const generatePDF = async (resume, filePath) => {
         .text(`Twitter: ${resume.personalDetails.twitter}`)
         .moveDown();
 
-    // 🔹 Summary
     if (resume.summary) {
         doc.fontSize(16).text("Summary", { underline: true }).moveDown();
         doc.fontSize(12).text(resume.summary).moveDown();
     }
 
-    // 🔹 Experience
     if (resume.experience.length > 0) {
         doc.fontSize(16).text("Experience", { underline: true }).moveDown();
         resume.experience.forEach((exp) => {
@@ -239,7 +238,6 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // 🔹 Education
     if (resume.education.length > 0) {
         doc.fontSize(16).text("Education", { underline: true }).moveDown();
         resume.education.forEach((edu) => {
@@ -249,14 +247,12 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // 🔹 Skills
     if (resume.skills.length > 0) {
         doc.fontSize(16).text("Skills", { underline: true }).moveDown();
         doc.fontSize(12).text(resume.skills.join(", "));
         doc.moveDown();
     }
 
-    // 🔹 Projects
     if (resume.projects.length > 0) {
         doc.fontSize(16).text("Projects", { underline: true }).moveDown();
         resume.projects.forEach((project) => {
@@ -267,7 +263,6 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // 🔹 Certifications
     if (resume.certifications.length > 0) {
         doc.fontSize(16).text("Certifications", { underline: true }).moveDown();
         resume.certifications.forEach((cert) => {
@@ -277,14 +272,12 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // 🔹 Languages
     if (resume.languages.length > 0) {
         doc.fontSize(16).text("Languages", { underline: true }).moveDown();
         doc.fontSize(12).text(resume.languages.join(", "));
         doc.moveDown();
     }
 
-    // 🔹 Awards
     if (resume.awards.length > 0) {
         doc.fontSize(16).text("Awards", { underline: true }).moveDown();
         resume.awards.forEach((award) => {
@@ -293,7 +286,6 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // 🔹 References
     if (resume.references.length > 0) {
         doc.fontSize(16).text("References", { underline: true }).moveDown();
         resume.references.forEach((ref) => {
@@ -303,7 +295,6 @@ const generatePDF = async (resume, filePath) => {
         doc.moveDown();
     }
 
-    // Hobbies
     if (resume.hobbies.length > 0) {
         doc.fontSize(16).text("Hobbies", { underline: true }).moveDown();
         doc.fontSize(12).text(resume.hobbies.join(", "));
@@ -318,51 +309,51 @@ const generatePDF = async (resume, filePath) => {
     });
 };
 
-const generateResumePDF = async (req, res) => {
-    const resumeId = req.params.id;
-    if (!resumeId)
-        return res.status(400).json({ message: "Resume ID is required" });
+// const generateResumePDF = async (req, res) => {
+//     const resumeId = req.params.id;
+//     if (!resumeId)
+//         return res.status(400).json({ message: "Resume ID is required" });
 
-    try {
-        const resume = await Resume.findById(resumeId).exec();
-        if (!resume)
-            return res.status(404).json({ message: "Resume not found" });
+//     try {
+//         const resume = await Resume.findById(resumeId).exec();
+//         if (!resume)
+//             return res.status(404).json({ message: "Resume not found" });
 
-        // Create a new PDF document.
-        const doc = new PDFDocument();
-        let buffers = [];
-        doc.on("data", buffers.push.bind(buffers));
-        doc.on("end", () => {
-            const pdfData = Buffer.concat(buffers);
-            res.writeHead(200, {
-                "Content-Type": "application/pdf",
-                "Content-Disposition": 'attachment; filename="resume.pdf"',
-                "Content-Length": pdfData.length,
-            });
-            res.end(pdfData);
-        });
+//         // Create a new PDF document.
+//         const doc = new PDFDocument();
+//         let buffers = [];
+//         doc.on("data", buffers.push.bind(buffers));
+//         doc.on("end", () => {
+//             const pdfData = Buffer.concat(buffers);
+//             res.writeHead(200, {
+//                 "Content-Type": "application/pdf",
+//                 "Content-Disposition": 'attachment; filename="resume.pdf"',
+//                 "Content-Length": pdfData.length,
+//             });
+//             res.end(pdfData);
+//         });
 
-        // Build the PDF content.
-        doc.fontSize(24).text(`Resume: ${resume.title}`, { align: "center" });
-        doc.moveDown();
-        doc.fontSize(16).text("Personal Details", { underline: true });
-        doc.fontSize(12)
-            .text(`Name: ${resume.personalDetails.name}`)
-            .text(`Email: ${resume.personalDetails.email}`)
-            .text(`Phone: ${resume.personalDetails.phone}`)
-            .text(`Address: ${resume.personalDetails.address}`)
-            .text(`DOB: ${new Date(resume.personalDetails.dob).toLocaleDateString()}`)
-            .text(`Country: ${resume.personalDetails.country}`)
-            .moveDown();
+//         // Build the PDF content.
+//         doc.fontSize(24).text(`Resume: ${resume.title}`, { align: "center" });
+//         doc.moveDown();
+//         doc.fontSize(16).text("Personal Details", { underline: true });
+//         doc.fontSize(12)
+//             .text(`Name: ${resume.personalDetails.name}`)
+//             .text(`Email: ${resume.personalDetails.email}`)
+//             .text(`Phone: ${resume.personalDetails.phone}`)
+//             .text(`Address: ${resume.personalDetails.address}`)
+//             .text(`DOB: ${new Date(resume.personalDetails.dob).toLocaleDateString()}`)
+//             .text(`Country: ${resume.personalDetails.country}`)
+//             .moveDown();
 
-        // Add experience, education, and skills like earlier...
+//         // Add experience, education, and skills like earlier...
 
-        doc.end();
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error generating PDF" });
-    }
-};
+//         doc.end();
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Error generating PDF" });
+//     }
+// };
 
 module.exports = {
     getAllResumes,
@@ -371,5 +362,5 @@ module.exports = {
     deleteResume,
     getSpecificResume,
     generatePDF,
-    generateResumePDF
+    // generateResumePDF
 };
