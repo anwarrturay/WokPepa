@@ -29,19 +29,19 @@ const Skills = ({formData, setFormData, setStep}) => {
                             </button>
                         ))}
                     </div>
-                    <div className="flex flex-col mt-3">
+                    <div className="flex mt-3">
                         {/* Buttons */}
                         <button
                             type="button"
                             className="back-btn"
-                            onClick={() => setStep(3)}
+                            onClick={() => setStep(4)}
                         >
                             Back
                         </button>
                         <button
                             type="button"
                             className="m-2 bg-[#2A5D9E] text-white px-32 py-2 rounded-md"
-                            onClick={()=> setStep(5)}
+                            onClick={()=> setStep(6)}
                         >
                             Next
                         </button>

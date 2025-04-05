@@ -7,6 +7,14 @@ import Experience from "./new-resume/Experience";
 import Skills from "./new-resume/Skills";
 import Education from "./new-resume/Education";
 import Review from "./new-resume/Review";
+import Summary from "./new-resume/Summary"
+import Projects from "./new-resume/Projects";
+import Certifications from "./new-resume/Certifications";
+import Languages from "./new-resume/Languages"
+import AwardsSection from "./new-resume/AwardsSection"
+import Hobbies from "./new-resume/Hobbies"
+import References from "./new-resume/References";
+
 const CreateNewResume = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate()
@@ -18,10 +26,15 @@ const CreateNewResume = () => {
       address: "",
       dob: "",
       country: "",
+	  linked: "",
+	  github: "",
+	  x: ""
     },
+	summary: "",
     experience: {
       jobTitle: "",
       company: "",
+	  responsibilities: "",
       startDate: "",
       endDate: "",
     },
@@ -30,6 +43,21 @@ const CreateNewResume = () => {
       school: "",
       year: "",
     },
+	projects: [{
+		name: "",
+		description: "",
+		technologies: ""
+	}],
+	certifications: [{
+		name: "",
+		issuingOrganization: "",
+		issueDate: "",
+		expirationDate: ""
+	}],
+	languages: [],
+	awards:[],
+	references: [],
+	hobbies: [],
     skills: [],
     image: null,
   });
@@ -76,290 +104,54 @@ const CreateNewResume = () => {
         <div></div>
       </div>
 
-      {/* Step 1: Personal Details */}
-      {step === 1 && (
-        // <section className="flex flex-col items-center justify-center mt-5">
-		// 	<h1 className="text-lg font-bold ml-2">Personal Details</h1>
-		// 	<form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center">
-		// 		<div className="flex justify-center items-center m-2">
-		// 			<label className="relative w-[307px] sm:w-[390px] md:w-[480px] h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition">
-		// 				<input
-		// 					type="file"
-		// 					accept="image/*"
-		// 					className="hidden"
-		// 					onChange={handleFileChange}
-		// 				/>
-		// 				{selectedFile ? (
-		// 				<img
-		// 					src={selectedFile}
-		// 					alt="Selected"
-		// 					className="absolute inset-0 w-full h-full object-cover rounded-lg"
-		// 				/>
-		// 				) : (
-		// 				<span className="text-gray-500">Upload Photo</span>
-		// 				)}
-		// 			</label>
-		// 		</div>
-		// 		<input
-		// 			type="text"
-		// 			autoComplete="off"
-		// 			value={formData.personalDetails.name}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "name", e.target.value)
-		// 			}
-		// 			placeholder="Name"
-		// 			className="resume-field"
-		// 		/>
-		// 		<input
-		// 			type="email"
-		// 			autoComplete="off"
-		// 			value={formData.personalDetails.email}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "email", e.target.value)
-		// 			}
-		// 			placeholder="example@gmail.com"
-		// 			className="resume-field"
-		// 		/>
-		// 		<input
-		// 			type="number"
-		// 			autoComplete="off"
-		// 			value={formData.personalDetails.phone}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "phone", e.target.value)
-		// 			}
-		// 			placeholder="Telephone"
-		// 			className="resume-field"
-		// 		/>
-		// 		<input
-		// 			type="text"
-		// 			autoComplete="off"
-		// 			value={formData.personalDetails.address}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "address", e.target.value)
-		// 			}
-		// 			placeholder="Address"
-		// 			className="resume-field"
-		// 		/>
-		// 		<input
-		// 			type="date"
-		// 			autoComplete="off"
-		// 			value={formData.personalDetails.dob}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "dob", e.target.value)
-		// 			}
-		// 			className="resume-field"
-		// 		/>
-		// 		<select
-		// 			id="country"
-		// 			name="country"
-		// 			className="resume-field"
-		// 			value={formData.personalDetails.country}
-		// 			onChange={(e) =>
-		// 				handleChange("personalDetails", "country", e.target.value)
-		// 			}
-		// 		>
-		// 			<option value="">-- Select a Country --</option>
-		// 			{countries.map((country, index) => (
-		// 				<option key={index} value={country}>
-		// 				{country}
-		// 				</option>
-		// 			))}
-		// 		</select>
-		// 		<button
-		// 			type="button"
-		// 			className="m-2 next-btn"
-		// 			onClick={() => setStep(2)}
-		// 		>
-		// 			Next
-		// 		</button>
-		// 	</form>
-        // </section>
-		<PersonalDetails handleChange={handleChange} formData={formData} setStep={setStep}/>
-      )}
+		{step === 1 && (
+			<PersonalDetails handleChange={handleChange} formData={formData} setStep={setStep}/>
+		)}
 
-      {/* Step 2: Experience */}
-      {step === 2 && (
-        // <section className="flex flex-col items-center justify-center mt-5">
-		// 	<h1 className="text-lg font-bold ml-2">Work Experience</h1>
-		// 	<form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center">
-		// 			<input
-		// 			type="text"
-		// 			placeholder="Job Title"
-		// 			value={formData.experience.jobTitle}
-		// 			onChange={(e) =>
-		// 				handleChange("experience", "jobTitle", e.target.value)
-		// 			}
-		// 			className="resume-field"
-		// 			/>
-		// 			<input
-		// 			type="text"
-		// 			placeholder="Company"
-		// 			value={formData.experience.company}
-		// 			onChange={(e) =>
-		// 				handleChange("experience", "company", e.target.value)
-		// 			}
-		// 			className="resume-field"
-		// 			/>
-		// 			<div className="flex flex-col">
-		// 				<label htmlFor="date" className="m-2 font-medium">Start Date:</label>
-		// 				<input
-		// 				type="date"
-		// 				placeholder="StartDate"
-		// 				value={formData.experience.startDate}
-		// 				onChange={(e) =>
-		// 					handleChange("experience", "startDate", e.target.value)
-		// 				}
-		// 				className="resume-field"
-		// 				/>
-		// 			</div>
-		// 			<div className="flex flex-col">
-		// 				<label htmlFor="" className="m-2 font-medium">End Date:</label>
-		// 				<input
-		// 				type="date"
-		// 				placeholder="EndDate"
-		// 				value={formData.experience.endDate}
-		// 				onChange={(e) =>
-		// 					handleChange("experience", "endDate", e.target.value)
-		// 				}
-		// 				className="resume-field"
-		// 				/>
-		// 			</div>
-		// 			<div className="flex flex-col">
-		// 				<button
-		// 				type="button"
-		// 				className="back-btn"
-		// 				onClick={() => setStep(1)}
-		// 				>
-		// 				Back
-		// 				</button>
-		// 				<button
-		// 				type="button"
-		// 				className="m-2 next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md"
-		// 				onClick={() => setStep(3)}
-		// 				>
-		// 				Next
-		// 				</button>
-		// 			</div>
-		// 	</form>
-        // </section>
-		<Experience handleChange={handleChange} formData={formData} setStep={setStep}/>
-      )}
+		{step === 2 &&(
+			<Summary handleChange={handleChange} formData={formData} setStep={setStep}/>
+		)}
 
-	  {/* step 3: Education section */}
 		{step === 3 && (
-			// <section className="flex flex-col items-center justify-center mt-5">
-			// 	<h1 className="text-lg font-bold ml-2">Education</h1>
-			// 	<form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center">
-			// 		<select
-			// 			value={formData.education.level}
-			// 			onChange={(e) => handleChange("education", "level", e.target.value)}
-			// 			className="resume-field"
-			// 		>
-			// 			<option value="">-- Select Education Level --</option>
-			// 			<option value="High School">High School</option>
-			// 			<option value="Diploma">Diploma</option>
-			// 			<option value="Associate Degree">Associate Degree</option>
-			// 			<option value="Bachelor's Degree">Bachelor's Degree</option>
-			// 			<option value="Master's Degree">Master's Degree</option>
-			// 			<option value="Doctorate (PhD)">Doctorate (PhD)</option>
-			// 			<option value="Other">Other</option>
-			// 		</select>
-			// 		<input
-			// 		type="text"
-			// 		placeholder="school"
-			// 		value={formData.education.school}
-			// 		onChange={(e) =>
-			// 			handleChange("education", "school", e.target.value)
-			// 		}
-			// 		className="resume-field"
-			// 		/>
-			// 		<div className="flex flex-col">
-			// 			<label htmlFor="date" className="m-2 font-medium">Start Date:</label>
-			// 			<input
-			// 			type="date"
-			// 			placeholder="StartDate"
-			// 			value={formData.education.startDate}
-			// 			onChange={(e) =>
-			// 				handleChange("education", "startDate", e.target.value)
-			// 			}
-			// 			className="resume-field"
-			// 			/>
-			// 		</div>
-			// 		<div className="flex flex-col">
-			// 			<label htmlFor="" className="m-2 font-medium">End Date:</label>
-			// 			<input
-			// 			type="date"
-			// 			placeholder="EndDate"
-			// 			value={formData.education.endDate}
-			// 			onChange={(e) =>
-			// 				handleChange("education", "endDate", e.target.value)
-			// 			}
-			// 			className="resume-field"
-			// 			/>
-			// 		</div>
-			// 		<div className="flex flex-col">
-			// 			<button
-			// 				type="button"
-			// 				className="back-btn"
-			// 				onClick={() => setStep(2)}
-			// 			>
-			// 			Back
-			// 			</button>
-			// 			<button
-			// 				type="button"
-			// 				className="m-2 next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md"
-			// 				onClick={() => setStep(4)}
-			// 			>
-			// 			Next
-			// 			</button>
-			// 		</div>
-			// 	</form>
-			// </section>
+			<Experience handleChange={handleChange} formData={formData} setStep={setStep}/>
+		)}
+
+		{step === 4 && (
 			<Education handleChange={handleChange} formData={formData} setStep={setStep}/>
 		)}
 
-	  {/* step 4: Skills selection section */}
-		{step === 4 && (
-			// <section className="flex flex-col items-center justify-center mt-5">
-			// 	<h1 className="text-lg font-bold ml-2">Skills</h1>
-			// 	<p className="text-sm text-gray-500 ml-2 mb-3">Select relevant skills for your profession</p>
-			// 	<div className="flex flex-wrap gap-2 mx-2">
-			// 		{skillsList.map((skill, index) => (
-			// 			<button
-			// 				key={index}
-			// 				type="button"
-			// 				onClick={() => handleSkillChange(skill)}
-			// 				className={`px-3 py-1 border rounded-md ${
-			// 				formData.skills.includes(skill) ? "bg-[#2A5D9E] text-white" : "bg-gray-200"
-			// 				}`}
-			// 			>
-			// 				{skill}
-			// 			</button>
-			// 		))}
-			// 	</div>
-			// 	<div className="flex flex-col mt-3">
-			// 		{/* Buttons */}
-			// 		<button
-			// 			type="button"
-			// 			className="back-btn"
-			// 			onClick={() => setStep(3)}
-			// 		>
-			// 			Back
-			// 		</button>
-			// 		<button
-			// 			type="button"
-			// 			className="m-2 bg-[#2A5D9E] text-white px-32 py-2 rounded-md"
-			// 			onClick={()=> setStep(5)}
-			// 		>
-			// 			Next
-			// 		</button>
-			// 	</div>
-			// </section>
+		{step === 5 && (
 			<Skills formData={formData} setFormData={setFormData} setStep={setStep}/>
 		)}
 
+		
+		{step === 6 && (
+			<Projects handleChange={handleChange} formData={formData} setStep={setStep}/>
+		)}
+
+		
+		{step === 7 && (
+			<Certifications handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep} />
+		)}
+
+		{step === 8 && (
+			<Languages formData={formData} setFormData={setFormData} setStep={setStep}/>
+		)}
+
+		{step === 9 && (
+			<AwardsSection handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep} />
+		)}
+
+		{step === 10 && (
+			<References handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep} />
+		)}
+
+		{step === 11 && (
+			<Hobbies formData={formData} setFormData={setFormData} setStep={setStep}/>
+		)}
+		
 		{/* Final Step: Submit Form */}
-		{step === 5 && (
+		{step === 12 && (
 			// <section className="flex flex-col items-center justify-center mt-5">
 			// 	<h1 className="text-lg font-bold ml-2">Review & Submit</h1>
 			// 	<p className="text-sm text-gray-600 ml-2 text-center">

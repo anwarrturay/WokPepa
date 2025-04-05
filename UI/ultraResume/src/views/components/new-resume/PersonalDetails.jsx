@@ -17,6 +17,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
                 <label className="relative w-[307px] sm:w-[390px] md:w-[480px] h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition">
                     <input
                         type="file"
+                        id='image'
                         accept="image/*"
                         className="hidden"
                         onChange={handleFileChange}
@@ -34,6 +35,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             </div>
             <input
                 type="text"
+                id='name'
                 autoComplete="off"
                 value={formData.personalDetails.name}
                 onChange={(e) =>
@@ -44,6 +46,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             />
             <input
                 type="email"
+                id='email'
                 autoComplete="off"
                 value={formData.personalDetails.email}
                 onChange={(e) =>
@@ -54,6 +57,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             />
             <input
                 type="number"
+                id='number'
                 autoComplete="off"
                 value={formData.personalDetails.phone}
                 onChange={(e) =>
@@ -64,6 +68,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             />
             <input
                 type="text"
+                id='address'
                 autoComplete="off"
                 value={formData.personalDetails.address}
                 onChange={(e) =>
@@ -74,6 +79,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             />
             <input
                 type="date"
+                id='date'
                 autoComplete="off"
                 value={formData.personalDetails.dob}
                 onChange={(e) =>
@@ -97,6 +103,36 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
                     </option>
                 ))}
             </select>
+            <div className="flex flex-col w-full px-4 mt-4">
+                <div className="text-left text-sm text-gray-600 m-2">Optional</div>
+                <input
+                    type="text"
+                    id='linkedIn-url'
+                    autoComplete="off"
+                    value={formData.personalDetails.linkedin || ""}
+                    onChange={(e) => handleChange("personalDetails", "linkedin", e.target.value)}
+                    placeholder="Paste your LinkedIn URL"
+                    className="resume-field"
+                />
+                <input
+                    type="text"
+                    id='github-url'
+                    autoComplete="off"
+                    value={formData.personalDetails.github || ""}
+                    onChange={(e) => handleChange("personalDetails", "github", e.target.value)}
+                    placeholder="Paste your GitHub URL"
+                    className="resume-field"
+                />
+                <input
+                    type="text"
+                    id='x-url'
+                    autoComplete="off"
+                    value={formData.personalDetails.x || ""}
+                    onChange={(e) => handleChange("personalDetails", "x", e.target.value)}
+                    placeholder="Paste your X (Twitter) URL"
+                    className="resume-field"
+                />
+            </div>
             <button
                 type="button"
                 className="m-2 next-btn"

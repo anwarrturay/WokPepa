@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Education = ({ formData, handleChange, setStep}) => {
+const Projects = ({ formData, handleChange, setStep}) => {
   return (
     <section className="flex flex-col items-center justify-center mt-5">
-    <h1 className="text-lg font-bold ml-2">Education</h1>
+    <h1 className="text-lg font-bold ml-2">Projects</h1>
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center">
         <select
             value={formData.education.level}
@@ -65,14 +65,14 @@ const Education = ({ formData, handleChange, setStep}) => {
             <button
                 type="button"
                 className="back-btn"
-                onClick={() => setStep(3)}
+                onClick={() => setStep(5)}
             >
             Back
             </button>
             <button
                 type="button"
                 className="m-2 next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md"
-                onClick={() => setStep(5)}
+                onClick={() => setStep(7)}
             >
             Next
             </button>
@@ -82,4 +82,4 @@ const Education = ({ formData, handleChange, setStep}) => {
   )
 }
 
-export default Education
+export default Projects

@@ -39,5 +39,5 @@ body{
     @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[307px] xs:w-[312px] sm:w-[385px] md:w-[480px]
 }
 .back-btn{
-    @apply m-2 bg-gray-400 text-white py-2.5 text-lg rounded-md
+    @apply m-2 bg-gray-400 text-white p-2.5 text-lg rounded-md
 }

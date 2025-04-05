@@ -23,10 +23,19 @@ const Experience = ({formData, handleChange, setStep}) => {
 				}
 				className="resume-field"
 			/>
+			<input
+				type="text"
+				placeholder="Responsibilities"
+				value={formData.experience.responsibilities}
+				onChange={(e) =>
+					handleChange("experience", "responsibilities", e.target.value)
+				}
+				className="resume-field"
+			/>
 			<div className="flex flex-col">
 				<label htmlFor="date" className="m-2 font-medium">Start Date:</label>
 				<input
-				type="date"
+					type="date"
 					placeholder="StartDate"
 					value={formData.experience.startDate}
 					onChange={(e) =>
@@ -47,18 +56,18 @@ const Experience = ({formData, handleChange, setStep}) => {
 					className="resume-field"
 				/>
 			</div>
-			<div className="flex flex-col">
+			<div className="flex">
 				<button
 					type="button"
 					className="back-btn"
-					onClick={() => setStep(1)}
+					onClick={() => setStep(2)}
 				>
 				Back
 				</button>
 				<button
 					type="button"
 					className="m-2 next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md"
-					onClick={() => setStep(3)}
+					onClick={() => setStep(4)}
 				>
 				Next
 				</button>
