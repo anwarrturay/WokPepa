@@ -7,8 +7,10 @@
     - change password
     - change your image
     - logout
-    - choose from predefined templates
     - see all resumes you have created
     - contact us 
   - create a space to channel your complains.
-* Need to add 0Auth2.0 in the login.
+* Version 1.1
+  - choose from predefined templates
+  - Need to add 0Auth2.0 in the login.
+  - Upload your certifications from your local directory
