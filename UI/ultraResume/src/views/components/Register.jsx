@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
-import ultraResumeShort from "../../assets/ultraResume-book.png";
+import ultraResumeLogo from "../../assets/ultraResume-full.png";
 import axios from "../../api/axios";
 import Success from "../../utils/Success"
 import Failure from "../../utils/Failure"
@@ -69,9 +69,15 @@ const Register = () => {
     <div className="flex items-center justify-center flex-col scroll-smooth">
         <div className='flex flex-col relative top-10 font-montserrat mb-24'>
             <div className="flex flex-col items-center justify-center">
-                <img src={ultraResumeShort} alt="" className='w-[60px]'/>
+                <img src={ultraResumeLogo} alt="" className='w-[50px]'/>
             </div>
-            <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create an account with us</div>
+            <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create an UltraResume Account</div>
+            <p className='font-Montserrat ml-2 mt-2 mb-3 text-base text-center'>
+                Already have an account?{' '}
+                <span onClick={()=> navigate(-1)} className="text-[#2A5D9E] cursor-pointer font-medium">
+                    Sign In
+                </span>
+            </p>
             <div className={`flex items-center relative top-3 justify-center ${success ? "flex" : "hidden"}`}>
                     {success ? <Success /> : <Failure errMsg={errMsg} />}
             </div>
@@ -194,12 +200,6 @@ const Register = () => {
                 >
                     Create account
                 </button>
-                <p className='font-Montserrat ml-2 mt-2 mb-3 text-base text-center'>
-                    Already have an account?{' '}
-                    <span onClick={()=> navigate(-1)} className="text-[#2A5D9E] cursor-pointer font-medium">
-                        Sign In
-                    </span>
-                </p>
             </form>
         </div>
     </div>

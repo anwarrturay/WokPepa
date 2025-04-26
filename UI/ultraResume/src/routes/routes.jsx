@@ -1,5 +1,7 @@
 import Auth from "../views/components/Auth";
 import Register from "../views/components/Register";
+import ForgotPassword from "../views/components/ForgotPassword";
+import ResetPassword from "../views/components/ResetPassword";
 import Layout from "../views/components/Layout";
 import CreateNewResume from "../views/components/createNewResume";
 import RequireAuth from "../utils/RequireAuth";
@@ -20,6 +22,14 @@ const routes = [
     {
         path: 'register',
         element: <Register />
+    },
+    {
+        path: "forgot-password",
+        element: <ForgotPassword />
+    },
+    {
+        path: "reset-password",
+        element: <ResetPassword />
     },
     {
         path: 'user-resume-dashboard',
