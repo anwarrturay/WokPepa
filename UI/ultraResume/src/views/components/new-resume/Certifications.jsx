@@ -91,7 +91,7 @@ const Certifications = ({ formData, setFormData, setStep }) => {
           </div>
         )}
 
-        <div className="flex mt-3">
+        <div className="flex flex-col mt-3">
           <button 
             type="button" 
             className="back-btn" 

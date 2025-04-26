@@ -56,7 +56,7 @@ const Experience = ({formData, handleChange, setStep}) => {
 					className="resume-field"
 				/>
 			</div>
-			<div className="flex">
+			<div className="flex flex-col">
 				<button
 					type="button"
 					className="back-btn"

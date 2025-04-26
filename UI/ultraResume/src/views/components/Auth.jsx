@@ -64,13 +64,17 @@ const Auth = () => {
         } catch (err) {
             setSuccess(false);
             setIsLoading(false);
-            if (!err?.response) {
-                setErrMsg("No Server Response");
-            } else if (err.response?.status === 401) {
-                setErrMsg("Incorrect email or password");
-            } else {
-                setErrMsg("Login failed, Please try again");
-            }
+            setErrMsg('');
+
+            setTimeout(()=>{
+                if (!err?.response) {
+                    setErrMsg("No Server Response");
+                } else if (err.response?.status === 401) {
+                    setErrMsg("Incorrect email or password");
+                } else {
+                    setErrMsg("Login failed, Please try again");
+                }
+            }, 50)
         }
     };
 
@@ -83,8 +87,6 @@ const Auth = () => {
     }, [persist])
 
 
-    const height = !errors.email && !errors.password ? "h-[390px]" : "h-[460px]";
-
     return (
         <>
         {isLoading ? (
@@ -92,12 +94,14 @@ const Auth = () => {
         ) : (
             <div className="flex flex-col items-center justify-center scroll-smooth">
             <img src={ultraResumeLogo} alt="Ultra Resume Logo" className="relative w-[120px]" />
-            <div className={`flex flex-col relative top-16 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[320px] ${height} mb-24 xs:w-[350px] sm:w-[420px] md:w-[450px]`}>
+            <div className='flex flex-col relative top-12 font-montserrat'>
                 <div className="flex flex-col items-center justify-center">
-                <h2 className="font-bold font-Montserrat m-3 text-3xl text-[#333333]">Login</h2>
-                <div className="flex items-center relative top-3 justify-center">
-                    {success ? <Success /> : (errMsg && <Failure errMsg={errMsg} />)}
-                </div>
+                    <h2 className="font-bold font-Montserrat m-2 text-lg text-[#333333] text-center">
+                        Sign In with an UltraResume Account
+                    </h2>
+                    <div className="flex  items-center relative top-3 justify-center">
+                        {success ? <Success /> : (errMsg && <Failure errMsg={errMsg}/>)}
+                    </div>
                 </div>
                 <form onSubmit={handleSubmit(handleSubmitForm)} className="flex flex-col items-center mx-4 mt-8">
                     <div className="flex flex-col">

@@ -15,7 +15,7 @@ const Summary = ({ formData, handleChange, setStep}) => {
             className="resume-field h-24" 
         ></textarea>
 
-        <div className="flex ">
+        <div className="flex flex-col">
             <button
                 type="button"
                 className="back-btn"

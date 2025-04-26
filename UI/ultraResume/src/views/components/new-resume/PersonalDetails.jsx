@@ -9,6 +9,7 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
             setSelectedFile(URL.createObjectURL(file));
         }
     };
+    
   return (
     <section className="flex flex-col items-center justify-center mt-5">
         <h1 className="text-lg font-bold ml-2">Personal Details</h1>

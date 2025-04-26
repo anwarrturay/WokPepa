@@ -67,7 +67,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center flex-col scroll-smooth">
-        <div className={`flex flex-col relative top-10 bg-white drop-shadow-2xl shadow rounded-sm font-montserrat w-[315px] ${height} mb-24 xs:w-[350px] sm:w-[420px] md:w-[480px]`}>
+        <div className='flex flex-col relative top-10 font-montserrat mb-24'>
             <div className="flex flex-col items-center justify-center">
                 <img src={ultraResumeShort} alt="" className='w-[60px]'/>
             </div>

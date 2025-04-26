@@ -29,8 +29,7 @@ const Skills = ({formData, setFormData, setStep}) => {
                             </button>
                         ))}
                     </div>
-                    <div className="flex mt-3">
-                        {/* Buttons */}
+                    <div className="flex flex-col mt-3">
                         <button
                             type="button"
                             className="back-btn"

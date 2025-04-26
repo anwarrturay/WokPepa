@@ -87,7 +87,7 @@ const AwardsSection = ({ formData, setFormData, setStep }) => {
           </ul>
         )}
 
-        <div className="flex">
+        <div className="flex flex-col">
           <button
             type="button"
             className="back-btn"

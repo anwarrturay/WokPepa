@@ -11,6 +11,7 @@ import Account from "../views/settings/components/Account";
 import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
 import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
+import GeneratePdf from "../views/components/new-resume/resumepdf/GeneratePdf";
 const routes = [
     {
         path: '/',
@@ -96,6 +97,16 @@ const routes = [
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.ADMIN]}>
                     <AdminUI />
+                </RequireAuth>
+            </PersistentLogin>
+        )
+    },
+    {
+        path: '/generate-pdf',
+        element: (
+            <PersistentLogin>
+                <RequireAuth allowedRoles={[Roles_List.USER]}>
+                    <GeneratePdf />
                 </RequireAuth>
             </PersistentLogin>
         )
