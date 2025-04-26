@@ -13,7 +13,7 @@ const ResetPassword = () => {
 
   return (
     <main className='flex flex-col items-center justify-center relative top-36 font-montserrat'>
-        <h1 className='font-semibold text-2xl'>Create new password</h1>
+        <h1 className='font-semibold text-2xl'>Reset Password</h1>
         <p className='text-sm text-[#7a7a7a] text-center'>
             Your new password must be different from previous used passwords
         </p>
