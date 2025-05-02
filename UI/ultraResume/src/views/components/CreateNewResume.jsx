@@ -10,7 +10,6 @@ import Summary from "./new-resume/Summary"
 import Projects from "./new-resume/Projects";
 import Certifications from "./new-resume/Certifications";
 import Languages from "./new-resume/Languages"
-import AwardsSection from "./new-resume/AwardsSection"
 import Hobbies from "./new-resume/Hobbies"
 import References from "./new-resume/References";
 import MyDocument from "./new-resume/resumepdf/MyDocument";
@@ -27,9 +26,6 @@ const CreateNewResume = () => {
       address: "",
       dob: "",
       country: "",
-	  linked: "",
-	  github: "",
-	  x: ""
     },
 	summary: "",
     experience: {
@@ -49,15 +45,14 @@ const CreateNewResume = () => {
 		description: "",
 		technologies: ""
 	}],
-	certifications: [{
+	certifications: [{ // left section
 		name: "",
 		issuingOrganization: "",
 		issueDate: "",
 		expirationDate: ""
 	}],
 	languages: [],
-	awards:[],
-	references: [],
+	references: [], // left section
 	hobbies: [],
     skills: [],
     image: null,
@@ -138,29 +133,23 @@ const CreateNewResume = () => {
 				{step === 8 && (
 					<Languages formData={formData} setFormData={setFormData} setStep={setStep}/>
 				)}
-
 				{step === 9 && (
-					<AwardsSection handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep} />
-				)}
-
-				{step === 10 && (
 					<References handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep} />
 				)}
 
-				{step === 11 && (
+				{step === 10 && (
 					<Hobbies formData={formData} setFormData={setFormData} setStep={setStep}/>
 				)}
 				
-				{step === 12 && (
+				{step === 11 && (
 					<Review handleSubmit={handleSubmit} setStep={setStep}/>
 				)}
 			</div>
 			<div className="mt-5 flex flex-col items-center justify-center">
-				Resume Preview
-				<div style={{ border: '1px solid #ddd', height: '500px' }}>
+				<h1 className="font-medium mb-2 text-xl">Resume Preview</h1>   
+				<div style={{ height: '500px', backgroundColor: "white"}}>
 					<PDFViewer 
 						style={{
-							// width: '100%',
 							height: '100%',
 							backgroundColor: '#fff',
 							border: 'none',

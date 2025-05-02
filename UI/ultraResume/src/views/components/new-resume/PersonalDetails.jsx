@@ -104,36 +104,6 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
                     </option>
                 ))}
             </select>
-            <div className="flex flex-col w-full px-4 mt-4">
-                <div className="text-left text-sm text-gray-600 m-2">Optional</div>
-                <input
-                    type="text"
-                    id='linkedIn-url'
-                    autoComplete="off"
-                    value={formData.personalDetails.linkedin || ""}
-                    onChange={(e) => handleChange("personalDetails", "linkedin", e.target.value)}
-                    placeholder="Paste your LinkedIn URL"
-                    className="resume-field"
-                />
-                <input
-                    type="text"
-                    id='github-url'
-                    autoComplete="off"
-                    value={formData.personalDetails.github || ""}
-                    onChange={(e) => handleChange("personalDetails", "github", e.target.value)}
-                    placeholder="Paste your GitHub URL"
-                    className="resume-field"
-                />
-                <input
-                    type="text"
-                    id='x-url'
-                    autoComplete="off"
-                    value={formData.personalDetails.x || ""}
-                    onChange={(e) => handleChange("personalDetails", "x", e.target.value)}
-                    placeholder="Paste your X (Twitter) URL"
-                    className="resume-field"
-                />
-            </div>
             <button
                 type="button"
                 className="m-2 next-btn"

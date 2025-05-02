@@ -1,168 +1,14 @@
 // src/components/MyDocument.jsx
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import toure from "./Toure.png"
 import UserIcon from "./icons/user.png";
 import Lock from "./icons/lock.png";
 import GraduationCap  from './icons/graduation-cap.png';
-
-const styles = StyleSheet.create({
-    body: {
-        padding: 0,
-    },
-    page: {
-        padding: 0,
-    },
-    section: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: "row",
-        width: '100%',
-    },
-    leftSection:{
-        display: "flex",
-        flexDirection: "column",
-        width: "490px",
-        // backgroundColor: "aqua",
-        position: "relative",
-
-        header:{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "evenly",
-            alignItems:"center",
-            margin: "12px"
-        },
-        userImageContainer:{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#ccc",
-            borderRadius: "16px",
-            width:"150px"
-        },
-        userImage: {
-            width: '90px',
-            marginTop: '20px',
-        },
-        nameprofessionCont:{
-            marginLeft: "10px"
-        },
-        username:{
-            fontWeight: "bold",
-            fontSize: "24px"
-        },
-        profession:{
-            fontSize: "13px",
-            color: "#64748B"
-        },
-        profileSection: {
-            width: "350px"
-        },
-        profile:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            margin: "15px"
-        },
-        userIcon: {
-            width: "24px"
-        },
-        profileText:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px"
-        },
-        profileSummary:{
-            fontSize: "15px",
-            color: "#64748B",
-            marginHorizontal: "15px"
-        },
-        employmentSection: {
-            display: "flex",
-            flexDirection: "column",
-            margin: "15px",
-        },
-        employmentHeader:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        iconContainer:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        lockIcon: {
-            width: "24px",
-            // height: "24px",
-        },
-        employmentText: {
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px",
-        },
-        dateandJob:{
-            marginTop: "13px",
-            marginLeft: "15px",
-        },
-        durationOfJob: {
-            fontSize: "12px",
-            color: "#64748B",
-            marginTop: "7px"
-        },
-        jobHistory:{
-            flexDirection: 'row',
-            marginTop: "4px"
-        },
-        educationHeader:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: "10px"
-        },
-        graduationCapIcon:{
-            width: "24px"
-        },
-        educationHeading:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px"
-        },
-        educationSummary:{
-            marginLeft: "10px",
-            marginTop: "10px"
-        },
-        startAndEnd:{
-            fontSize: "12px",
-            color: "#64748B",
-            marginTop: "7px"
-        },
-        graduatedWith: {
-            fontSize: "13px",
-            marginTop: "7px",
-            color: ""
-        }
-
-    },
-    rightSection: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "start",
-        width: "380px",
-        height: "500px",
-        position: "relative",
-        top: "140px",
-        // backgroundColor: "red",
-        rightHeader:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginTop: "10px"
-        }
-    },
-});
-
+import NetworkIcon  from './icons/network.png';
+import Link from "./icons/link.png";
+import Layers from "./icons/layers.png";
+import { styles } from './styles/style';
 
 const MyDocument = () => (
   <Document>
@@ -212,9 +58,7 @@ const MyDocument = () => (
                         </View>
                     </View>
                     <View style={styles.leftSection.dateandJob}> 
-                        <View>
-                            <Text>Software Engineer, Freetown</Text>
-                        </View>
+                        <Text style={styles.leftSection.job}>Software Engineer, Freetown</Text>
                         <View style={styles.leftSection.durationOfJob}>
                             <Text>August 24, 2025 - December 16, 2025</Text>
                         </View>
@@ -249,27 +93,120 @@ const MyDocument = () => (
                             </View>
                         </View>
                         <View style={styles.leftSection.educationSummary}>
-                            <View style={styles.leftSection.level}>
-                                <Text>Computer Degree and Information Technology</Text>
-                            </View>
+                            <Text style={styles.leftSection.level}>Computer Degree and Information Technology</Text>
                             <View style={styles.leftSection.startAndEnd}>
                                 <Text>
                                     January 16, 2022 - December 16, 2026
                                 </Text>
                             </View>
-                            <View style={styles.leftSection.graduatedWith}>
-                                <Text>
-                                    Graduated with a first class Degree honors
-                                </Text>
+                            <Text style={styles.leftSection.graduatedWith}>
+                                Graduated with a first class Degree honors
+                            </Text>
+                        </View>
+                    </View>
+                    {/* Projects section */}
+                    <View style={styles.leftSection.projects}>
+                        <View style={styles.leftSection.projectsHeader}>
+                            <View style={styles.leftSection.projectIconCont}>
+                                <Image 
+                                    style={styles.leftSection.networkIcon}
+                                    src={NetworkIcon} />
                             </View>
+                            <View style={styles.leftSection.projectTextCont}>
+                                <Text style={styles.leftSection.projectText}>Projects</Text>
+                            </View>
+                        </View>
+                        <View style={styles.leftSection.projectDescTitle}>
+                            <View style={styles.leftSection.projectTitle}>
+                                <Text>MiSkul App</Text>
+                            </View>
+                            <Text style={styles.leftSection.projectDesc}>A web app developed using MERN stack and security systems.</Text>
+                            <Text style={styles.leftSection.technologies}>
+                                React, MongoDb, TailwindCss, Express, Nodejs
+                            </Text>
+                        </View>
+                    </View>
+                    {/* Certifications section */}
+                    <View style={styles.leftSection.certifications} break>
+                        <View style={styles.leftSection.certificationHeading}>
+                            <Image 
+                                src={Layers}
+                                style={styles.leftSection.layersIcon}
+                            />
+                            <Text style={styles.leftSection.certText}>Certifications</Text>
+                        </View>
+                        <View style={styles.leftSection.certificates}>
+                            <View style={styles.leftSection.cert1}>
+                                <Text style={styles.leftSection.cert}>Best Graduating Student -</Text>
+                                <Text style={styles.leftSection.organization}>Apple(2025-05-01 to 2025-05-01)</Text>
+                            </View>
+                            <View style={styles.leftSection.cert2}>
+                                <Text style={styles.leftSection.cert}>Best Graduating Student -</Text>
+                                <Text style={styles.leftSection.organization}>Meta(2025-05-01 to 2025-05-01)</Text>
+                            </View>
+                        </View>
+                    </View>
+                    {/* References */}
+                    <View style={styles.leftSection.references}>
+                        <View style={styles.leftSection.referencesHeading}>
+                            <Image
+                                src={Link}
+                                style={styles.leftSection.linkIcon}
+                            />
+                            <Text style={styles.leftSection.refText}>References</Text>
+                        </View>
+                        <View style={styles.leftSection.referenceDetails}>
+                            <View style={styles.leftSection.nameAndRel}>
+                                <Text style={styles.leftSection.nameOfReference}>Mohamed Osman Turay  </Text>
+                                <Text></Text>
+                                <Text>(Father)</Text>
+                            </View>
+                            <Text>Contact: turaymohamed83@gmail.com</Text>
                         </View>
                     </View>
                 </View>
             </View>
             {/* Right Section  */}
             <View style={styles.rightSection}>
-                <View>
-                    <Text style={styles.rightSection.rightHeader}>Details</Text>
+                <Text style={styles.rightSection.rightHeader}>Details</Text>
+                <View style={styles.rightSection.userPersonalDetails}>
+                    <Text style={styles.rightSection.userD}>25 Martin Farmah Street</Text>
+                    <Text style={styles.rightSection.userD}>Freetown</Text>
+                    <Text style={styles.rightSection.userD}>+23274912538</Text>
+                    <Text style={styles.rightSection.email}>anwarrturay@icloud.com</Text>
+
+                    <View style={styles.rightSection.dobAndCountry}>
+                        <Text style={styles.rightSection.dateOrPlaceHeading}>Date / Place Of birth</Text>
+                        <Text style={styles.rightSection.dob}>16th December, 2003</Text>
+                        <Text style={styles.rightSection.cityOfBirth}>Freetown</Text>
+                    </View>
+                    <View style={styles.rightSection.nationalityCont}>
+                        <Text style={styles.rightSection.nationalityHeading}>Nationality</Text>
+                        <Text style={styles.rightSection.nationality}>Sierra Leonean</Text>
+                    </View>
+                </View>
+                <View style={styles.rightSection.languagesCont}>
+                    <Text style={styles.rightSection.languages}>Languages</Text>
+                    <Text style={styles.rightSection.lang}>French</Text>
+                    <Text style={styles.rightSection.lang}>English</Text>
+                    <Text style={styles.rightSection.lang}>Krio</Text>
+                    <Text style={styles.rightSection.lang}>Temne</Text>
+                </View>
+                <View style={styles.rightSection.skills}>
+                    <Text style={styles.rightSection.skillHeading}>Skills</Text>
+                    <Text style={styles.rightSection.skill}>React</Text>
+                    <Text style={styles.rightSection.skill}>JavaScript</Text>
+                    <Text style={styles.rightSection.skill}>NodeJs</Text>
+                    <Text style={styles.rightSection.skill}>TailwindCss</Text>
+                    <Text style={styles.rightSection.skill}>Typescript</Text>
+                    <Text style={styles.rightSection.skill}>Express</Text>
+                    <Text style={styles.rightSection.skill}>UI/UX Designer</Text>
+                </View>
+                <View style={styles.rightSection.hobbiesCont}>
+                    <View>
+                       <Text style={styles.rightSection.hobbiesHeading}>Hobbies</Text>
+                    </View>
+                    <Text style={styles.rightSection.hobbies}>Reading, Coding, Listening Music, playing</Text>
                 </View>
             </View>
         </View>
