@@ -79,6 +79,17 @@ const PersonalDetails = ({handleChange, formData, setStep}) => {
                 className="resume-field"
             />
             <input
+                type="text"
+                id='nationality'
+                autoComplete="off"
+                value={formData.personalDetails.nationality}
+                onChange={(e) =>
+                    handleChange("personalDetails", "nationality", e.target.value)
+                }
+                placeholder="Nationality"
+                className="resume-field"
+            />
+            <input
                 type="date"
                 id='date'
                 autoComplete="off"

@@ -78,28 +78,28 @@ const Certifications = ({ formData, setFormData, setStep }) => {
           </div>
         </button>
 
-        {formData.certifications.length > 0 && (
-          <div className="mt-4 w-full text-sm text-left">
-            <h2 className="font-semibold mx-3">Your Certifications:</h2>
-            <ul className="space-y-1 mx-3">
-              {formData.certifications.map((cert, idx) => (
-                <li key={idx} className="bg-gray-100 p-2 rounded">
-                  <strong>{cert.name}</strong> – {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+          {formData.certifications.length > 0 && (
+            <div className="mt-4 w-full text-sm text-left">
+              <h2 className="font-semibold mx-3">Your Certifications:</h2>
+              <ul className="space-y-1 mx-3">
+                {formData.certifications.map((cert, idx) => (
+                  <li key={idx} className="bg-gray-100 p-2 rounded">
+                    <strong>{cert.name}</strong> – {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-        <div className="flex flex-col mt-3">
+        <div className="flex flex-col items-center justify-center mt-3 mb-3">
           <button 
             type="button" 
-            className="back-btn" 
+            className="m-2 bg-gray-400 text-white p-2.5 text-lg rounded-md cursor-pointer w-[307px] xs:w-[312px] sm:w-[385px] md:w-[480px]" 
             onClick={() => setStep(6)}
           >Back</button>
           <button 
             type="button" 
-            className="m-2 bg-[#2A5D9E] text-white px-32 py-2 rounded-md" 
+            className="next-btn" 
             onClick={() => setStep(8)}
           >Next</button>
         </div>

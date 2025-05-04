@@ -26,9 +26,9 @@ const Hobbies = ({ formData, setFormData, setStep }) => {
   return (
     <section className="flex flex-col items-center justify-center mt-5 w-full">
       <h1 className="text-lg font-bold mb-2">Hobbies (Optional)</h1>
-      <p className="text-sm text-gray-600 mb-4">List any hobbies or activities you enjoy outside of work</p>
+      <p className="text-sm text-gray-600 mb-4 text-center">List any hobbies or activities you enjoy outside of work</p>
 
-      <div className="w-full max-w-md">
+      <div className="w-full flex flex-col items-center justify-center">
         <input
           type="text"
           placeholder="Enter Hobby"
@@ -71,14 +71,14 @@ const Hobbies = ({ formData, setFormData, setStep }) => {
           <button
             type="button"
             className="back-btn"
-            onClick={() => setStep(11)}
+            onClick={() => setStep(9)}
           >
             Back
           </button>
           <button
             type="button"
             className="m-2 next-btn"
-            onClick={() => setStep(12)}
+            onClick={() => setStep(11)}
           >
             Next
           </button>

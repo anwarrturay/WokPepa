@@ -24,6 +24,7 @@ const CreateNewResume = () => {
       email: "",
       phone: "",
       address: "",
+	  nationality: "",
       dob: "",
       country: "",
     },
@@ -43,16 +44,16 @@ const CreateNewResume = () => {
 	projects: [{
 		title: "",
 		description: "",
-		technologies: ""
+		tools: ""
 	}],
-	certifications: [{ // left section
+	certifications: [{ 
 		name: "",
 		issuingOrganization: "",
 		issueDate: "",
 		expirationDate: ""
 	}],
 	languages: [],
-	references: [], // left section
+	references: [], 
 	hobbies: [],
     skills: [],
     image: null,
@@ -123,7 +124,7 @@ const CreateNewResume = () => {
 				)}
 
 				{step === 6 && (
-					<Projects handleChange={handleChange} formData={formData} setStep={setStep}/>
+					<Projects handleChange={handleChange} formData={formData} setFormData={setFormData} setStep={setStep}/>
 				)}
 
 				{step === 7 && (

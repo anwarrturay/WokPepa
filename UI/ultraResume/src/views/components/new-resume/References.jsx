@@ -30,9 +30,9 @@ const References = ({ formData, setFormData, setStep }) => {
   return (
     <section className="flex flex-col items-center justify-center mt-5 w-full">
       <h1 className="text-lg font-bold mb-2">References (Optional)</h1>
-      <p className="text-sm text-gray-600 mb-4">Add references for professional recommendations</p>
+      <p className="text-sm text-gray-600 mb-4 text-center">Add references for professional recommendations</p>
 
-      <div className="w-full max-w-md">
+      <div className="flex flex-col items-center justify-center w-full">
         <input
           type="text"
           placeholder="Reference Name"
@@ -63,7 +63,7 @@ const References = ({ formData, setFormData, setStep }) => {
           className="next-btn mt-3"
         >
           <div className="flex items-center justify-center">
-            <Plus size={20} className="mr-2" />
+            <Plus size={24} className="mr-2" />
             Add Reference
           </div>
         </button>
@@ -94,14 +94,14 @@ const References = ({ formData, setFormData, setStep }) => {
           <button
             type="button"
             className="back-btn"
-            onClick={() => setStep(9)}
+            onClick={() => setStep(8)}
           >
             Back
           </button>
           <button
             type="button"
             className="m-2 next-btn"
-            onClick={() => setStep(11)}
+            onClick={() => setStep(10)}
           >
             Next
           </button>

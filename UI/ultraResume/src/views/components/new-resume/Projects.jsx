@@ -1,92 +1,123 @@
-import React from 'react';
+import { Plus } from 'lucide-react';
+import React, { useState } from 'react';
 
-const Projects = ({ formData, handleChange, setStep }) => {
-  const { projects } = formData;
-  console.log(Array.isArray(projects))
+const Projects = ({ formData, setFormData, setStep }) => {
+  const { projects = [] } = formData;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [tools, setTools] = useState('');
 
-  const handleProjectChange = (index, field, value) => {
-    const updatedProjects = [...projects];
-    updatedProjects[index][field] = value;
-    handleChange("projects", null, updatedProjects);
+  const handleSubmitProject = (e) => {
+    e.preventDefault();
+    if (title.trim() && description.trim() && tools.trim()) {
+      addProject(title, description, tools);
+      setTitle('');
+      setDescription('');
+      setTools('');
+    } else {
+      alert('Please fill out all fields before adding a project.');
+    }
   };
 
-  const addProject = () => {
-    const newProject = { title: '', description: '', technologies: '' };
-    handleChange("projects", null, [...projects, newProject]);
+  const addProject = (title, description, tools) => {
+    const newProject = { title, description, tools };
+    setFormData({
+      ...formData,
+      projects: [...projects, newProject],
+    });
   };
 
   const removeProject = (index) => {
     const updatedProjects = projects.filter((_, i) => i !== index);
-    handleChange("projects", null, updatedProjects);
+    setFormData({
+      ...formData,
+      projects: updatedProjects,
+    });
   };
 
   return (
     <section className="flex flex-col items-center justify-center mt-5 w-full px-4">
       <h1 className="text-xl font-bold mb-4">Projects</h1>
-      <form onSubmit={(e) => e.preventDefault()} className="w-full max-w-2xl flex flex-col gap-6">
 
-        {Array.isArray(projects) && projects.map((project, index) => (
-          <div key={index} className="p-4 border-none space-y-4 relative">
-            <h2 className="text-lg font-semibold text-[#2A5D9E]">Project {index + 1}</h2>
+      <form
+        onSubmit={handleSubmitProject}
+        className="w-full max-w-2xl flex flex-col items-center justify-center gap-6"
+      >
+        <div className="p-4 rounded-md space-y-4 relative flex flex-col items-center justify-center">
+          <h2 className="text-lg font-semibold text-[#2A5D9E]">Add a New Project</h2>
 
-            <input
-              type="text"
-              placeholder="Project Title"
-              value={project.title}
-              onChange={(e) => handleProjectChange(index, "title", e.target.value)}
-              className="resume-field"
-              aria-label={`Project ${index + 1} Title`}
-            />
+          <input
+            type="text"
+            placeholder="Project Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border border-[#ccc] outline-none focus:ring focus:ring-[#2A5D9E] py-2 w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
+            aria-label="Project Title"
+          />
 
-            <textarea
-              placeholder="Project Description"
-              value={project.description}
-              onChange={(e) => handleProjectChange(index, "description", e.target.value)}
-              className="resume-field h-28 resize-none"
-              aria-label={`Project ${index + 1} Description`}
-            />
+          <textarea
+            placeholder="Project Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="h-28 resize-none border border-[#ccc] w-[280px] outline-none focus:ring focus:ring-[#2A5D9E] xs:w-[312px] sm:w-[385px] md:w-[480px]"
+            aria-label="Project Description"
+          />
 
-            <input
-              type="text"
-              placeholder="Technologies Used (e.g. React, Node.js)"
-              value={project.technologies}
-              onChange={(e) => handleProjectChange(index, "technologies", e.target.value)}
-              className="resume-field"
-              aria-label={`Project ${index + 1} Technologies`}
-            />
+          <input
+            type="text"
+            placeholder="Tools Used (e.g. React, Node.js)"
+            value={tools}
+            onChange={(e) => setTools(e.target.value)}
+            className="border border-[#ccc] outline-none py-2 w-[280px] focus:ring focus:ring-[#2A5D9E] xs:w-[312px] sm:w-[385px] md:w-[480px]"
+            aria-label="Project Tools"
+          />
 
-            {projects.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeProject(index)}
-                className="text-red-500 text-sm absolute top-4 right-4 hover:underline"
-              >
-                Remove
-              </button>
-            )}
-          </div>
-        ))}
-
-        <button
-          type="button"
-          onClick={addProject}
-          className="self-start text-sm text-blue-600 hover:underline"
-        >
-          + Add Another Project
-        </button>
-
-        <div className="flex flex-col justify-between mt-6">
           <button
-            type="button"
-            className="back-btn px-4 py-2 rounded-md border border-gray-400 hover:bg-gray-100 transition"
+            type="submit"
+            className="flex items-center justify-center bg-[#2A5D9E] rounded-md text-white font-medium text-center py-2 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
+          >
+            <Plus size={24} className="mr-3" />
+            Add Project
+          </button>
+        </div>
+
+        {projects.length > 0 && (
+          <div className="w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px] space-y-4">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="border p-4 rounded-md bg-gray-50 relative w-full"
+              >
+                <h3 className="font-semibold text-[#2A5D9E] mb-1">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-gray-700 mb-1">{project.description}</p>
+                <p className="text-sm text-gray-600 italic">{project.tools}</p>
+
+                <button
+                  type="button"
+                  onClick={() => removeProject(index)}
+                  className="text-red-500 text-sm absolute top-2 right-4 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="flex flex-col space-y-4 mb-5 items-center">
+          <button
             onClick={() => setStep(5)}
+            type="button"
+            className="m-2 bg-gray-400 text-white p-2.5 text-lg rounded-md cursor-pointer w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
           >
             Back
           </button>
           <button
-            type="button"
-            className="next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md hover:bg-[#1f4a7d] transition"
             onClick={() => setStep(7)}
+            type="button"
+            className="bg-[#2A5D9E] rounded-md text-white font-medium text-center py-2 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
           >
             Next
           </button>

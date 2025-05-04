@@ -11,7 +11,7 @@ const Review = ({handleSubmit, setStep}) => {
 			<button
 				type="button"
 				className="back-btn"
-				onClick={() => setStep(4)}
+				onClick={() => setStep(10)}
 			>
 				Back
 			</button>
