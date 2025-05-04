@@ -9,7 +9,6 @@ import axios from '../../api/axios';
 import Failure from '../../utils/Failure';
 import Success from '../../utils/Success';
 import CircleAlert from '../../utils/CircleAlert';
-import Loading from '../../utils/Loading';
 import useAuth from "../../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
 import PasswordVisibility from '../../utils/PasswordVisibility';
