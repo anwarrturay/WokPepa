@@ -3,7 +3,7 @@ import Register from "../views/components/Register";
 import ForgotPassword from "../views/components/ForgotPassword";
 import ResetPassword from "../views/components/ResetPassword";
 import Layout from "../views/components/Layout";
-import CreateNewResume from "../views/components/createNewResume";
+import CreateNewResume from "../views/components/CreateNewResume";
 import RequireAuth from "../utils/RequireAuth";
 import Roles_List from "../utils/Roles_List"
 import AdminUI from "../views/admin/AdminUI";
