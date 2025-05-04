@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import routes from './routes/Routes';
+import routes from './routes/routes';
 import Splash from "./views/components/Splash";
 import useAuth from "./hooks/useAuth";
 const router = createBrowserRouter(routes);
