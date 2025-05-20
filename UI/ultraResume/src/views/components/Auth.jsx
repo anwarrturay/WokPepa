@@ -13,6 +13,8 @@ import useAuth from "../../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
 import PasswordVisibility from '../../utils/PasswordVisibility';
 import { LoaderCircle } from 'lucide-react';
+import { FcGoogle } from "react-icons/fc";
+import { BASE_URL } from '../../api/axios';
 const Auth = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,6 +30,10 @@ const Auth = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         resolver: yupResolver(loginSchema)
     });
+
+    const handleGoogleLogin = () => {
+        window.open(`${BASE_URL}/auth/google`, "_self")
+    };
 
 
     const handleSubmitForm = async (data) => {
@@ -66,7 +72,7 @@ const Auth = () => {
 
             setTimeout(()=>{
                 if (!err?.response) {
-                    setErrMsg("No Server Response");
+                    setErrMsg("Something went wrong");
                 } else if (err.response?.status === 401) {
                     setErrMsg("Incorrect email or password");
                 } else {
@@ -91,8 +97,26 @@ const Auth = () => {
             <div className='flex flex-col relative top-12 font-montserrat'>
                 <div className="flex flex-col items-center justify-center">
                     <h2 className="font-bold font-Montserrat m-2 text-lg text-[#333333] text-center">
-                        Sign In with an UltraResume Account
+                        Sign In with a WokPepa Account
                     </h2>
+
+                    {/* OAuth2.0 Button */}
+                    <div className="space-y-3 mt-3">
+                        <button
+                            onClick={handleGoogleLogin}
+                            className="flex items-center justify-center w-[280px] xs:w-[312px] sm:w-[385px] px-2 py-2.5 border border-[#ccc] rounded-md hover:bg-gray-100 transition cursor-pointer"
+                        >
+                            <FcGoogle className="text-xl mr-2" />
+                            <span className="text-sm font-medium">Continue with Google</span>
+                        </button>
+                    </div>
+                    {/* Divider */}
+                    <div className="flex items-center my-3">
+                        <div className="flex-grow h-px bg-gray-300"></div>
+                        <span className="px-4 text-sm text-gray-500">or continue with</span>
+                        <div className="flex-grow h-px bg-gray-300"></div>
+                    </div>
+
                     <div className="flex  items-center relative top-3 justify-center">
                         {success ? <Success /> : (errMsg && <Failure errMsg={errMsg}/>)}
                     </div>
@@ -139,7 +163,6 @@ const Auth = () => {
                     {isLoading ? 
                         <div className='flex items-center justify-center gap-2'>                            
                             <LoaderCircle className='animate-spin' /> 
-                            Signing in...
                         </div>
                         :
                         "Sign In"}

@@ -1,8 +1,10 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose")
 const cors = require("cors");
+const passport = require("passport");
 const registerRoute =  require("./routes/register")
 const authRoute = require("./routes/auth")
 const resumeRoute = require("./routes/resumes");
@@ -19,6 +21,7 @@ const connectDB = require("./config/dbconn");
 const verifyJWT = require("./middleware/verifyJWT");
 const credentials = require("./middleware/credentials");
 require('dotenv').config();
+require('./config/passport');
 
 connectDB();
 
@@ -28,6 +31,21 @@ const PORT = process.env.PORT || 3500;
 // Middleware
 app.use(credentials);
 app.use(cors(corsOptions));
+
+app.use(
+  session({
+    secret: process.env.COOKIE_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(logger); 
 

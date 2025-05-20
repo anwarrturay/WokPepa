@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/ultraResume-book.png";
 import {useNavigate} from "react-router";
 import PersonalDetails from "./new-resume/PersonalDetails";
@@ -12,78 +12,146 @@ import Certifications from "./new-resume/Certifications";
 import Languages from "./new-resume/Languages"
 import Hobbies from "./new-resume/Hobbies"
 import References from "./new-resume/References";
-import MyDocument from "./new-resume/resumepdf/MyDocument";
-import { PDFViewer } from '@react-pdf/renderer';
-
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useAuth from "../../hooks/useAuth";
 const CreateNewResume = () => {
   const [step, setStep] = useState(1);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const userId = auth?.userId;
+
   const [formData, setFormData] = useState({
     personalDetails: {
       name: "",
       email: "",
       phone: "",
       address: "",
-	  nationality: "",
+	    nationality: "",
       dob: "",
       country: "",
+      imageFile: null
     },
-	summary: "",
+	  summary: [],
     experience: {
       jobTitle: "",
       company: "",
-	  responsibilities: "",
+	    responsibilities: "",
       startDate: "",
       endDate: "",
     },
     education: {
       level: "",
       school: "",
-      year: "",
+      degree: "",
+      startDate: "",
+      endDate: ""
     },
-	projects: [{
-		title: "",
-		description: "",
-		tools: ""
-	}],
-	certifications: [{ 
-		name: "",
-		issuingOrganization: "",
-		issueDate: "",
-		expirationDate: ""
-	}],
-	languages: [],
-	references: [], 
-	hobbies: [],
+    projects: [{
+      title: "",
+      description: "",
+      tools: ""
+    }],
+    certifications: [{ 
+      name: "",
+      issuingOrganization: "",
+      issueDate: "",
+      expirationDate: ""
+    }],
+	  languages: [],
+	  references: [{
+      name: "",
+      position: "",
+      contact: ""
+    }], 
+	  hobbies: [],
     skills: [],
     image: null,
   });
 
-  // Handles input change
-  const handleChange = (section, field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [section]: { ...prev[section], [field]: value },
-    }));
-  };
+    const [selectedFile, setSelectedFile] = useState(""); // For image preview
+    const [imageFile, setImageFile] = useState(null); 
 
+    const handleChange = (section, field, value) => {
+      if (section === "image") {
+        setFormData(prev => ({
+          ...prev,
+          image: value
+        }));
+      } else if (section === "summary") {
+        setFormData(prev => ({
+          ...prev,
+          summary: value
+        }));
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          [section]: {
+            ...prev[section],
+            [field]: value
+          }
+        }));
+      }
+    };
 
   // Handle form submission
-  const handleSubmit = () => {
-    console.log("Submitting form data:", formData);
-    // Send data to your backend API
-    fetch("YOUR_BACKEND_ENDPOINT", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log("Success:", data))
-      .catch((error) => console.error("Error:", error));
-  };
+    const handleSubmit = async () => {
+      const buildFormData = (formDataObj) => {
+        const form = new FormData();
+
+        // Append image file
+        if (formDataObj.image) {
+          form.append("image", formDataObj.image);
+        }
+
+        const appendNestedData = (data, parentKey = "") => {
+          if (data instanceof File || data === null) return;
+
+          if (Array.isArray(data)) {
+            data.forEach((item, index) => {
+              appendNestedData(item, `${parentKey}[${index}]`);
+            });
+          } else if (typeof data === "object") {
+            Object.entries(data).forEach(([key, value]) => {
+              appendNestedData(value, parentKey ? `${parentKey}.${key}` : key);
+            });
+          } else {
+            form.append(parentKey, data);
+          }
+        };
+
+        Object.entries(formDataObj).forEach(([key, value]) => {
+          if (key !== "image") {
+            appendNestedData(value, key);
+          }
+        });
+
+        return form;
+      };
+
+      try {
+        const payload = buildFormData(formData);
+        const response = await axiosPrivate.post(
+          `/resumes/${userId}`,
+          payload,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }
+        );
+
+        if (response.status === 200) {
+          alert("Resume Created Successfully");
+        }
+      } catch (err) {
+        console.error("Unable to create a new resume", err);
+      }
+    };
+
 
   const goHome = ()=>{
-	navigate("/user-resume-dashboard")
+	  navigate("/user-resume-dashboard")
   }
 
   return (
@@ -104,7 +172,13 @@ const CreateNewResume = () => {
 		<div className="flex flex-col xl:flex-row xl:items-start xl:justify-evenly justify-center items-center w-full">
 			<div className="flex flex-col w-full xl:w-[500px]">
 				{step === 1 && (
-					<PersonalDetails handleChange={handleChange} formData={formData} setStep={setStep}/>
+					<PersonalDetails 
+            handleChange={handleChange} 
+            formData={formData} setStep={setStep}           
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            setImageFile={setImageFile}
+          />
 				)}
 
 				{step === 2 &&(
@@ -145,20 +219,7 @@ const CreateNewResume = () => {
 				{step === 11 && (
 					<Review handleSubmit={handleSubmit} setStep={setStep}/>
 				)}
-			</div>
-			<div className="mt-5 flex flex-col items-center justify-center">
-				<h1 className="font-medium mb-2 text-xl">Resume Preview</h1>   
-				<div style={{ height: '500px', backgroundColor: "white"}}>
-					<PDFViewer 
-						style={{
-							height: '100%',
-							backgroundColor: '#fff',
-							border: 'none',
-						}}
-					>
-						<MyDocument />
-					</PDFViewer>
-				</div>
+
 			</div>
 		</div>
     </section>

@@ -37,4 +37,5 @@ const registerNewUser = async (req, res, next) => {
 
 };
 
+
 module.exports = registerNewUser;

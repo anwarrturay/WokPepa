@@ -10,7 +10,7 @@ const Certifications = ({ formData, setFormData, setStep }) => {
   });
 
   const handleChange = (field, value) => {
-    setCertification((prev) => ({
+    setCertification(prev => ({
       ...prev,
       [field]: value,
     }));
@@ -18,13 +18,30 @@ const Certifications = ({ formData, setFormData, setStep }) => {
 
   const handleAddCertification = () => {
     const { name, issuingOrganization, issueDate, expirationDate } = certification;
-    if (name && issuingOrganization && issueDate && expirationDate) {
-      setFormData((prev) => ({
-        ...prev,
-        certifications: [...prev.certifications, certification],
-      }));
-      setCertification({ name: "", issuingOrganization: "", issueDate: "", expirationDate: "" });
+
+    const isValid =
+      name.trim() &&
+      issuingOrganization.trim() &&
+      issueDate &&
+      expirationDate;
+
+    if (!isValid) {
+      alert("Please fill in all fields before adding a certification.");
+      return;
     }
+
+    setFormData(prev => ({
+      ...prev,
+      certifications: [...prev.certifications, certification],
+    }));
+
+    // Reset current input
+    setCertification({
+      name: "",
+      issuingOrganization: "",
+      issueDate: "",
+      expirationDate: ""
+    });
   };
 
   return (
@@ -67,29 +84,30 @@ const Certifications = ({ formData, setFormData, setStep }) => {
             className="resume-field"
           />
         </div>
+
         <button
           type="button"
           className="next-btn m-2"
           onClick={handleAddCertification}
         >
           <div className="flex items-center justify-center">
-            <Plus size={24}  className='m-2'/>
+            <Plus size={24} className='m-2' />
             Add Certification
           </div>
         </button>
 
-          {formData.certifications.length > 0 && (
-            <div className="mt-4 w-full text-sm text-left">
-              <h2 className="font-semibold mx-3">Your Certifications:</h2>
-              <ul className="space-y-1 mx-3">
-                {formData.certifications.map((cert, idx) => (
-                  <li key={idx} className="bg-gray-100 p-2 rounded">
-                    <strong>{cert.name}</strong> – {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        {formData.certifications.length > 0 && (
+          <div className="mt-4 w-full text-sm text-left">
+            <h2 className="font-semibold mx-3">Your Certifications:</h2>
+            <ul className="space-y-1 mx-3">
+              {formData.certifications.map((cert, idx) => (
+                <li key={idx} className="bg-gray-100 p-2 rounded">
+                  <strong>{cert.name}</strong> – {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="flex flex-col items-center justify-center mt-3 mb-3">
           <button 

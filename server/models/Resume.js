@@ -8,16 +8,12 @@ const ResumeSchema = new Schema(
       ref: "User",
       required: true,
     },
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     personalDetails: {
       name: { type: String, required: true, trim: true },
       email: { type: String, required: true, trim: true },
       phone: { type: Number, required: true, trim: true },
       address: { type: String, required: true, trim: true },
+      nationality: {type: String, required:true, trim:true},
       dob: {
         type: Date,
         required: true,
@@ -29,14 +25,12 @@ const ResumeSchema = new Schema(
         },
       },
       country: { type: String, required: true, trim: true },
-      linkedin: { type: String, trim: true },
-      github: { type: String, trim: true },
-      twitter: { type: String, trim: true },
+      
     },
-    summary: {
+    summary: [{
       type: String,
       trim: true,
-    },
+    }],
     experience: [
       {
         jobTitle: { type: String, required: true, trim: true },
@@ -58,9 +52,9 @@ const ResumeSchema = new Schema(
     skills: [{ type: String, trim: true }],
     projects: [
       {
-        name: { type: String, required: true, trim: true },
+        title: { type: String, required: true, trim: true },
         description: { type: String, required: true, trim: true },
-        technologies: [{ type: String, trim: true }],
+        tools: [{ type: String, trim: true }],
       },
     ],
     certifications: [
@@ -72,7 +66,6 @@ const ResumeSchema = new Schema(
       },
     ],
     languages: [{ type: String, trim: true }],
-    awards: [{ type: String, trim: true }],
     references: [
       {
         name: { type: String, required: true, trim: true },

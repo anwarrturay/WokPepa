@@ -14,6 +14,7 @@ import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
 import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
 import GeneratePdf from "../views/components/new-resume/resumepdf/GeneratePdf";
+import OAuthRedirect from "../views/components/OAuthRedirect";
 const routes = [
     {
         path: '/',
@@ -32,7 +33,21 @@ const routes = [
         element: <ResetPassword />
     },
     {
+        path: "oauth-redirect",
+        element: <OAuthRedirect />
+    },
+    {
         path: 'user-resume-dashboard',
+        element: (
+            <PersistentLogin>
+                <RequireAuth allowedRoles={[Roles_List.USER]}>
+                    <Layout />
+                </RequireAuth>
+            </PersistentLogin>
+        )
+    },
+    {
+        path: 'user-resume-dashboard/:token',
         element: (
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.USER]}>

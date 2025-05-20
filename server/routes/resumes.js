@@ -6,7 +6,6 @@ const {
     updateResume, 
     deleteResume, 
     getSpecificResume, 
-    // generateResumePDF 
 } = require("../controllers/resumeController");
 const verifyRoles = require("../middleware/verifyRoles");
 const ROLES_LIST = require("../config/roles_list");
@@ -17,7 +16,5 @@ router.route("/")
     .delete(verifyRoles(ROLES_LIST.USER), deleteResume);
 router.post("/:id", upload.single("image"), verifyRoles(ROLES_LIST.USER), createNewResume)
 router.route("/:id/pdf").get(verifyRoles(ROLES_LIST.USER), getSpecificResume)
-// router.route("/:userId")
-//     .get(getSpecificResume)
 
 module.exports = router;

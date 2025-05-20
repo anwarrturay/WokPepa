@@ -9,6 +9,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from '../../utils/schemas/FieldValidations';
 import CircleAlert from '../../utils/CircleAlert';
 import PasswordVisibility from '../../utils/PasswordVisibility';
+import {FcGoogle} from "react-icons/fc";
+import { BASE_URL } from '../../api/axios';
 const Register = () => {
     const register_url = "/register";
     const [success, setSuccess] = useState(false);
@@ -16,13 +18,17 @@ const Register = () => {
     const navigate = useNavigate();
     const { passwordToggleButton, showPassword } = PasswordVisibility();
 
-    const { register, handleSubmit, formState: {errors} } = useForm({
+    const { register, handleSubmit, formState: {errors}, watch } = useForm({
         resolver: yupResolver(schema)
     })
+
+    const handleGoogleSignup = () => {
+        window.open(`${BASE_URL}/auth/google`,  "_self");
+    };
         
 
     const handleSubmitForm = async (data)=>{
-        console.log("clicked", data) // log the data that you get from the from fields
+        console.log("clicked", data) 
 
         const formData = new FormData();
         formData.append("firstname", data.firstname);
@@ -60,9 +66,6 @@ const Register = () => {
         }
     }
 
-    // arranging the height of the registration based on whether their are errors or not.
-    const height = !errors.firstname && !errors.lastname && !errors.email && !errors.password && !errors.profession && !errors.image ? "h-[680px]" : "h-[1040px]"
-
     const marginBottom = "mb-2"
 
   return (
@@ -71,17 +74,30 @@ const Register = () => {
             <div className="flex flex-col items-center justify-center">
                 <img src={ultraResumeLogo} alt="" className='w-[50px]'/>
             </div>
-            <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create an UltraResume Account</div>
+            <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create a WokPepa Account</div>
             <p className='font-Montserrat ml-2 mt-2 mb-3 text-base text-center'>
                 Already have an account?{' '}
                 <span onClick={()=> navigate(-1)} className="text-[#2A5D9E] cursor-pointer font-medium">
                     Sign In
                 </span>
             </p>
-            <div className={`flex items-center relative top-3 justify-center ${success ? "flex" : "hidden"}`}>
-                    {success ? <Success /> : <Failure errMsg={errMsg} />}
+            <div className="flex flex-col items-center justify-center">
+                {/* Google OAuth Button */}
+                <button
+                    onClick={handleGoogleSignup}
+                    className="flex items-center justify-center w-[280px] xs:w-[312px] sm:w-[385px] px-2 py-2.5 border border-[#ccc] rounded-md hover:bg-gray-100 transition cursor-pointer"
+                >
+                    <FcGoogle className="text-xl mr-2" />
+                    <span className="text-sm font-medium">Sign up with Google</span>
+                </button>
+                {/* Divider */}
+                <div className="flex items-center my-3">
+                    <div className="flex-grow h-px bg-gray-300"></div>
+                    <span className="px-4 text-sm text-gray-500">or continue with</span>
+                    <div className="flex-grow h-px bg-gray-300"></div>
+                </div>
             </div>
-            <form onSubmit={handleSubmit(handleSubmitForm)} className='flex flex-col items-center mx-4 mt-8'>
+            <form onSubmit={handleSubmit(handleSubmitForm)} className='flex flex-col items-center mx-4 mt-5'>
                 <div className="flex flex-col">
                     <input 
                         type="text"
@@ -155,8 +171,9 @@ const Register = () => {
                             placeholder="Password"
                             className="input-field"
                         />
-                        {passwordToggleButton}
+                        {watch("password") && passwordToggleButton}
                     </div>
+                    <div className='text-[12px] text-gray-700 font-medium mb-2'>Passwords must be atleast 8 characters</div>
                     {errors.password &&
 
                         <div className={`flex items-center ${marginBottom}`}>
