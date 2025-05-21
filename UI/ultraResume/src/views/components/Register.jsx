@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router';
 import ultraResumeLogo from "../../assets/ultraResume-full.png";
 import axios from "../../api/axios";
-import Success from "../../utils/Success"
-import Failure from "../../utils/Failure"
+import VerificationLinkMsg from "../../utils/messages/VerificationLinkMsg"
+import FailedMsg from "../../utils/messages/FailedMsg"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from '../../utils/schemas/FieldValidations';
-import CircleAlert from '../../utils/CircleAlert';
 import PasswordVisibility from '../../utils/PasswordVisibility';
-import {FcGoogle} from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import { BASE_URL } from '../../api/axios';
+import { LoaderCircle } from 'lucide-react';
+
 const Register = () => {
     const register_url = "/register";
     const [success, setSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const navigate = useNavigate();
     const { passwordToggleButton, showPassword } = PasswordVisibility();
 
-    const { register, handleSubmit, formState: {errors}, watch } = useForm({
+    const { register, handleSubmit, formState: {errors}, watch, reset } = useForm({
         resolver: yupResolver(schema)
     })
 
@@ -29,6 +31,7 @@ const Register = () => {
 
     const handleSubmitForm = async (data)=>{
         console.log("clicked", data) 
+        setIsLoading(true);
 
         const formData = new FormData();
         formData.append("firstname", data.firstname);
@@ -42,7 +45,6 @@ const Register = () => {
             formData.append("image", data.image[0]);
         }
 
-        
         try{
             const response = await axios.post(
                 register_url, 
@@ -52,17 +54,26 @@ const Register = () => {
                 }
             )
             console.log(response.data);
-            setSuccess(true);
-            setErrMsg("");
-            setTimeout(() => navigate("/"), 1500);
-        }catch(err){
-            if(!err?.response){
-                setErrMsg("No Server response");
-            }else if(err.response?.status === 409){
-                setErrMsg("A user with this name already exist");
-            }else{
-                setErrMsg("Registration Failed");
+            if(response.status === 201){
+                setSuccess(true);
+                reset();
+                setErrMsg("");
             }
+        }catch(err){
+            setIsLoading(false);
+            setErrMsg("");
+
+            setTimeout(()=>{
+                if(!err?.response){
+                    setErrMsg("No Server response");
+                }else if(err.response?.status === 409){
+                    setErrMsg("A user with this name already exist");
+                }else{
+                    setErrMsg("Registration Failed");
+                }
+            }, 50)
+        }finally{
+            setIsLoading(false);
         }
     }
 
@@ -81,6 +92,10 @@ const Register = () => {
                     Sign In
                 </span>
             </p>
+            {success ? 
+					(<VerificationLinkMsg />) : 
+					(errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
+			}
             <div className="flex flex-col items-center justify-center">
                 {/* Google OAuth Button */}
                 <button
@@ -107,8 +122,7 @@ const Register = () => {
                         className="input-field"
                     />
                     {errors.firstname &&
-                        <div className={`flex items-center mb-2 marginBottom ${marginBottom}`}>
-                            <CircleAlert />
+                        <div className={`flex items-center`}>
                             <p className='text-start error-msg ml-2 mt-2'>{errors.firstname?.message}</p>
                         </div>
                     }
@@ -122,9 +136,7 @@ const Register = () => {
                         className="input-field"
                     />
                     {errors.lastname &&
-
                         <div className={`flex items-center ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg ml-2 mt-2'>{errors.lastname?.message}</p>
                         </div>
                     }
@@ -139,7 +151,6 @@ const Register = () => {
                     />
                     {errors.email && 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg ml-2 mt-2'>{errors.email?.message}</p>
                         </div>
                     }
@@ -156,7 +167,6 @@ const Register = () => {
                     {errors.telephone &&
                         
                         <div className={`flex items-start ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg w-[240px] ml-2 mt-2'>{errors.telephone?.message}</p>
                         </div>
                     }
@@ -177,7 +187,6 @@ const Register = () => {
                     {errors.password &&
 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg ml-2 mt-2'>{errors.password?.message}</p>
                         </div>
                     }
@@ -192,7 +201,6 @@ const Register = () => {
                     />
                     {errors.profession && 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg ml-2 mt-2'>{errors.profession?.message}</p>
                         </div>
                     }
@@ -206,7 +214,6 @@ const Register = () => {
                     />
                     { errors.image &&
                         <div className={`flex items-start ${marginBottom}`}>
-                            <CircleAlert />
                             <p className='error-msg w-[200px] ml-2 mt-2'>{errors.image?.message}</p>
                         </div>
                     }
@@ -215,7 +222,12 @@ const Register = () => {
                     type="submit" 
                     className="submit-btn"
                 >
-                    Create account
+                    {isLoading ? 
+                        <div className='flex items-center justify-center gap-2'>                            
+                            <LoaderCircle className='animate-spin' /> 
+                        </div>
+                        :
+                    "Create Account"}
                 </button>
             </form>
         </div>

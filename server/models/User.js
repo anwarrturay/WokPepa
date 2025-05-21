@@ -12,6 +12,10 @@ const usersSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isVerified:{
+    type:Boolean,
+    default: false
+  },
   firstname: {
     type: String,
   },
@@ -47,7 +51,6 @@ const usersSchema = new Schema({
       default: null,
     },
   },
-
   refreshToken: {
     type: String,
   },

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate"
 import useAuth from "../../../../hooks/useAuth";
-import Failure from "../../../../utils/Failure";
+import FailedMsg from "../../../../utils/messages/FailedMsg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { reportSchema } from "../../../../utils/schemas/ReportSchema";
@@ -54,7 +54,7 @@ const SubmitReport = () => {
               <div className="bg-[#00FF94] flex flex-col items-center justify-center py-2 w-[280px] xs:w-[312px] sm:w-[385px] rounded-md">
                 <p className="text-white font-medium">Report Sent Successfully</p>
               </div> : 
-              <Failure errMsg={errMsg} />}
+              <FailedMsg errMsg={errMsg} />}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Report Type</label>

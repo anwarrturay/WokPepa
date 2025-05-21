@@ -4,10 +4,9 @@ import Splash from "./views/components/Splash";
 import useAuth from "./hooks/useAuth";
 const router = createBrowserRouter(routes);
 function App() {
-  // const { showSplash } = useAuth();
-  // showSplash ? <Splash /> : 
+  const { showSplash } = useAuth();
   return (
-    <RouterProvider path="*" router={router} />
+    showSplash ? <Splash /> :<RouterProvider path="*" router={router} />
   );
 }
 

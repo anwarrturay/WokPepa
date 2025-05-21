@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Failure from '../../../utils/Failure';
-import Success from '../../../utils/Success';
+import { useEffect, useState } from 'react';
+import updateMsg from '../../../utils/messages/updateMsg';
+import FailedMsg from '../../../utils/messages/FailedMsg';
 import { v4 as uuidv4 } from 'uuid';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAuth from '../../../hooks/useAuth';
@@ -84,9 +84,10 @@ const MyDetails = () => {
     return (
         <>
             <form onSubmit={handleSubmit(handleUpdateProfile)} className='mt-4'>
-                <div className={`flex items-center relative top-3 justify-center ${success ? "flex" : "hidden"}`}>
-                    {success ? <Success /> : <Failure errMsg={errMsg} />}
-                </div>
+                {success ? 
+                        (<updateMsg />) : 
+                        (errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
+                }
                 {["firstname", "lastname", "profession"].map((field) => (
                     <div className="relative mt-2" key={uuidv4()}>
                         <input

@@ -5,6 +5,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 router.post("/", handleLogin);
+router.post("/:token", handleLogin);
 
 router.get(
   "/google",

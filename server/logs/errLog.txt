@@ -55,3 +55,4 @@
 20250513	10:55:35	63305453-488b-4a1f-8e22-f196c7391bf7	MulterError:Unexpected field
 20250513	10:55:35	d2e150bc-a659-4a27-83f3-f9505ffa1d2e	MulterError:Unexpected field
 20250520	01:08:32	a389a774-79d4-4734-aea8-8d68889c27e1	ReferenceError:image is not defined
+20250520	07:42:50	80049253-546e-49d4-a37f-cdef9266c6a8	MongoServerError:E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "anwarrturay03@gmail.com" }

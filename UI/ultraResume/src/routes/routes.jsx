@@ -21,6 +21,10 @@ const routes = [
         element: <Auth />
     },
     {
+        path: '/:token',
+        element: <Auth />
+    },
+    {
         path: 'register',
         element: <Register />
     },
@@ -38,16 +42,6 @@ const routes = [
     },
     {
         path: 'user-resume-dashboard',
-        element: (
-            <PersistentLogin>
-                <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <Layout />
-                </RequireAuth>
-            </PersistentLogin>
-        )
-    },
-    {
-        path: 'user-resume-dashboard/:token',
         element: (
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.USER]}>

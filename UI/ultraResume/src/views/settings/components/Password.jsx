@@ -1,11 +1,11 @@
-import React, { useState} from 'react'
+import { useState} from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordSchema } from '../../../utils/schemas/ChangePasswordSchema';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
 import useAuth from '../../../hooks/useAuth';
-import Failure from '../../../utils/Failure';
-import Success from '../../../utils/Success';
+import FailedMsg from '../../../utils/messages/FailedMsg';
+import updateMsg from '../../../utils/messages/updateMsg';
 import PasswordVisibility from '../../../utils/PasswordVisibility';
 const Password = () => {
     const [success, setSuccess] = useState(false);
@@ -47,9 +47,10 @@ const Password = () => {
     <>
         <p>Password</p>
         <form onSubmit={handleSubmit(handleChangePassword)} className='mt-4'>
-            <div className={`flex items-center relative top-3 justify-center ${success ? "flex" : "hidden"} mb-3`}>
-                {success ? <Success /> : <Failure errMsg={errMsg} />}
-            </div>
+            {success ? 
+                    (<updateMsg />) : 
+                    (errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
+            }
             <div className="relative mt-3">
                 <input 
                     type={showPassword ? "text" :"password"} 

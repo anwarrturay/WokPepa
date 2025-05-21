@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const handleLogin = async (req, res) => {
+    const { token } = req?.params;
     const { email, password } = req?.body;
     if(!email || !password ) return res.status(400).json({message: "email and password are required!"});
 
@@ -11,7 +12,15 @@ const handleLogin = async (req, res) => {
     const matchedPassword = await bcrypt.compare(password, matchUser?.password);
     if(!matchedPassword) return res.sendStatus(401);
 
-    if(matchedPassword){
+    if(token){
+        matchUser.isVerified = true;
+    }
+
+    if (!matchUser.isVerified) {
+        return res.status(403).json({ message: "Please verify your email before logging in." });
+    }
+
+    if(matchUser.isVerified === true && matchedPassword){
         // creating a accesstoken secret that's gonna be issued to each legitimate user.
         const roles = Object.values(matchUser.roles).filter(Boolean); // roles of foundUser.
         const accessToken = jwt.sign(
@@ -25,7 +34,7 @@ const handleLogin = async (req, res) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "5h"}
         )
-
+    
         const refreshToken = jwt.sign(
             {
                 id: matchUser._id,
@@ -34,14 +43,16 @@ const handleLogin = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: "10d"}
         )
-
+    
         // saving the refreshToken we say.
         matchUser.refreshToken = refreshToken;
         await matchUser.save() // saving refreshToken to the database after user auth.
-
+    
         res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
-
+    
         res.status(200).json({ accessToken }); // sending the accessToken. 
+    }else{
+        res.sendStatus(404);
     }
 }
 

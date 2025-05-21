@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link, useParams } from 'react-router';
 import ultraResumeLogo from "../../assets/ultraResume-full.png";
 // import google from "../assets/google.png";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../utils/LoginValidation';
 import axios from '../../api/axios';
-import Failure from '../../utils/Failure';
-import Success from '../../utils/Success';
-import CircleAlert from '../../utils/CircleAlert';
+import VerificationLinkMsg from "../../utils/messages/VerificationLinkMsg"
+import FailedMsg from "../../utils/messages/FailedMsg"
 import useAuth from "../../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
 import PasswordVisibility from '../../utils/PasswordVisibility';
 import { LoaderCircle } from 'lucide-react';
 import { FcGoogle } from "react-icons/fc";
 import { BASE_URL } from '../../api/axios';
+
 const Auth = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -23,7 +23,8 @@ const Auth = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { setAuth, persist, setPersist } = useAuth();
     const { passwordToggleButton, showPassword } = PasswordVisibility();
-    const auth_url = "/auth";
+    const { token } = useParams();
+    const auth_url = token ? `/auth/${token}` : "/auth";
     // Determine where to redirect after login; default to dashboard.
     const from = location.state?.from?.pathname || "/user-resume-dashboard";
 
@@ -35,9 +36,9 @@ const Auth = () => {
         window.open(`${BASE_URL}/auth/google`, "_self")
     };
 
-
     const handleSubmitForm = async (data) => {
         console.log("form submitted:", data);
+        setIsLoading(true);
 
         try {
         const response = await axios.post(
@@ -61,7 +62,6 @@ const Auth = () => {
         
         if (response.status === 200) {
             setErrMsg("");
-            setIsLoading(true);
             setTimeout(() => {
                 navigate(from, { replace: true });
             }, 5000);
@@ -75,7 +75,12 @@ const Auth = () => {
                     setErrMsg("Something went wrong");
                 } else if (err.response?.status === 401) {
                     setErrMsg("Incorrect email or password");
-                } else {
+                }else if(err.response?.status === 403){
+                    setErrMsg("Please verify your email");
+                }else if(err.response?.status === 404){
+                    setErrMsg("No user with email or password ")
+                }
+                else {
                     setErrMsg("Login failed, Please try again");
                 }
             }, 50);
@@ -99,7 +104,10 @@ const Auth = () => {
                     <h2 className="font-bold font-Montserrat m-2 text-lg text-[#333333] text-center">
                         Sign In with a WokPepa Account
                     </h2>
-
+                    {success ? 
+                            (<VerificationLinkMsg />) : 
+                            (errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
+                    }
                     {/* OAuth2.0 Button */}
                     <div className="space-y-3 mt-3">
                         <button
@@ -117,9 +125,6 @@ const Auth = () => {
                         <div className="flex-grow h-px bg-gray-300"></div>
                     </div>
 
-                    <div className="flex  items-center relative top-3 justify-center">
-                        {success ? <Success /> : (errMsg && <Failure errMsg={errMsg}/>)}
-                    </div>
                 </div>
                 <form onSubmit={handleSubmit(handleSubmitForm)} className="flex flex-col items-center mx-4 mt-5">
                     <div className="flex flex-col">
@@ -134,7 +139,6 @@ const Auth = () => {
                         </div>
                         {errors.email && (
                             <div className="flex items-center mb-3">
-                                <CircleAlert />
                                 <p className="flex-start error-msg ml-2 mt-3">{errors.email?.message}</p>
                             </div>
                         )}
@@ -152,7 +156,6 @@ const Auth = () => {
                         </div>
                         {errors.password && (
                             <div className="flex items-start">
-                                <CircleAlert className="mr-3" />
                                 <p className="flex-start error-msg ml-2 mt-2 w-[230px] xs:w-[260px] sm:w-[300px]">
                                 {errors.password?.message}
                                 </p>

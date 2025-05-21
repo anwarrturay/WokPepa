@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User.js");
 const path = require("path");
+const generateToken = require("./generateTokenController");
+const verifyEmail = require("../service/verifyEmail");
 
 const registerNewUser = async (req, res, next) => {
   const { firstname, lastname, email, password, telephone, profession } = req.body;
@@ -27,10 +29,16 @@ const registerNewUser = async (req, res, next) => {
       "profession": profession,
       "image": `/uploads/${req.file.filename}`
     })
+
+    const token = generateToken();
+    const verificationLink = `${process.env.CLIENT_URL}/${token}`;
+    await verifyEmail(email, "Verify Your Email", verificationLink);
+
+
     const result = await newUser.save();
     console.log(result);
 
-    res.status(201).json({ "success": `A new user ${firstname} ${lastname} was created.` });
+    res.status(201).json({ "success": `A new user ${firstname} ${lastname} was created.`, link: verificationLink });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
