@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import updateMsg from '../../../utils/messages/updateMsg';
+import UpdatedMsg from '../../../utils/messages/UpdatedMsg';
 import FailedMsg from '../../../utils/messages/FailedMsg';
 import { v4 as uuidv4 } from 'uuid';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
@@ -7,10 +7,11 @@ import useAuth from '../../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { updateSchema } from '../../../utils/schemas/UpdateDetailsSchema';
-
+import { LoaderCircle } from 'lucide-react';
 const MyDetails = () => {
     const [success, setSuccess] = useState(false);
     const { setIsLoading } = useAuth();
+    const [loading, setLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
@@ -59,6 +60,7 @@ const MyDetails = () => {
 
     const handleUpdateProfile = async (data) => {
         console.log("changes: ", data);
+        setLoading(true);
 
         const formData = new FormData();
         formData.append("firstname", data.firstname)
@@ -74,10 +76,11 @@ const MyDetails = () => {
             console.log("Response Data: ", response.data)
             if(response.status === 200){
                 setSuccess(true);
-                alert("changes saved successfully")
             }
         } catch (err) {
             setErrMsg(err.response?.data?.message || "An error occurred");
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -85,7 +88,7 @@ const MyDetails = () => {
         <>
             <form onSubmit={handleSubmit(handleUpdateProfile)} className='mt-4'>
                 {success ? 
-                        (<updateMsg />) : 
+                        (<UpdatedMsg />) : 
                         (errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
                 }
                 {["firstname", "lastname", "profession"].map((field) => (
@@ -123,7 +126,14 @@ const MyDetails = () => {
                     {errors.telephone && <p className="text-red-500 text-xs mt-1">{errors.telephone.message}</p>}
                 </div>
 
-                <button type="submit" className='submit-btn'>Save changes</button>
+                <button type="submit" className='submit-btn'>
+                    {loading ? 
+                        <div className='flex items-center justify-center gap-2'>
+                            <LoaderCircle className='animate-spin'/>
+                        </div>
+                        : "Save changes"
+                    }
+                </button>
             </form>
         </>
     );

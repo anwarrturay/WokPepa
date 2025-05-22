@@ -5,7 +5,7 @@ import { passwordSchema } from '../../../utils/schemas/ChangePasswordSchema';
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
 import useAuth from '../../../hooks/useAuth';
 import FailedMsg from '../../../utils/messages/FailedMsg';
-import updateMsg from '../../../utils/messages/updateMsg';
+import UpdatedMsg from '../../../utils/messages/UpdatedMsg';
 import PasswordVisibility from '../../../utils/PasswordVisibility';
 const Password = () => {
     const [success, setSuccess] = useState(false);
@@ -48,7 +48,7 @@ const Password = () => {
         <p>Password</p>
         <form onSubmit={handleSubmit(handleChangePassword)} className='mt-4'>
             {success ? 
-                    (<updateMsg />) : 
+                    (<UpdatedMsg />) : 
                     (errMsg && <FailedMsg errMsg={errMsg} setErrMsg={setErrMsg} />)
             }
             <div className="relative mt-3">

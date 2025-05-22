@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const handleLogin = require("../controllers/AuthController");
+const resetPassword = require("../controllers/resetPasswordController");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 router.post("/", handleLogin);
 router.post("/:token", handleLogin);
+router.post("/reset-password/:token", resetPassword)
 
 router.get(
   "/google",

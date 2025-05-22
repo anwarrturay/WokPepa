@@ -11,8 +11,8 @@ const Sidebar = () => {
         <div className={`fixed top-0 left-0 h-full bg-white text-black w-64 p-4 transition-transform transform z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex items-center justify-between">
             <div className='flex items-center font-medium text-lg'>
-                <img src={logo} alt="UltraResume" className='w-[30px] mr-2'/>
-                UltraResume
+                <img src={logo} alt="WokPepa" className='w-[30px] mr-2'/>
+                WokPepa
             </div>
             <button onClick={toggleSidebar} className="text-black cursor-pointer bg-gray-100 rounded p-1">
                 <X />

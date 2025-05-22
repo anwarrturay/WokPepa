@@ -9,10 +9,14 @@ import {
 import useLogout from "../../hooks/useLogout";
 import { useNavigate } from "react-router";
 import { BASE_URL } from "../../api/axios";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { imageSchema } from "../../utils/schemas/imageSchema";
 
 const Header = () => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const tooltipRef = useRef(null);
   const profileRef = useRef(null);
 
@@ -22,10 +26,15 @@ const Header = () => {
 
   const { auth, user, setUser } = useAuth();
   const userId = auth?.userId;
-
-  useEffect(()=>{
-    console.log("User's Image: ", user?.image);
-  }, [user?.image])
+  const { setValue, watch } = useForm({
+    resolver: yupResolver(imageSchema),
+    defaultValues:{
+      firstname: "",
+      lastname: "",
+      email: "",
+      image: ""
+    }
+  })
 
   // Fetch logged-in user's details
   useEffect(() => {
@@ -33,7 +42,25 @@ const Header = () => {
       if (!userId) return;
       try {
         const res = await axiosPrivate.get(`/users/${userId}`);
-        setUser(res.data);
+        if(res.data){
+          if(res.data.firstname !== watch("firstname")){
+            setValue("firstname", res.data.firstname || "");
+          }
+          if(res.data.lastname !== watch("lastname")){
+            setValue("lastname", res.data.lastname)
+          }
+          if(res.data.email !== watch("email")){
+            setValue("email", res.data.email)
+          }
+          if (res.data.image !== watch("image")) {
+            const imageUrl = res.data.image.startsWith("/uploads") 
+              ? `${BASE_URL}${res.data.image}`
+              : res.data.image;
+            setValue("image", imageUrl || "");
+            setPreviewImage(imageUrl || "");
+          }
+          setUser(res.data);
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -41,7 +68,7 @@ const Header = () => {
     fetchSpecificUser();
   }, [userId, axiosPrivate, setUser]);
 
-  // Close tooltip on outside click
+  // Close tooltip on outside click.
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -87,7 +114,9 @@ const Header = () => {
       {/* User Profile Section */}
       <div className="relative flex items-center mr-4">
         <img
-          src={profileImage}
+          src={previewImage || (watch("image") instanceof File 
+            ? URL.createObjectURL(watch("image")) 
+            : watch("image"))}
           alt="user-profile"
           className="w-[40px] h-[40px] rounded-full cursor-pointer object-cover"
           ref={profileRef}
@@ -102,7 +131,9 @@ const Header = () => {
           >
             <div className="flex items-center justify-center">
               <img
-                src={profileImage}
+                src={previewImage || (watch("image") instanceof File 
+            ? URL.createObjectURL(watch("image")) 
+            : watch("image"))}
                 alt="user"
                 className="w-[70px] h-[70px] rounded-full object-cover"
               />
@@ -171,7 +202,9 @@ const Header = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={profileImage}
+                src={previewImage || (watch("image") instanceof File 
+            ? URL.createObjectURL(watch("image")) 
+            : watch("image"))}
                 alt="profile-full"
                 className="w-[600px] h-[600px] object-cover mb-4 rounded-lg"
               />

@@ -185,13 +185,13 @@ const Auth = () => {
                     </div>
                 </form>
                 <div className="flex flex-col font-Montserrat mb-3 ml-3 mt-3 text-base text-center">
-                    <Link to={'/forgot-password'} className='text-[#2A5D9E] font-medium'>
+                    <Link to={'/forgot-password'} className='text-[#2A5D9E] font-semibold hover:underline'>
                             Forgot Password?
                     </Link>
                     <div className="flex items-center justify-center">
                         Want an account?{' '}
                         <span
-                            className="text-[#2A5D9E] cursor-pointer font-medium"
+                            className="text-[#2A5D9E] cursor-pointer font-semibold ml-1 hover:underline"
                             onClick={() => navigate('/register')}
                         >
                             Create one

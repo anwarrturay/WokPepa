@@ -88,7 +88,7 @@ const Register = () => {
             <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create a WokPepa Account</div>
             <p className='font-Montserrat ml-2 mt-2 mb-3 text-base text-center'>
                 Already have an account?{' '}
-                <span onClick={()=> navigate(-1)} className="text-[#2A5D9E] cursor-pointer font-medium">
+                <span onClick={()=> navigate(-1)} className="text-[#2A5D9E] cursor-pointer font-semibold hover:underline">
                     Sign In
                 </span>
             </p>

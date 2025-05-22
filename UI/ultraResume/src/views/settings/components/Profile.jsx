@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { imageSchema } from '../../../utils/schemas/imageSchema';
@@ -6,6 +6,7 @@ import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import useAuth from '../../../hooks/useAuth';
 import { BASE_URL } from '../../../api/axios';
 import { useNavigate } from 'react-router';
+
 const Profile = () => {
   const { setIsLoading } = useAuth();
   const axiosPrivate = useAxiosPrivate();

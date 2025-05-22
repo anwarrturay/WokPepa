@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const upload = require("../middleware/multerConfig");
+const generateToken = require("./generateTokenController");
+const sendMail = require("../service/sendEmail");
 const fs = require("fs");
 const path = require("path");
 
@@ -37,7 +39,6 @@ const updateUserDetails = async (req, res) => {
             const hashedPwd = await bcrypt.hash(password, 10);
             updateData.password = hashedPwd;
         }
-
         // Fetch the existing user to get the old image
         const specificUser = await User.findById(id);
         if (!specificUser) return res.status(404).json({ message: "User not found" });
@@ -52,9 +53,7 @@ const updateUserDetails = async (req, res) => {
             }
             updateData.image = `/uploads/${req.file.filename}` // Save new image filename to DB
         }
-
         const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
-
         res.status(200).json({ message: "User updated successfully", data: updatedUser });
 
     } catch (err) {
@@ -67,14 +66,10 @@ const deleteUsers = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("User Id to be deleted:", id);
-
-        // Find and delete the user
         const user = await User.findByIdAndDelete(id);
-
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-
         return res.status(200).json({ message: "User deleted successfully" });
     } catch (err) {
         console.error("Error deleting user:", err.message);
@@ -82,4 +77,28 @@ const deleteUsers = async (req, res) => {
     }
 };
 
-module.exports = { updateUserDetails, getAllUsers, deleteUsers, getSpecificUser };
+const forgotPassword = async (req, res)=>{
+    console.log(req?.body?.email);
+    try{
+        const { email } = req?.body;
+        if(!email) return res.status(404).json({message: "email not found"})
+        const userFound = await User.findOne({ email }).exec();
+        if(!userFound) return res.status(404).json({message: `User with ${email} doesnot exist `})
+
+        const token = generateToken();
+        // console.log(token);
+        userFound.resetToken = token;
+        userFound.tokenExpiry = Date.now() + 3600000;
+
+        const savedUser = await userFound.save();
+        // console.log("Saved User", savedUser);
+        const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
+
+        await sendMail(email, 'Password Reset', resetLink)
+        res.status(200).json({ message: 'Password reset link sent to your email', ResetLink: resetLink});
+    }catch(err){
+        res.sendStatus(500);
+    }
+}
+
+module.exports = { updateUserDetails, getAllUsers, deleteUsers, getSpecificUser, forgotPassword };

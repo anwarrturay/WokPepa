@@ -20,6 +20,7 @@ const corsOptions = require("./config/corsOptions")
 const connectDB = require("./config/dbconn");
 const verifyJWT = require("./middleware/verifyJWT");
 const credentials = require("./middleware/credentials");
+const forgotPassword = require("./routes/forgotPassword");
 require('dotenv').config();
 require('./config/passport');
 
@@ -63,6 +64,7 @@ app.use("/auth", authRoute);
 app.use("/register", registerRoute);
 app.use("/logout", logoutRoute);
 app.use("/refresh", refreshRoute);
+app.use("/forgot-password", forgotPassword);
 
 app.use(verifyJWT);
 
