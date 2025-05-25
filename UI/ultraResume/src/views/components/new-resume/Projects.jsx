@@ -1,129 +1,105 @@
+import React from 'react';
 import { Plus } from 'lucide-react';
-import React, { useState } from 'react';
 
 const Projects = ({ formData, setFormData, setStep }) => {
-  const { projects = [] } = formData;
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [tools, setTools] = useState('');
-
-  const handleSubmitProject = (e) => {
-    e.preventDefault();
-    if (title.trim() && description.trim() && tools.trim()) {
-      addProject(title, description, tools);
-      setTitle('');
-      setDescription('');
-      setTools('');
-    } else {
-      alert('Please fill out all fields before adding a project.');
-    }
+  const handleProjectChange = (index, field, value) => {
+    const updatedProjects = [...formData.projects];
+    updatedProjects[index][field] = value;
+    setFormData({ ...formData, projects: updatedProjects });
   };
 
-  const addProject = (title, description, tools) => {
-    const newProject = { title, description, tools };
+  const addProject = () => {
     setFormData({
       ...formData,
-      projects: [...projects, newProject],
+      projects: [
+        ...formData.projects,
+        { title: "", description: "", tools: "" },
+      ],
     });
   };
 
   const removeProject = (index) => {
-    const updatedProjects = projects.filter((_, i) => i !== index);
-    setFormData({
-      ...formData,
-      projects: updatedProjects,
-    });
+    const updatedProjects = formData.projects.filter((_, i) => i !== index);
+    setFormData({ ...formData, projects: updatedProjects });
   };
 
   return (
-    <section className="flex flex-col items-center justify-center mt-5 w-full px-4">
-      <h1 className="text-xl font-bold mb-4">Projects</h1>
-
-      <form
-        onSubmit={handleSubmitProject}
-        className="w-full max-w-2xl flex flex-col items-center justify-center gap-6"
-      >
-        <div className="p-4 rounded-md space-y-4 relative flex flex-col items-center justify-center">
-          <h2 className="text-lg font-semibold text-[#2A5D9E]">Add a New Project</h2>
-
-          <input
-            type="text"
-            placeholder="Project Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="border border-[#ccc] outline-none focus:ring focus:ring-[#2A5D9E] py-2 w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
-            aria-label="Project Title"
-          />
-
-          <textarea
-            placeholder="Project Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="h-28 resize-none border border-[#ccc] w-[280px] outline-none focus:ring focus:ring-[#2A5D9E] xs:w-[312px] sm:w-[385px] md:w-[480px]"
-            aria-label="Project Description"
-          />
-
-          <input
-            type="text"
-            placeholder="Tools Used (e.g. React, Node.js)"
-            value={tools}
-            onChange={(e) => setTools(e.target.value)}
-            className="border border-[#ccc] outline-none py-2 w-[280px] focus:ring focus:ring-[#2A5D9E] xs:w-[312px] sm:w-[385px] md:w-[480px]"
-            aria-label="Project Tools"
-          />
-
-          <button
-            type="submit"
-            className="flex items-center justify-center bg-[#2A5D9E] rounded-md text-white font-medium text-center py-2 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
-          >
-            <Plus size={24} className="mr-3" />
-            Add Project
-          </button>
-        </div>
-
-        {projects.length > 0 && (
-          <div className="w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px] space-y-4">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="border p-4 rounded-md bg-gray-50 relative w-full"
-              >
-                <h3 className="font-semibold text-[#2A5D9E] mb-1">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-gray-700 mb-1">{project.description}</p>
-                <p className="text-sm text-gray-600 italic">{project.tools}</p>
-
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Projects</h2>
+        <div className="space-y-8">
+          {formData.projects.map((project, index) => (
+            <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
+              {index > 0 && (
                 <button
                   type="button"
                   onClick={() => removeProject(index)}
-                  className="text-red-500 text-sm absolute top-2 right-4 hover:underline"
+                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
                 >
-                  Remove
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
                 </button>
-              </div>
-            ))}
-          </div>
-        )}
+              )}
 
-        <div className="flex flex-col space-y-4 mb-5 items-center">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Project Title
+                  </label>
+                  <input
+                    type="text"
+                    value={project.title}
+                    onChange={(e) => handleProjectChange(index, "title", e.target.value)}
+                    className="resume-field"
+                    placeholder="e.g., E-commerce Website, Mobile App"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <textarea
+                    value={project.description}
+                    onChange={(e) => handleProjectChange(index, "description", e.target.value)}
+                    rows={3}
+                    className="resume-field"
+                    placeholder="Describe the project, its goals, and your role"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Tools & Technologies
+                  </label>
+                  <input
+                    type="text"
+                    value={project.tools}
+                    onChange={(e) => handleProjectChange(index, "tools", e.target.value)}
+                    className="resume-field"
+                    placeholder="e.g., React, Node.js, AWS"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
           <button
-            onClick={() => setStep(5)}
             type="button"
-            className="m-2 bg-gray-400 text-white p-2.5 text-lg rounded-md cursor-pointer w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
+            onClick={addProject}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#2A5D9E] hover:bg-[#2A5D9E]focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Back
-          </button>
-          <button
-            onClick={() => setStep(7)}
-            type="button"
-            className="bg-[#2A5D9E] rounded-md text-white font-medium text-center py-2 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px] md:w-[480px]"
-          >
-            Next
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
+            Add Project
           </button>
         </div>
-      </form>
-    </section>
+      </div>
+    </div>
   );
 };
 

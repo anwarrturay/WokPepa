@@ -1,300 +1,211 @@
 import { StyleSheet } from '@react-pdf/renderer';
 
 export const styles = StyleSheet.create({
-    body: {
-        padding: 0,
-    },
     page: {
-        padding: 0,
+        padding: '40 30',
+        backgroundColor: '#FFFFFF',
+        fontFamily: 'Helvetica',
     },
     section: {
         display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'space-between'
+        flexDirection: 'row',
+        gap: 35,
     },
-    leftSection:{
-        display: "flex",
-        flexDirection: "column",
-        width: "490px",
-        position: "relative",
+    sectionHeader: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 12,
+        gap: 8,
+        borderBottom: '1px solid #E5E7EB',
+        paddingBottom: 6,
+    },
+    sectionHeaderIcon: {
+        width: 16,
+        height: 16,
+        opacity: 0.8,
+    },
+    sectionHeaderText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#1a365d',
+        textTransform: 'uppercase',
+        letterSpacing: 0.5,
+    },
+    leftSection: {
+        flex: 3.2,
+        paddingRight: 25,
+        borderRight: '1px solid #E5E7EB',
 
-        header:{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "evenly",
-            alignItems:"center",
-            margin: "12px"
+        header: {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 30,
+            gap: 20,
         },
-        userImageContainer:{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#ccc",
-            borderRadius: "16px",
-            width:"150px"
+        userImageContainer: {
+            width: 110,
+            height: 110,
+            borderRadius: 55,
+            overflow: 'hidden',
+            border: '2px solid #E5E7EB',
         },
         userImage: {
-            width: '80px',
-            marginTop: '20px',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
         },
-        nameprofessionCont:{
-            marginLeft: "10px"
+        nameprofessionCont: {
+            flex: 1,
         },
-        username:{
-            fontWeight: "bold",
-            fontSize: "28px"
+        username: {
+            fontSize: 26,
+            fontWeight: 'bold',
+            marginBottom: 6,
+            color: '#1a365d',
+            letterSpacing: 0.5,
         },
-        profession:{
-            fontSize: "13px",
-            color: "#64748B"
+        profession: {
+            fontSize: 15,
+            color: '#4a5568',
+            letterSpacing: 0.3,
         },
         profileSection: {
-            width: "350px"
+            marginBottom: 28,
         },
-        profile:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            margin: "15px"
-        },
-        userIcon: {
-            width: "20px"
-        },
-        profileText:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px"
-        },
-        profileSummary:{
-            fontSize: "15px",
-            color: "#474846",
-            marginHorizontal: "15px"
+        profileText: {
+            fontSize: 11,
+            color: '#4a5568',
+            lineHeight: 1.6,
+            textAlign: 'justify',
         },
         employmentSection: {
-            display: "flex",
-            flexDirection: "column",
-            margin: "15px",
+            marginBottom: 28,
         },
-        employmentHeader:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+        dateandJob: {
+            marginBottom: 14,
         },
-        iconContainer:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        lockIcon: {
-            width: "20px",
-            // height: "24px",
-        },
-        employmentText: {
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px",
-        },
-        dateandJob:{
-            marginTop: "13px",
-            marginLeft: "15px",
+        job: {
+            fontSize: 13,
+            fontWeight: 'bold',
+            color: '#2d3748',
+            marginBottom: 2,
         },
         durationOfJob: {
-            fontSize: "12px",
-            color: "#64748B",
-            marginTop: "7px"
+            fontSize: 11,
+            color: '#718096',
+            marginBottom: 4,
         },
-        job:{
-            fontSize: "17px"
+        jobHistory: {
+            fontSize: 11,
+            color: '#4a5568',
+            lineHeight: 1.5,
+            textAlign: 'justify',
         },
-        jobHistory:{
-            flexDirection: 'row',
-            marginTop: "4px",
-            color: "#474846",
+        educationSummary: {
+            marginBottom: 14,
         },
-        educationHeader:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: "10px"
-        },
-        graduationCapIcon:{
-            width: "24px"
-        },
-        educationHeading:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginLeft: "10px"
-        },
-        educationSummary:{
-            marginLeft: "10px",
-            marginTop: "10px"
-        },
-        level:{
-            fontSize: "17px"
-        },
-        startAndEnd:{
-            fontSize: "12px",
-            color: "#64748B",
-            marginTop: "7px"
+        level: {
+            fontSize: 13,
+            fontWeight: 'bold',
+            color: '#2d3748',
+            marginBottom: 2,
         },
         graduatedWith: {
-            fontSize: "13px",
-            marginTop: "7px",
-            color: "#0D1717"
+            fontSize: 11,
+            color: '#4a5568',
+            marginBottom: 2,
         },
-        projects:{
-            display: "flex",
-            flexDirection: "Column",
-            marginTop: "16px"
+        projectDescTitle: {
+            marginBottom: 16,
         },
-        projectsHeader:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "start",
-            marginBottom: "13px"
+        projectTitle: {
+            fontSize: 13,
+            fontWeight: 'bold',
+            color: '#2d3748',
+            marginBottom: 3,
         },
-        networkIcon:{
-            width: "20px"
-        },
-        projectTextCont:{
-            marginLeft: "10px"
-        },
-        projectText:{
-            fontSize: "20px",
-            fontWeight: "bold"
-        },
-        projectDescTitle:{
-            marginLeft: "12px"
-        },
-        projectTitle:{
-            fontSize: "17px",
-        },
-        projectDesc:{
-            fontSize: "15px",
-            color: "#64748B",
-            marginTop: "12px"
+        projectDesc: {
+            fontSize: 11,
+            color: '#4a5568',
+            lineHeight: 1.5,
+            textAlign: 'justify',
         },
         technologies: {
-            marginTop: "10px",
-            fontSize: "15px",
-            color: "#0D1717"
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: 6,
+            marginTop: 6,
         },
-        certificationHeading:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: "15px"
-        }, layersIcon:{
-            width: "20px",
-            marginRight: "7px"
-        }, certText:{
-            fontWeight: "bold"
-        }, cert1:{
-            display: "flex",
-            wrap: true
-        }, cert2:{
-            display: "flex",
-            wrap: true,
-            marginVertical: "9px"
-        }, cert:{
-            fontWeight: "semibold"
-        }, references:{
-            display: "flex",
-            flexDirection: "Column",
-            marginTop: "16px"
-        }, referencesHeading:{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: "15px"
-        }, linkIcon:{
-            width: "20px",
-            marginRight: "7px"
-        }, refText:{
-            fontWeight: "bold"
-        }, referenceDetails:{
-            marginVertical: "8px"
-        },nameAndRel:{
-            display: "flex",
-            flexDirection: "row",
-            marginBottom: "5px"
-        }
-
+        cert1: {
+            marginBottom: 10,
+        },
+        cert: {
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#2d3748',
+            marginBottom: 2,
+        },
+        organization: {
+            fontSize: 11,
+            color: '#718096',
+        },
     },
-    rightSection: {  
-        display: "flex",
-        flexDirection: "column",
-        width: "380px",
-        position: "relative",
-        top: "140px",
-        marginLeft: "15%",
+    rightSection: {
+        flex: 1.8,
+        paddingLeft: 25,
 
-        rightHeader:{
-            fontSize: "20px",
-            fontWeight: "bold",
-            marginTop: "10px"
+        rightHeader: {
+            fontSize: 15,
+            fontWeight: 'bold',
+            color: '#1a365d',
+            marginBottom: 16,
+            textTransform: 'uppercase',
+            letterSpacing: 0.5,
+            borderBottom: '1px solid #E5E7EB',
+            paddingBottom: 6,
         },
-        userPersonalDetails:{
-            fontSize: "15px",
-            marginTop: "8px",
-            color: "#0D1717"
+        userPersonalDetails: {
+            marginBottom: 28,
         },
-        userD:{
-            marginTop: "10px"
+        userD: {
+            fontSize: 11,
+            color: '#4a5568',
+            marginBottom: 5,
+            lineHeight: 1.4,
         },
-        email:{
-            color: "#2A5D9E",
-            marginVertical: "10px",
-            fontWeight: "semibold"
-        }, 
-        dobAndCountry:{
-            marginVertical: "10px"
+        email: {
+            fontSize: 11,
+            color: '#2b6cb0',
+            marginBottom: 5,
+            textDecoration: 'underline',
         },
-        dateOrPlaceHeading:{
-            color: "#64748B",
-            marginBottom: "10px"
+        sectionLabel: {
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#2d3748',
+            marginBottom: 4,
+            marginTop: 12,
         },
-        cityOfBirth:{
-            marginTop: "8px"
+        sectionContent: {
+            fontSize: 11,
+            color: '#4a5568',
+            marginBottom: 3,
+            lineHeight: 1.4,
         },
-        nationalityCont:{
-            marginVertical: "10px"
+        languagesCont: {
+            marginBottom: 28,
         },
-        nationalityHeading:{
-            color: "#64748B",
-            marginBottom: "6px"
+        skillsSection: {
+            marginBottom: 28,
         },
-        languagesCont:{
-            fontSize: "15px",
-            marginVertical: "8px"
+        skillItem: {
+            fontSize: 11,
+            color: '#4a5568',
+            marginBottom: 5,
+            lineHeight: 1.4,
         },
-        languages:{
-            position: "relative",
-            bottom: "7px",
-            color: "#64748B"
-        }, lang:{
-            position: "relative",
-            top: "3px"
-        },
-        skills:{
-            marginVertical: "12px",
-            fontSize:  "15px"
-        }, skillHeading:{
-            position: "relative",
-            bottom: "7px",
-            fontSize: "17px",
-            color: "#64748B"
-        }, skill:{
-            marginVertical: "3px"
-        }, 
-        hobbiesCont:{
-            fontSize: "15px",
-        },hobbiesHeading:{
-            position: "relative",
-            bottom: "5px",
-            color: "#64748B"
-        }, hobbies:{
-            wrap: true
-        }
     },
 });

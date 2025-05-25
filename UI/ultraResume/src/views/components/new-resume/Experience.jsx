@@ -1,80 +1,129 @@
-import React from 'react'
+import React from 'react';
 
-const Experience = ({formData, handleChange, setStep}) => {
+const Experience = ({ formData, setFormData, setStep }) => {
+  const handleExperienceChange = (index, field, value) => {
+    const updatedExperience = [...formData.experience];
+    updatedExperience[index][field] = value;
+    setFormData({ ...formData, experience: updatedExperience });
+  };
+
+  const addExperience = () => {
+    setFormData({
+      ...formData,
+      experience: [
+        ...formData.experience,
+        { jobTitle: "", company: "", responsibilities: "", startDate: "", endDate: "" },
+      ],
+    });
+  };
+
+  const removeExperience = (index) => {
+    const updatedExperience = formData.experience.filter((_, i) => i !== index);
+    setFormData({ ...formData, experience: updatedExperience });
+  };
+
   return (
-    <section className="flex flex-col items-center justify-center mt-5">
-		<h1 className="text-lg font-bold ml-2">Work Experience</h1>
-		<form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center justify-center">
-			<input
-				type="text"
-				placeholder="Job Title"
-				value={formData.experience.jobTitle}
-				onChange={(e) =>
-					handleChange("experience", "jobTitle", e.target.value)
-				}
-				className="resume-field"
-			/>
-			<input
-				type="text"
-				placeholder="Company"
-				value={formData.experience.company}
-				onChange={(e) =>
-					handleChange("experience", "company", e.target.value)
-				}
-				className="resume-field"
-			/>
-			<input
-				type="text"
-				placeholder="Responsibilities"
-				value={formData.experience.responsibilities}
-				onChange={(e) =>
-					handleChange("experience", "responsibilities", e.target.value)
-				}
-				className="resume-field"
-			/>
-			<div className="flex flex-col">
-				<label htmlFor="date" className="m-2 font-medium">Start Date:</label>
-				<input
-					type="date"
-					placeholder="StartDate"
-					value={formData.experience.startDate}
-					onChange={(e) =>
-						handleChange("experience", "startDate", e.target.value)
-					}
-					className="resume-field"
-				/>
-			</div>
-			<div className="flex flex-col">
-				<label htmlFor="" className="m-2 font-medium">End Date:</label>
-				<input
-					type="date"
-					placeholder="EndDate"
-					value={formData.experience.endDate}
-					onChange={(e) =>
-						handleChange("experience", "endDate", e.target.value)
-					}
-					className="resume-field"
-				/>
-			</div>
-			<div className="flex flex-col">
-				<button
-					type="button"
-					className="back-btn"
-					onClick={() => setStep(2)}
-				>
-				Back
-				</button>
-				<button
-					type="button"
-					className="m-2 next-btn bg-[#2A5D9E] text-white px-4 py-2 rounded-md"
-					onClick={() => setStep(4)}
-				>
-				Next
-				</button>
-			</div>
-		</form>
-    </section>
-  )
-}
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Work Experience</h2>
+        <div className="space-y-8">
+          {formData.experience.map((exp, index) => (
+            <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => removeExperience(index)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              )}
 
-export default Experience
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Job Title
+                  </label>
+                  <input
+                    type="text"
+                    value={exp.jobTitle}
+                    onChange={(e) => handleExperienceChange(index, "jobTitle", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border border-[#ccc] focus:ring-blue-500 sm:text-sm py-2 px-1"
+                    placeholder="e.g., Software Engineer, Project Manager"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Company
+                  </label>
+                  <input
+                    type="text"
+                    value={exp.company}
+                    onChange={(e) => handleExperienceChange(index, "company", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border border-[#ccc] focus:ring-blue-500 sm:text-sm py-2 px-1"
+                    placeholder="e.g., Google, Microsoft"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Start Date
+                  </label>
+                  <input
+                    type="date"
+                    value={exp.startDate}
+                    onChange={(e) => handleExperienceChange(index, "startDate", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    End Date
+                  </label>
+                  <input
+                    type="date"
+                    value={exp.endDate}
+                    onChange={(e) => handleExperienceChange(index, "endDate", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Responsibilities & Achievements
+                  </label>
+                  <textarea
+                    value={exp.responsibilities}
+                    onChange={(e) => handleExperienceChange(index, "responsibilities", e.target.value)}
+                    rows={3}
+                    className="mt-1 block w-full outline-none rounded-md border border-[#ccc] focus:ring-blue-500 sm:text-sm py-2 px-1"
+                    placeholder="Describe your key responsibilities and achievements"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={addExperience}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#2A5D9E] hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
+            Add Experience
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Experience;

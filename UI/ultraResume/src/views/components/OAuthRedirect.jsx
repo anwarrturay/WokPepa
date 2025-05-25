@@ -38,8 +38,8 @@ const OAuthRedirect = () => {
 
   return (
     <div className="flex flex-col justify-center items-center font-montserrat relative top-[300px]">
-        <LoaderCircle className="animate-spin text-[#2A5D9E]" size={28} strokeWidth={3}/>
-        <p className="text-xl mt-2 font-semibold">Redirecting...</p>
+        <LoaderCircle className="animate-spin text-[#2A5D9E]" size={36} strokeWidth={2}/>
+        <p className="text-xl mt-2 font-medium">Redirecting...</p>
     </div>
   )
 }

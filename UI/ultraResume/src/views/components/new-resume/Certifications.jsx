@@ -1,128 +1,115 @@
-import React, { useState } from 'react';
-import { Plus } from "lucide-react";
+import React from 'react';
 
 const Certifications = ({ formData, setFormData, setStep }) => {
-  const [certification, setCertification] = useState({
-    name: "",
-    issuingOrganization: "",
-    issueDate: "",
-    expirationDate: ""
-  });
-
-  const handleChange = (field, value) => {
-    setCertification(prev => ({
-      ...prev,
-      [field]: value,
-    }));
+  const handleCertificationChange = (index, field, value) => {
+    const updatedCertifications = [...formData.certifications];
+    updatedCertifications[index][field] = value;
+    setFormData({ ...formData, certifications: updatedCertifications });
   };
 
-  const handleAddCertification = () => {
-    const { name, issuingOrganization, issueDate, expirationDate } = certification;
-
-    const isValid =
-      name.trim() &&
-      issuingOrganization.trim() &&
-      issueDate &&
-      expirationDate;
-
-    if (!isValid) {
-      alert("Please fill in all fields before adding a certification.");
-      return;
-    }
-
-    setFormData(prev => ({
-      ...prev,
-      certifications: [...prev.certifications, certification],
-    }));
-
-    // Reset current input
-    setCertification({
-      name: "",
-      issuingOrganization: "",
-      issueDate: "",
-      expirationDate: ""
+  const addCertification = () => {
+    setFormData({
+      ...formData,
+      certifications: [
+        ...formData.certifications,
+        { name: "", issuingOrganization: "", issueDate: "", expirationDate: "" },
+      ],
     });
   };
 
+  const removeCertification = (index) => {
+    const updatedCertifications = formData.certifications.filter((_, i) => i !== index);
+    setFormData({ ...formData, certifications: updatedCertifications });
+  };
+
   return (
-    <section className="flex flex-col items-center justify-center mt-5">
-      <h1 className="text-lg font-bold mb-4">Certifications</h1>
-      <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center w-full max-w-md">
-        <input
-          type="text"
-          name="name"
-          value={certification.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          placeholder="Certification Title (e.g., Teacher)"
-          className="resume-field"
-        />
-        <input
-          type="text"
-          name="issuingOrganization"
-          value={certification.issuingOrganization}
-          onChange={(e) => handleChange("issuingOrganization", e.target.value)}
-          placeholder="Issuing Organization (e.g., Meta)"
-          className="resume-field"
-        />
-        <div className="flex flex-col">
-          <label htmlFor='issueDate' className="text-left text-sm text-gray-600 m-2">Issue Date</label>
-          <input
-            type="date"
-            name="issueDate"
-            value={certification.issueDate}
-            onChange={(e) => handleChange("issueDate", e.target.value)}
-            className="resume-field"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="expirationDate" className="text-sm text-left m-2 text-gray-600">Expiration Date</label>
-          <input
-            type="date"
-            name="expirationDate"
-            value={certification.expirationDate}
-            onChange={(e) => handleChange("expirationDate", e.target.value)}
-            className="resume-field"
-          />
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Certifications</h2>
+        <div className="space-y-8">
+          {formData.certifications.map((cert, index) => (
+            <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => removeCertification(index)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              )}
+
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Certification Name
+                  </label>
+                  <input
+                    type="text"
+                    value={cert.name}
+                    onChange={(e) => handleCertificationChange(index, "name", e.target.value)}
+                    className="resume-field"
+                    placeholder="e.g., AWS Solutions Architect, PMP Certification"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Issuing Organization
+                  </label>
+                  <input
+                    type="text"
+                    value={cert.issuingOrganization}
+                    onChange={(e) => handleCertificationChange(index, "issuingOrganization", e.target.value)}
+                    className="resume-field"
+                    placeholder="e.g., Amazon Web Services, PMI"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Issue Date
+                  </label>
+                  <input
+                    type="date"
+                    value={cert.issueDate}
+                    onChange={(e) => handleCertificationChange(index, "issueDate", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Expiration Date
+                  </label>
+                  <input
+                    type="date"
+                    value={cert.expirationDate}
+                    onChange={(e) => handleCertificationChange(index, "expirationDate", e.target.value)}
+                    className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <button
-          type="button"
-          className="next-btn m-2"
-          onClick={handleAddCertification}
-        >
-          <div className="flex items-center justify-center">
-            <Plus size={24} className='m-2' />
+        <div className="mt-6">
+          <button
+            type="button"
+            onClick={addCertification}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#2A5D9E] hover:bg-[#2A5D9E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
             Add Certification
-          </div>
-        </button>
-
-        {formData.certifications.length > 0 && (
-          <div className="mt-4 w-full text-sm text-left">
-            <h2 className="font-semibold mx-3">Your Certifications:</h2>
-            <ul className="space-y-1 mx-3">
-              {formData.certifications.map((cert, idx) => (
-                <li key={idx} className="bg-gray-100 p-2 rounded">
-                  <strong>{cert.name}</strong> – {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="flex flex-col items-center justify-center mt-3 mb-3">
-          <button 
-            type="button" 
-            className="m-2 bg-gray-400 text-white p-2.5 text-lg rounded-md cursor-pointer w-[307px] xs:w-[312px] sm:w-[385px] md:w-[480px]" 
-            onClick={() => setStep(6)}
-          >Back</button>
-          <button 
-            type="button" 
-            className="next-btn" 
-            onClick={() => setStep(8)}
-          >Next</button>
+          </button>
         </div>
-      </form>
-    </section>
+      </div>
+    </div>
   );
 };
 

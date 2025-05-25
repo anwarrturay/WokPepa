@@ -1,90 +1,90 @@
 import React, { useState } from 'react';
-import { Plus } from 'lucide-react';
 
 const Hobbies = ({ formData, setFormData, setStep }) => {
-  const [hobby, setHobby] = useState('');
+  const [newHobby, setNewHobby] = useState('');
 
   const handleAddHobby = () => {
-    if (hobby.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        hobbies: [...(prev.hobbies || []), hobby],
-      }));
-      setHobby('');
+    if (newHobby.trim()) {
+      setFormData({
+        ...formData,
+        hobbies: [...formData.hobbies, newHobby.trim()]
+      });
+      setNewHobby('');
     }
   };
 
-  const handleRemoveHobby = (index) => {
-    const updatedHobbies = [...formData.hobbies];
-    updatedHobbies.splice(index, 1);
-    setFormData((prev) => ({
-      ...prev,
-      hobbies: updatedHobbies,
-    }));
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddHobby();
+    }
+  };
+
+  const removeHobby = (indexToRemove) => {
+    setFormData({
+      ...formData,
+      hobbies: formData.hobbies.filter((_, index) => index !== indexToRemove)
+    });
   };
 
   return (
-    <section className="flex flex-col items-center justify-center mt-5 w-full">
-      <h1 className="text-lg font-bold mb-2">Hobbies (Optional)</h1>
-      <p className="text-sm text-gray-600 mb-4 text-center">List any hobbies or activities you enjoy outside of work</p>
-
-      <div className="w-full flex flex-col items-center justify-center">
-        <input
-          type="text"
-          placeholder="Enter Hobby"
-          value={hobby}
-          onChange={(e) => setHobby(e.target.value)}
-          className="resume-field"
-        />
-
-        <button
-          type="button"
-          onClick={handleAddHobby}
-          className="next-btn mt-3"
-        >
-          <div className="flex items-center justify-center">
-            <Plus size={20} className="mr-2" />
-            Add Hobby
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Hobbies & Interests</h2>
+        
+        <div className="space-y-4">
+          <div className="flex gap-2">
+            <div className="flex-grow">
+              <label htmlFor="hobby-input" className="block text-sm font-medium text-gray-700">
+                Add a Hobby or Interest
+              </label>
+              <input
+                id="hobby-input"
+                type="text"
+                value={newHobby}
+                onChange={(e) => setNewHobby(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="resume-field"
+                placeholder="e.g., Photography, Hiking, Reading"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={handleAddHobby}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#2A5D9E] hover:bg-[#2A5D9E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 self-end"
+            >
+              Add
+            </button>
           </div>
-        </button>
 
-        {formData.hobbies && formData.hobbies.length > 0 && (
-          <ul className="mt-4 space-y-2">
-            {formData.hobbies.map((hobby, idx) => (
-              <li
-                key={idx}
-                className="flex justify-between items-center bg-gray-100 p-2 rounded"
-              >
-                <span>{hobby}</span>
-                <button
-                  onClick={() => handleRemoveHobby(idx)}
-                  className="text-xs bg-red-500 text-white px-2 py-1 rounded"
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h3 className="text-sm font-medium text-gray-700 mb-3">Your Hobbies & Interests</h3>
+            <div className="flex flex-wrap gap-2">
+              {formData.hobbies.map((hobby, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
                 >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="flex flex-col mt-4">
-          <button
-            type="button"
-            className="back-btn"
-            onClick={() => setStep(9)}
-          >
-            Back
-          </button>
-          <button
-            type="button"
-            className="m-2 next-btn"
-            onClick={() => setStep(11)}
-          >
-            Next
-          </button>
+                  {hobby}
+                  <button
+                    type="button"
+                    onClick={() => removeHobby(index)}
+                    className="ml-2 inline-flex text-blue-400 hover:text-blue-600 focus:outline-none"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </span>
+              ))}
+              {formData.hobbies.length === 0 && (
+                <p className="text-sm text-gray-500">No hobbies added yet. Start adding your interests above.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

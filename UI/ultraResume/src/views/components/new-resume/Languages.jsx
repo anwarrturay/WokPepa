@@ -1,102 +1,128 @@
 import React, { useState } from 'react';
-import { languageOptions, proficiencyLevels } from './LanguagesOptions';
-import { Plus } from 'lucide-react';
 
 const Languages = ({ formData, setFormData, setStep }) => {
-  const [language, setLanguage] = useState({ name: '', level: '' });
+  const [newLanguage, setNewLanguage] = useState('');
+  const [proficiency, setProficiency] = useState('Beginner');
+
+  const proficiencyLevels = ['Beginner', 'Intermediate', 'Advanced', 'Native/Fluent'];
 
   const handleAddLanguage = () => {
-    if (language.name && language.level) {
-      setFormData(prev => ({
-        ...prev,
-        languages: [...(prev.languages || []), language],
-      }));
-      setLanguage({ name: '', level: '' });
+    if (newLanguage.trim()) {
+      setFormData({
+        ...formData,
+        languages: [...formData.languages, { name: newLanguage.trim(), level: proficiency }]
+      });
+      setNewLanguage('');
+      setProficiency('Beginner');
     }
   };
 
-  const handleRemoveLanguage = (languageToRemove) => {
-    setFormData((prev) => ({
-      ...prev,
-      languages: prev.languages.filter((lang) => lang !== languageToRemove),
-    }));
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddLanguage();
+    }
+  };
+
+  const removeLanguage = (indexToRemove) => {
+    setFormData({
+      ...formData,
+      languages: formData.languages.filter((_, index) => index !== indexToRemove)
+    });
   };
 
   return (
-    <section className="flex flex-col items-center justify-center mt-5">
-      <h1 className="text-lg font-bold mb-4">Languages</h1>
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Languages</h2>
+        
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="language-input" className="block text-sm font-medium text-gray-700">
+                Language
+              </label>
+              <input
+                id="language-input"
+                type="text"
+                value={newLanguage}
+                onChange={(e) => setNewLanguage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="resume-field"
+                placeholder="Enter a language (e.g., English, Spanish)"
+              />
+            </div>
 
-      <div className="flex flex-col items-center w-full max-w-md">
-        <select
-          value={language.name}
-          onChange={(e) => setLanguage({ ...language, name: e.target.value })}
-          className="resume-field"
-        >
-          <option value="">Select Language</option>
-          {languageOptions.map((lang, idx) => (
-            <option key={idx} value={lang}>{lang}</option>
-          ))}
-        </select>
-
-        <select
-          value={language.level}
-          onChange={(e) => setLanguage({ ...language, level: e.target.value })}
-          className="resume-field mt-2"
-        >
-          <option value="">Select Proficiency Level</option>
-          {proficiencyLevels.map((level, idx) => (
-            <option key={idx} value={level}>{level}</option>
-          ))}
-        </select>
-
-        <button
-          type="button"
-          onClick={handleAddLanguage}
-          className="next-btn m-2"
-        >
-          <div className="flex items-center justify-center">
-            <Plus size={24} className="m-2" />
-            Add Language
+            <div>
+              <label htmlFor="proficiency-select" className="block text-sm font-medium text-gray-700">
+                Proficiency Level
+              </label>
+              <select
+                id="proficiency-select"
+                value={proficiency}
+                onChange={(e) => setProficiency(e.target.value)}
+                className="resume-field"
+              >
+                {proficiencyLevels.map((level) => (
+                  <option key={level} value={level}>
+                    {level}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-        </button>
 
-        {formData.languages && formData.languages.length > 0 && (
-          <ul className="mt-4 w-full text-left space-y-2">
-            {formData.languages.map((lang, idx) => (
-              <li key={idx} className="bg-gray-100 p-2 rounded flex justify-between items-center">
-                <span className='flex'>
-                  <p className="text-md font-semibold">{lang.name}</p> - {lang.level}
-                </span>
-                <button
-                  type="button"
-                  className="ml-2 px-2 py-1 text-xs bg-red-500 text-white rounded"
-                  onClick={() => handleRemoveLanguage(lang)}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleAddLanguage}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-[#2A5D9E] hover:bg-[#2A5D9E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+              </svg>
+              Add Language
+            </button>
+          </div>
 
-        <div className="flex flex-col mt-3">
-          <button
-            type="button"
-            className="back-btn"
-            onClick={() => setStep(7)}
-          >
-            Back
-          </button>
-          <button
-            type="button"
-            className="m-2 next-btn"
-            onClick={() => setStep(9)}
-          >
-            Next
-          </button>
+          {formData.languages.length > 0 && (
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-3">Your Languages</h3>
+              <div className="space-y-2">
+                {formData.languages.map((lang, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between bg-white rounded-lg p-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-medium text-gray-900">{lang.name}</span>
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {lang.level}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeLanguage(index)}
+                      className="text-gray-400 hover:text-red-500 focus:outline-none"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {formData.languages.length === 0 && (
+            <p className="text-sm text-gray-500 text-center bg-gray-50 rounded-lg p-4">
+              No languages added yet. Start adding your language proficiencies above.
+            </p>
+          )}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

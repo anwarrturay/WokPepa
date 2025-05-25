@@ -8,38 +8,36 @@ const PersonalDetails = ({
   setSelectedFile,
   setImageFile,
 }) => {
-  
   const [imagePreview, setImagePreview] = useState('');
 
   useEffect(() => {
-    const file = formData.personalDetails.imageFile;
+    const file = formData.image;
     if (file) {
       const previewURL = URL.createObjectURL(file);
       setImagePreview(previewURL);
 
       return () => {
-        URL.revokeObjectURL(previewURL); // clean up
+        URL.revokeObjectURL(previewURL);
       };
     }
-  }, [formData.personalDetails.imageFile]);
+  }, [formData.image]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Store file and preview URL
-      setSelectedFile(file); // optional if used elsewhere
-      setImageFile(file); // for upload
-      handleChange("personalDetails", "imageFile", file); // store file in formData
+      setSelectedFile(file);
+      // setImageFile(file);
+      // handleChange("personalDetails", "image", file);
       handleChange("image", null, file);
     }
   };
 
   return (
-    <section className="flex flex-col items-center justify-center mt-5">
-      <h1 className="text-lg font-bold ml-2">Personal Details</h1>
-      <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center">
-        <div className="flex justify-center items-center m-2">
-          <label className="relative w-[307px] sm:w-[390px] md:w-[480px] h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500 transition">
+    <div className="space-y-6 font-Montserrat">
+      <div>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Personal Details</h2>
+        <div className="flex justify-center mb-6">
+          <label className="relative w-full max-w-md aspect-[4/3] sm:aspect-[16/9] border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-400 transition-colors">
             <input
               type="file"
               accept="image/*"
@@ -53,92 +51,122 @@ const PersonalDetails = ({
                 className="absolute inset-0 w-full h-full object-cover rounded-lg"
               />
             ) : (
-              <span className="text-gray-500">Upload Photo</span>
+              <div className="text-center">
+                <div className="text-gray-500 mb-2">Upload Photo</div>
+                <div className="text-sm text-gray-400">Click to browse</div>
+              </div>
             )}
           </label>
         </div>
 
-        <input
-          type="text"
-          autoComplete="off"
-          value={formData.personalDetails.name}
-          onChange={(e) =>
-            handleChange("personalDetails", "name", e.target.value)
-          }
-          placeholder="Name"
-          className="resume-field"
-        />
-        <input
-          type="email"
-          autoComplete="off"
-          value={formData.personalDetails.email}
-          onChange={(e) =>
-            handleChange("personalDetails", "email", e.target.value)
-          }
-          placeholder="example@gmail.com"
-          className="resume-field"
-        />
-        <input
-          type="number"
-          autoComplete="off"
-          value={formData.personalDetails.phone}
-          onChange={(e) =>
-            handleChange("personalDetails", "phone", e.target.value)
-          }
-          placeholder="Telephone"
-          className="resume-field"
-        />
-        <input
-          type="text"
-          autoComplete="off"
-          value={formData.personalDetails.address}
-          onChange={(e) =>
-            handleChange("personalDetails", "address", e.target.value)
-          }
-          placeholder="Address"
-          className="resume-field"
-        />
-        <input
-          type="text"
-          autoComplete="off"
-          value={formData.personalDetails.nationality}
-          onChange={(e) =>
-            handleChange("personalDetails", "nationality", e.target.value)
-          }
-          placeholder="Nationality"
-          className="resume-field"
-        />
-        <input
-          type="date"
-          autoComplete="off"
-          value={formData.personalDetails.dob}
-          onChange={(e) =>
-            handleChange("personalDetails", "dob", e.target.value)
-          }
-          className="resume-field"
-        />
-        <select
-          name="country"
-          className="resume-field"
-          value={formData.personalDetails.country}
-          onChange={(e) =>
-            handleChange("personalDetails", "country", e.target.value)
-          }
-        >
-          <option value="">-- Select a Country --</option>
-          {countries.map((country, index) => (
-            <option key={index} value={country}>{country}</option>
-          ))}
-        </select>
-        <button
-          type="button"
-          className="m-2 next-btn"
-          onClick={() => setStep(2)}
-        >
-          Next
-        </button>
-      </form>
-    </section>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              autoComplete="name"
+              value={formData.personalDetails.name}
+              onChange={(e) => handleChange("personalDetails", "name", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-[#2A5D9E] sm:text-sm"
+              placeholder="joeboy"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              autoComplete="email"
+              value={formData.personalDetails.email}
+              onChange={(e) => handleChange("personalDetails", "email", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="john@example.com"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              autoComplete="tel"
+              value={formData.personalDetails.phone}
+              onChange={(e) => handleChange("personalDetails", "phone", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="+232 011-111-555"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              autoComplete="street-address"
+              value={formData.personalDetails.address}
+              onChange={(e) => handleChange("personalDetails", "address", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="12 Craze yard, Country"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="nationality" className="block text-sm font-medium text-gray-700">
+              Nationality
+            </label>
+            <input
+              type="text"
+              id="nationality"
+              value={formData.personalDetails.nationality}
+              onChange={(e) => handleChange("personalDetails", "nationality", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="Your Nationality"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dob"
+              value={formData.personalDetails.dob}
+              onChange={(e) => handleChange("personalDetails", "dob", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+              Country
+            </label>
+            <select
+              id="country"
+              name="country"
+              value={formData.personalDetails.country}
+              onChange={(e) => handleChange("personalDetails", "country", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+            >
+              <option value="">Select a Country</option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>{country}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

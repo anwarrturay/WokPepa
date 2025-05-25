@@ -9,6 +9,18 @@ const getAllResumes = async (req, res) => {
 
 const createNewResume = asyncHandler(async (req, res) => {
     const { personalDetails, experience, education, skills, summary, projects, certifications, languages, references, hobbies} = req.body;
+    console.log("Fields Data: ", {
+        personalDetails,
+        experience,
+        education,
+        skills,
+        summary,
+        projects,
+        certifications,
+        languages,
+        references,
+        hobbies
+    })
 
     const userId = req.params?.id
     if(!userId) return res.status(404).json({message: "User Id Not Found"});
@@ -26,6 +38,17 @@ const createNewResume = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Invalid date format for DOB" });
     }
 
+    const parsedExperience = JSON.parse(req.body.experience)
+    const parsedEducation = JSON.parse(req.body.education)
+    const parsedProjects = JSON.parse(req.body.projects)
+    const parsedCertifications = JSON.parse(req.body.certifications)
+    const parsedReferences = JSON.parse(req.body.references)
+    // const parsedLanguages = JSON.parse(req.body.languages)
+    // console.log(parsedLanguages);
+    // const parsedHobbies = JSON.parse(req.body.hobbies)
+    // const parsedSummary = JSON.parse(req.body.summary)
+    // const parsedSkills = JSON.parse(req.body.skills)
+
     try {
         const newResume = new Resume({
             userId,
@@ -36,38 +59,38 @@ const createNewResume = asyncHandler(async (req, res) => {
                 address: personalDetails.address,
                 dob: parsedDob,
                 country: personalDetails.country,
-                nationality: personalDetails.nationality
+                nationality: personalDetails.nationality,
             },
-            experience: experience.map(exp => ({
+            experience: parsedExperience.map(exp => ({
                 jobTitle: exp.jobTitle,
                 company: exp.company,
                 startDate: exp.startDate,
                 endDate: exp.endDate,
                 responsibilities: exp.responsibilities || ""
             })),
-            education: education.map(edu => ({
+            education: parsedEducation.map(edu => ({
                 level: edu.level,
                 school: edu.school,
                 startDate: edu.startDate,
                 endDate: edu.endDate,
                 degree: edu.degree || ""
-            })),
-            skills, 
-            projects: projects.map(project => ({
+            })), 
+            projects: parsedProjects.map(project => ({
                 title: project.title,
                 description: project.description,
                 tools: project.tools || []
             })),
-            certifications: certifications.map(cert => ({
+            certifications: parsedCertifications.map(cert => ({
                 name: cert.name,
                 issuingOrganization: cert.issuingOrganization,
                 issueDate: cert.issueDate,
                 expirationDate: cert.expirationDate || "" 
             })),
             languages: languages || [], 
-            references: references || [],
+            references: parsedReferences || [],
             hobbies: hobbies || [], 
             summary: summary || [],
+            skills: skills || [],
             image: req.file.filename
         });
 
