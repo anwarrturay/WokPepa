@@ -15,6 +15,7 @@ import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
 import GeneratePdf from "../views/components/new-resume/resumepdf/GeneratePdf";
 import OAuthRedirect from "../views/components/OAuthRedirect";
+import MyResumes from "../views/components/MyResumes";
 const routes = [
     {
         path: '/',
@@ -121,11 +122,11 @@ const routes = [
         )
     },
     {
-        path: '/generate-pdf',
+        path: '/my-resumes',
         element: (
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <GeneratePdf />
+                    <MyResumes />
                 </RequireAuth>
             </PersistentLogin>
         )

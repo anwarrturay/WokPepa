@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link, useParams } from 'react-router';
 import ultraResumeLogo from "../../assets/ultraResume-full.png";
-// import google from "../assets/google.png";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../utils/LoginValidation';
@@ -56,8 +55,6 @@ const Auth = () => {
         const accessToken = response.data?.accessToken;
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.UserInfo.id;
-        console.log(userId)
-        // Set auth context with necessary user info.
         setAuth({ accessToken, email: data.email, userId });
         
         if (response.status === 200) {

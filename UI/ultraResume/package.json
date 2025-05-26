@@ -20,6 +20,7 @@
     "@react-pdf/renderer": "^4.3.0",
     "@tailwindcss/vite": "^4.0.6",
     "axios": "^1.8.2",
+    "buffer": "^6.0.3",
     "flowbite": "^3.1.2",
     "framer-motion": "^12.4.10",
     "jwt-decode": "^4.0.0",

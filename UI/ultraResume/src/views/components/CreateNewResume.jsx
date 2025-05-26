@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import logo from "../../assets/ultraResume-book.png";
 import {useNavigate} from "react-router";
 import PersonalDetails from "./new-resume/PersonalDetails";
 import Experience from "./new-resume/Experience";
@@ -13,18 +12,21 @@ import Hobbies from "./new-resume/Hobbies"
 import References from "./new-resume/References";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
-import { LoaderCircle, X, Download, Save } from "lucide-react";
+import { LoaderCircle, X, Download, Save, CheckCheck } from "lucide-react";
 import { BlobProvider, PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "./new-resume/resumepdf/MyDocument";
-
+import NewResumeHeader from "./new-resume/NewResumeHeader";
 const CreateNewResume = () => {
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
   const userId = auth?.userId;
   const [loading, setLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [resumeGenerated, setResumeGenerated] = useState(false);
   const [showForm, setShowForm] = useState(true);
+  const [resumeId, setResumeId] = useState("");
 
   const [formData, setFormData] = useState({
     personalDetails: {
@@ -74,7 +76,6 @@ const CreateNewResume = () => {
   });
 
   const [selectedFile, setSelectedFile] = useState("");
-  // const [imageFile, setImageFile] = useState(null);
 
   const handleChange = (section, field, value) => {
     if (section === "image") {
@@ -133,6 +134,7 @@ const CreateNewResume = () => {
         {headers:{"Content-Type": "multipart/form-data"}}
       );
       console.log(response.data);
+      setResumeId(response?.data?.savedResume?._id);
 
       if (response.status === 201) {
         // alert("Resume Created Successfully");
@@ -148,37 +150,32 @@ const CreateNewResume = () => {
     }
   };
 
-  const handleSaveResume = async ()=>{
-    console.log("Saved Resume");
-  }
+  const SaveResume = async (e) => {
+    e.preventDefault();
+    setIsSaving(true);
 
-  useEffect(()=>{
-    console.log(formData);
-  }, [])
-
-  const goHome = () => {
-    navigate("/user-resume-dashboard");
+    try {
+      const response = await axiosPrivate.post(
+        `resumes/my-resumes/${userId}`,
+        { resumeId }
+      );
+      
+      if (response.status === 200) {
+        setSaved(true)
+      }
+    } catch (err) {
+      console.error("Error saving resume:", err);
+      alert(err.response?.data?.message || "Unable to save resume");
+    } finally {
+      setIsSaving(false);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
       {/* Header */}
-      <header className="bg-white shadow-sm fixed top-0 w-full z-50">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div onClick={goHome} className="flex items-center space-x-2 cursor-pointer min-w-[80px] sm:min-w-[100px]">
-              <img src={logo} alt="UltraResume" className="h-6 sm:h-8 w-auto" />
-              <div className="flex items-center">
-                <span className="text-[#2A5D9E] font-semibold text-lg sm:text-xl lg:hidden">WP</span>
-                <span className="text-[#2A5D9E] font-semibold text-xl hidden lg:block">WokPepa</span>
-              </div>
-            </div>
-            <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 px-2 text-nowrap">Create New Resume</h1>
-            <div className="min-w-[80px] sm:min-w-[100px]"></div> {/* Spacer for alignment */}
-          </div>
-        </div>
-      </header>
-
+        <NewResumeHeader />
       {/* Add padding to account for fixed header */}
       <div className="pt-12 sm:pt-16">
         {showForm && (
@@ -358,11 +355,22 @@ const CreateNewResume = () => {
                 </PDFDownloadLink>
 
                 <button
-                  onClick={handleSaveResume}
-                  className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-white bg-[#2A5D9E] hover:bg-[#234e86] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2A5D9E] transition-colors cursor-pointer w-full sm:w-auto"
+                  onClick={SaveResume}
+                  className="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-white bg-[#2A5D9E] hover:bg-[#234e86] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2A5D9E] transition-colors cursor-pointer w-full sm:w-auto disabled:bg-gray-500"
+                  disabled={saved}
                 >
-                  <Save className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  Save Resume
+                  {isSaving ? 
+                    <LoaderCircle className='animate-spin' /> 
+                    : saved 
+                    ? <>
+                        <CheckCheck size={18} className="mr-2"/>
+                        Saved
+                      </> 
+                    : <>
+                        <Save size={16} className="mr-2"/>
+                        Save Resume
+                      </>
+                  }
                 </button>
               </div>
             </div>

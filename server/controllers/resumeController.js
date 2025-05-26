@@ -1,5 +1,6 @@
 const Resume = require("../models/Resume");
 const asyncHandler = require('express-async-handler');
+const MyResumes = require("../models/MyResumes");
 
 const getAllResumes = async (req, res) => {
     const resumes = await Resume.find();
@@ -43,11 +44,6 @@ const createNewResume = asyncHandler(async (req, res) => {
     const parsedProjects = JSON.parse(req.body.projects)
     const parsedCertifications = JSON.parse(req.body.certifications)
     const parsedReferences = JSON.parse(req.body.references)
-    // const parsedLanguages = JSON.parse(req.body.languages)
-    // console.log(parsedLanguages);
-    // const parsedHobbies = JSON.parse(req.body.hobbies)
-    // const parsedSummary = JSON.parse(req.body.summary)
-    // const parsedSkills = JSON.parse(req.body.skills)
 
     try {
         const newResume = new Resume({
@@ -98,7 +94,7 @@ const createNewResume = asyncHandler(async (req, res) => {
         console.log("Resume Generated is: ", savedResume);
         const resumeUrl = `/resumes/${savedResume._id}.pdf`;
 
-        return res.status(201).json({ message: "Resume created successfully", resumeUrl });
+        return res.status(201).json({ message: "Resume created successfully", resumeUrl, savedResume });
 
     } catch (error) {
         console.error(error);
@@ -200,10 +196,59 @@ const getSpecificResume = async (req, res) => {
     res.status(200).json(resume);
 }
 
+const savedResume = asyncHandler(async (req, res) => {
+    const userId = req.params?.id;
+    const { resumeId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+    }
+    if (!resumeId) {
+        return res.status(400).json({ message: "Resume ID is required" });
+    }
+
+    try {
+        const resume = await Resume.findById(resumeId);
+        if (!resume) {
+            return res.status(404).json({ message: "Resume not found" });
+        }
+        let myResumes = await MyResumes.findOne({ userId });
+        
+        if (!myResumes) {
+            myResumes = new MyResumes({
+                userId,
+                savedResumes: [resumeId]
+            });
+        } else {
+            if (myResumes.savedResumes.includes(resumeId)) {
+                return res.status(400).json({ message: "Resume already saved" });
+            }
+            myResumes.savedResumes.push(resumeId);
+        }
+
+        await myResumes.save();
+
+        const populatedMyResumes = await MyResumes.findById(myResumes._id)
+            .populate('savedResumes');
+
+        res.status(200).json({
+            message: "Resume saved successfully",
+            savedResumes: populatedMyResumes
+        });
+    } catch (error) {
+        console.error("Error saving resume:", error);
+        res.status(500).json({
+            message: "Failed to save resume",
+            error: error.message
+        });
+    }
+});
+
 module.exports = {
     getAllResumes,
     createNewResume,
     updateResume,
     deleteResume,
     getSpecificResume,
+    savedResume
 };

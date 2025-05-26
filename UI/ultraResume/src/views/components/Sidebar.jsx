@@ -13,6 +13,10 @@ const Sidebar = () => {
 		navigate("/settings")
 	}
 
+	const navToResumes = ()=>{
+		navigate("/my-resumes");
+	}
+
 	return (
 		<div className="flex h-screen font-montserrat">
 			{/* Sidebar */}
@@ -39,14 +43,12 @@ const Sidebar = () => {
 
 			{/* Sidebar Menu Items */}
 			<ul className="mt-4 space-y-2">
-				{/* Profession */}
 				<li onClick={CreateNewResume} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<Plus size={20} className="mr-3" />
 					{open && <span>Create a new resume</span>}
 				</li>
 
-				{/* Templates */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
+				<li onClick={navToResumes} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium">
 					<List size={20} className="mr-3" />
 					{open && <span>My Resumes</span>}
 				</li>

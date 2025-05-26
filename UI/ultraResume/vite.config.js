@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import tailwindcssMotion from 'tailwindcss-motion';
 import autoprefixer from 'autoprefixer';
+
 export default defineConfig({
   plugins: [
     react(),
@@ -16,6 +17,17 @@ export default defineConfig({
     postcss: {
       plugins: [autoprefixer()],
     },
+  },
+  define: {
+    global: {},
+  },
+  resolve: {
+    alias: {
+      buffer: 'buffer',
+    },
+  },
+  optimizeDeps: {
+    include: ['buffer'],
   },
 })
 
