@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { countries } from '../../../utils/Countries';
+import { Plus } from 'lucide-react';
 
 const PersonalDetails = ({
   handleChange,
@@ -51,15 +52,30 @@ const PersonalDetails = ({
                 className="absolute inset-0 w-full h-full object-cover rounded-lg"
               />
             ) : (
-              <div className="text-center">
-                <div className="text-gray-500 mb-2">Upload Photo</div>
-                <div className="text-sm text-gray-400">Click to browse</div>
+              <div className="flex flex-col items-center justify-center text-center">
+                <Plus className='text-gray-500' strokeWidth={3} size={20}/>
+                <div className="text-gray-500 mb-2 mt-2">Upload Photo</div>
+                <div className="text-sm text-gray-400">Click to browse files</div>
               </div>
             )}
           </label>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Resume Title
+            </label>
+            <input
+              type="text"
+              id="title"
+              autoComplete="title"
+              value={formData.personalDetails.title}
+              onChange={(e) => handleChange("personalDetails", "title", e.target.value)}
+              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-[#2A5D9E] sm:text-sm"
+              placeholder="job resume"
+            />
+          </div>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Full Name

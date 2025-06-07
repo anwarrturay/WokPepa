@@ -99,13 +99,11 @@ const Header = () => {
     setIsProfileModalOpen(false);
   };
 
-  const profileImage = user?.isGoogleUser ? user.image : `${BASE_URL}${user?.image}`; // expecting the user's image to be either from a google user or a manual user trying to login.
-
   return (
     <div className="bg-white relative w-full py-2 flex justify-between">
       {/* Logo Section */}
       <div className="flex items-center ml-2">
-        <img src={logo} alt="logo" className="w-[30px]" />
+        <img src={logo} alt="logo" className="w-[30px]"/>
         <div className="text-lg font-montserrat font-semibold ml-2">
           WokPepa
         </div>

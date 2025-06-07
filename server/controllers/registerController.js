@@ -3,6 +3,9 @@ const User = require("../models/User.js");
 const path = require("path");
 const generateToken = require("./generateTokenController");
 const verifyEmail = require("../service/verifyEmail");
+const cloudinary = require("../config/cloudinary.js");
+const { v4: uuidv4 } = require('uuid'); 
+require("dotenv").config();
 
 const registerNewUser = async (req, res, next) => {
   const { firstname, lastname, email, password, telephone, profession } = req.body;
@@ -20,6 +23,13 @@ const registerNewUser = async (req, res, next) => {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
+    const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+      folder: "wokpepa-userprofiles",
+      public_id: uuidv4(),
+    });
+
+    console.log(cloudinaryResult);
+
     const newUser = new User({
       "firstname": firstname,
       "lastname": lastname,
@@ -27,7 +37,8 @@ const registerNewUser = async (req, res, next) => {
       "telephone": telephone,
       "password": encryptedPassword,
       "profession": profession,
-      "image": `/uploads/${req.file.filename}`
+      "image": cloudinaryResult.secure_url,
+      "cloudinaryId": cloudinaryResult.public_id,
     })
 
     const token = generateToken();

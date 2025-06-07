@@ -3,13 +3,13 @@ import { StyleSheet } from '@react-pdf/renderer';
 export const styles = StyleSheet.create({
     page: {
         padding: '40 30',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F4F1F8',
         fontFamily: 'Helvetica',
     },
     section: {
         display: 'flex',
         flexDirection: 'row',
-        gap: 35,
+        gap: 25,
     },
     sectionHeader: {
         display: 'flex',
@@ -47,14 +47,13 @@ export const styles = StyleSheet.create({
         userImageContainer: {
             width: 110,
             height: 110,
-            borderRadius: 55,
             overflow: 'hidden',
-            border: '2px solid #E5E7EB',
         },
         userImage: {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            borderRadius: 55,
         },
         nameprofessionCont: {
             flex: 1,

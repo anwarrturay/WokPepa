@@ -5,6 +5,8 @@ const generateToken = require("./generateTokenController");
 const sendMail = require("../service/sendEmail");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require("../config/cloudinary");
+const { v4: uuidv4 } = require("uuid");
 
 const getAllUsers = async (req, res) =>{
     const users = await User.find();
@@ -39,20 +41,44 @@ const updateUserDetails = async (req, res) => {
             const hashedPwd = await bcrypt.hash(password, 10);
             updateData.password = hashedPwd;
         }
+
         // Fetch the existing user to get the old image
         const specificUser = await User.findById(id);
         if (!specificUser) return res.status(404).json({ message: "User not found" });
 
         if (req.file) {
-            // Delete old image if it exists
-            if (specificUser.image) {
-                const oldImagePath = path.join(__dirname, "..", "uploads", specificUser.image);
-                if (fs.existsSync(oldImagePath)) {
-                    fs.unlinkSync(oldImagePath); // Delete old image
+            try {
+                // Upload new image to Cloudinary
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+                    folder: "wokpepa-userprofiles",
+                    public_id: uuidv4()
+                });
+
+                // Delete old image from Cloudinary if it exists
+                if (specificUser.cloudinaryId) {
+                    try {
+                        await cloudinary.uploader.destroy(specificUser.cloudinaryId);
+                    } catch (cloudinaryError) {
+                        console.error("Error deleting old image from Cloudinary:", cloudinaryError);
+                        // Continue execution even if delete fails
+                    }
                 }
+
+                // Clean up local file after successful upload
+                fs.unlinkSync(req.file.path);
+
+                // Update with new image details
+                updateData.image = cloudinaryResult.secure_url;
+                updateData.cloudinaryId = cloudinaryResult.public_id;
+            } catch (uploadError) {
+                // Clean up local file if upload fails
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+                throw new Error(`Image upload failed: ${uploadError.message}`);
             }
-            updateData.image = `/uploads/${req.file.filename}` // Save new image filename to DB
         }
+
         const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true });
         res.status(200).json({ message: "User updated successfully", data: updatedUser });
 

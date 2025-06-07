@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Summary = ({ formData, handleChange, setStep }) => {
+const Summary = ({ formData, handleChange }) => {
   return (
     <div className="space-y-6 font-Montserrat">
       <div>

@@ -1,6 +1,9 @@
 const Resume = require("../models/Resume");
 const asyncHandler = require('express-async-handler');
 const MyResumes = require("../models/MyResumes");
+const cloudinary = require("../config/cloudinary");
+const { v4: uuidv4 } = require('uuid'); 
+require("dotenv").config();
 
 const getAllResumes = async (req, res) => {
     const resumes = await Resume.find();
@@ -10,18 +13,6 @@ const getAllResumes = async (req, res) => {
 
 const createNewResume = asyncHandler(async (req, res) => {
     const { personalDetails, experience, education, skills, summary, projects, certifications, languages, references, hobbies} = req.body;
-    console.log("Fields Data: ", {
-        personalDetails,
-        experience,
-        education,
-        skills,
-        summary,
-        projects,
-        certifications,
-        languages,
-        references,
-        hobbies
-    })
 
     const userId = req.params?.id
     if(!userId) return res.status(404).json({message: "User Id Not Found"});
@@ -39,16 +30,24 @@ const createNewResume = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Invalid date format for DOB" });
     }
 
-    const parsedExperience = JSON.parse(req.body.experience)
-    const parsedEducation = JSON.parse(req.body.education)
-    const parsedProjects = JSON.parse(req.body.projects)
-    const parsedCertifications = JSON.parse(req.body.certifications)
-    const parsedReferences = JSON.parse(req.body.references)
+    const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+        folder: "wokpepa-resumeprofiles",
+        public_id: uuidv4(),
+    });
+    console.log(experience)
+    console.log(education)
+    const parsedExperience = JSON.parse(experience)
+    const parsedEducation = JSON.parse(education)
+    const parsedProjects = JSON.parse(projects)
+    const parsedCertifications = JSON.parse(certifications)
+    const parsedReferences = JSON.parse(references)
+    const parsedLanguages = JSON.parse(languages)
 
     try {
         const newResume = new Resume({
             userId,
             personalDetails: {
+                title: personalDetails.title,
                 name: personalDetails.name,
                 email: personalDetails.email,
                 phone: personalDetails.phone,
@@ -82,19 +81,24 @@ const createNewResume = asyncHandler(async (req, res) => {
                 issueDate: cert.issueDate,
                 expirationDate: cert.expirationDate || "" 
             })),
-            languages: languages || [], 
-            references: parsedReferences || [],
-            hobbies: hobbies || [], 
-            summary: summary || [],
-            skills: skills || [],
-            image: req.file.filename
+            languages: parsedLanguages || "", 
+            references: parsedReferences || "",
+            hobbies: hobbies || "", 
+            summary: summary || "",
+            skills: skills || "",
+            image: cloudinaryResult.secure_url,
+            cloudinaryId: cloudinaryResult.public_id
         });
 
         const savedResume = await newResume.save();
         console.log("Resume Generated is: ", savedResume);
         const resumeUrl = `/resumes/${savedResume._id}.pdf`;
 
-        return res.status(201).json({ message: "Resume created successfully", resumeUrl, savedResume });
+        return res.status(201).json({ 
+            message: "Resume created successfully", 
+            resumeUrl, 
+            savedResume 
+        });
 
     } catch (error) {
         console.error(error);
@@ -176,37 +180,35 @@ const updateResume = async (req, res) => {
 };
 
 const deleteResume = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ message: "Resume Id required" });
+    const resumeId = req?.params?.id;
+    if (!resumeId) return res.status(400).json({ message: "Resume Id required" });
 
-    const resume = await Resume.findById({ _id: req.params.id }).exec();
-    if (!resume) return res.status(204).json({ message: "Resume not found" });
-
-    const result = await resume.deleteOne({ _id: req.params.id }).exec();
-    res.json(result);
-}
-
-const getSpecificResume = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ message: "Resume Id is required" });
-
-    const { id } = req.params;
-
-    const resume = await Resume.findById(id);
-    if (!resume) return res.status(204).json({ message: "Resume not found" })
-
-    res.status(200).json(resume);
+    try{
+        const resume = await Resume.findById({ _id:resumeId }).exec();
+        if (!resume) return res.status(204).json({ message: "Resume not found" });
+        
+        const result = await resume.deleteOne({ _id: req.params.id }).exec();
+        res.status(204).json({message: "Resume deleted Successfully", result});
+    }catch(err){
+        console.error("Error Deleting Resume: ", err);
+        return res.status(500).json({ 
+            message: "Error Deleting resume", 
+            error: err.message 
+        });
+    }
 }
 
 const savedResume = asyncHandler(async (req, res) => {
     const userId = req.params?.id;
     const { resumeId } = req.body;
-
+    
     if (!userId) {
         return res.status(400).json({ message: "User ID is required" });
     }
     if (!resumeId) {
         return res.status(400).json({ message: "Resume ID is required" });
     }
-
+    
     try {
         const resume = await Resume.findById(resumeId);
         if (!resume) {
@@ -229,8 +231,8 @@ const savedResume = asyncHandler(async (req, res) => {
         await myResumes.save();
 
         const populatedMyResumes = await MyResumes.findById(myResumes._id)
-            .populate('savedResumes');
-
+        .populate('savedResumes');
+        
         res.status(200).json({
             message: "Resume saved successfully",
             savedResumes: populatedMyResumes
@@ -244,11 +246,44 @@ const savedResume = asyncHandler(async (req, res) => {
     }
 });
 
+const getUserResumes = async (req, res) => {
+    const userId = req?.params?.id;
+    if(!userId) {
+        return res.status(404).json({ message: "User Id not found" });
+    }
+    console.log("userId: ", userId);
+
+    try {
+        const foundUser = await MyResumes.findOne({ userId })
+            .populate({
+                path: 'savedResumes',
+                select: 'personalDetails summary experience education skills projects certifications languages references hobbies image createdAt updatedAt',
+                options: { sort: { createdAt: -1 } } // Sort by newest first
+            });
+
+        if(!foundUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if(!foundUser.savedResumes?.length) {
+            return res.status(200).json([]); 
+        }
+
+        return res.status(200).json(foundUser.savedResumes);
+    } catch(err) {
+        console.error("Error fetching user resumes:", err);
+        return res.status(500).json({ 
+            message: "Error fetching resumes", 
+            error: err.message 
+        });
+    }
+};
+
 module.exports = {
     getAllResumes,
     createNewResume,
     updateResume,
     deleteResume,
-    getSpecificResume,
-    savedResume
+    savedResume,
+    getUserResumes
 };

@@ -64,6 +64,9 @@ const usersSchema = new Schema({
   refreshToken: {
     type: String,
   },
+  cloudinaryId: {
+    type: String,
+  }
 }, { timestamps: true });
 
 

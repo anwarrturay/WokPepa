@@ -59,3 +59,14 @@
 20250523	09:23:14	5a32dd39-1b2e-490c-87cb-6dd058eafe33	TypeError:Cannot read properties of undefined (reading 'name')
 20250523	10:59:53	70d753b9-365c-402a-bf9c-0c8c0fdd2605	ReferenceError:image is not defined
 20250526	12:05:26	95d20900-18f6-4614-b351-653eea34f5ca	Error:Cannot set headers after they are sent to the client
+20250603	06:16:04	7d0e8703-d567-481b-830f-2619b269f95e	Error:Cannot set headers after they are sent to the client
+20250604	12:23:07	cb009aeb-38d6-4ad4-8203-743b4cf4e3c3	undefined:undefined
+20250605	01:07:26	ee7b5f2e-244c-4a15-b5d1-32a0369c0511	TypeError:Cannot convert object to primitive value
+20250605	01:23:32	199487ac-b483-4326-b3a3-3fe8b02f13cc	SyntaxError:"[object Object]" is not valid JSON
+20250605	01:27:20	2f55ff87-ae83-4bcf-b7de-38a855da81e8	SyntaxError:"[object Object]" is not valid JSON
+20250605	01:28:27	f71976a3-fc09-400f-a011-add87109fc06	SyntaxError:"[object Object]" is not valid JSON
+20250605	01:29:33	0ddddaf7-0a75-46b0-8084-194dc38ac0c0	SyntaxError:"[object Object]" is not valid JSON
+20250605	01:30:58	0934c061-1977-48f3-aca5-bade1354ff3c	SyntaxError:"[object Object]" is not valid JSON
+20250605	01:38:39	2b6dba2b-935a-4b7d-81b9-a1f5758ef25e	SyntaxError:Unexpected token 's', "nssnnsssns" is not valid JSON
+20250605	01:40:35	12c8ccb8-3d78-443b-b321-71352d1790f5	TypeError:Cannot convert object to primitive value
+20250605	01:57:42	2e3f639e-2355-4fb9-b777-c2d450347a38	undefined:undefined

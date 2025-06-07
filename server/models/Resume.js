@@ -9,6 +9,7 @@ const ResumeSchema = new Schema(
       required: true,
     },
     personalDetails: {
+      title: { type: String, required: true, trim: true },
       name: { type: String, required: true, trim: true },
       email: { type: String, required: true, trim: true },
       phone: { type: Number, required: true, trim: true },
@@ -27,10 +28,10 @@ const ResumeSchema = new Schema(
       country: { type: String, required: true, trim: true },
       
     },
-    summary: [{
+    summary: {
       type: String,
       trim: true,
-    }],
+    },
     experience: [
       {
         jobTitle: { type: String, required: true, trim: true },
@@ -65,7 +66,10 @@ const ResumeSchema = new Schema(
         expirationDate: { type: String, trim: true },
       },
     ],
-    languages: [{ type: String, trim: true }],
+    languages: [{ 
+      name: {type: String, trim: true },
+      level: {type: String, trim: true }
+    }],
     references: [
       {
         name: { type: String, required: true, trim: true },

@@ -24,13 +24,13 @@ body{
 }
 .input-field{
    @apply mb-2 w-[280px] border border-[#ccc] rounded-md focus:ring-1 
-    focus:border-blue-600 px-2 py-2.5 outline-none xs:w-[312px] text-lg font-[480] sm:w-[385px] placeholder:text-sm
+    focus:border-blue-600 px-2 py-2.5 outline-none xs:w-[312px] text-base font-[480] sm:w-[385px] placeholder:text-sm
 }
 .resume-field{
     @apply mt-1 block w-full outline-none border rounded-md border-[#ccc] focus:border-[#2A5D9E] sm:text-sm py-2 px-1 focus:ring-[#2A5D9E]
 }
 .submit-btn{
-    @apply bg-[#2A5D9E] mt-3 rounded-md text-white font-medium text-center py-2.5 cursor-pointer text-lg w-[280px] xs:w-[312px] sm:w-[385px]
+    @apply bg-[#2A5D9E] mt-1 rounded-md text-white font-medium text-center py-2 cursor-pointer text-base w-[280px] xs:w-[312px] sm:w-[385px]
 }
 .error-msg{
     @apply text-red-500 font-medium relative bottom-1.5

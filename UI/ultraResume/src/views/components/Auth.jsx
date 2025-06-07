@@ -160,12 +160,13 @@ const Auth = () => {
                         )}
                     </div>
                     <button type="submit" className="submit-btn">
-                    {isLoading ? 
-                        <div className='flex items-center justify-center gap-2'>                            
-                            <LoaderCircle className='animate-spin' /> 
-                        </div>
-                        :
-                        "Sign In"}
+                        {isLoading ? 
+                            <div className='flex items-center justify-center gap-2'>                            
+                                <LoaderCircle className='animate-spin' /> 
+                            </div>
+                            :
+                            "Sign In"
+                        }
                     </button>
 
                     <div className="flex flex-col justify-start mt-2">

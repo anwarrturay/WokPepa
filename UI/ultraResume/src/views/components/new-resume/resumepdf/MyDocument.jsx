@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import UserIcon from "./icons/user.png";
 import Lock from "./icons/lock.png";
@@ -16,6 +16,7 @@ const SectionHeader = ({ icon, text }) => (
 );
 
 const MyDocument = ({ formData }) => {
+  const [imageUrl, setImageUrl] = useState(null);
   const {
     personalDetails,
     summary,
@@ -28,7 +29,30 @@ const MyDocument = ({ formData }) => {
     hobbies,
     skills,
     image,
-  } = formData;
+  } = formData || {};
+
+  useEffect(() => {
+    const handleImage = async () => {
+      try {
+        if (image instanceof File) {
+          const url = URL.createObjectURL(image);
+          setImageUrl(url);
+          return () => URL.revokeObjectURL(url);
+        } else if (typeof image === 'string' && image.startsWith('http')) {
+          setImageUrl(image);
+        } else if (typeof image === 'string' && image.startsWith('data:image')) {
+          setImageUrl(image);
+        } else {
+          console.warn('Invalid image format:', image);
+          setImageUrl(null);
+        }
+      } catch (error) {
+        console.error('Error handling image:', error);
+        setImageUrl(null);
+      }
+    };
+    handleImage();
+  }, [image]);
 
   return (
     <Document title={`${personalDetails?.name}'s Resume`} author={personalDetails?.name}>
@@ -39,7 +63,7 @@ const MyDocument = ({ formData }) => {
             {/* Header with image and name */}
             <View style={styles.leftSection.header}>
               <View style={styles.leftSection.userImageContainer}>
-                {image && <Image style={styles.leftSection.userImage} src={image} />}
+                {imageUrl && <Image style={styles.leftSection.userImage} src={imageUrl} />}
               </View>
               <View style={styles.leftSection.nameprofessionCont}>
                 <Text style={styles.leftSection.username}>{personalDetails?.name}</Text>
@@ -92,15 +116,6 @@ const MyDocument = ({ formData }) => {
                   <View key={idx} style={styles.leftSection.projectDescTitle}>
                     <Text style={styles.leftSection.projectTitle}>{project?.title}</Text>
                     <Text style={styles.leftSection.projectDesc}>{project?.description}</Text>
-                    {project?.tools?.length > 0 && (
-                      <View style={styles.leftSection.technologies}>
-                        {project.tools[0]
-                          .split(',')
-                          .map((tech, idx) => (
-                            <Text key={idx}>{tech.trim()}</Text>
-                          ))}
-                      </View>
-                    )}
                   </View>
                 ))}
               </View>
