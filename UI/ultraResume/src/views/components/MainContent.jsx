@@ -1,8 +1,6 @@
 import { Plus } from 'lucide-react'
 import { Link } from 'react-router';
 const MainContent = () => {
-
-
   return (
     <section className='flex flex-col items-center justify-center text-[#333333] font-montserrat'>
         <h1 className="font-bold text-lg w-[280px] text-center">Start a new resume with Us</h1>

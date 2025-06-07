@@ -52,7 +52,7 @@ const Sidebar = () => {
 				</li>
 
 				{/* cheqsquare */}
-				<li className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium" title="Templates">
+				<li onClick={()=> navigate("/templates")} className="flex items-center px-4 py-2 text-[#333333] hover:bg-gray-100 cursor-pointer font-medium" title="Templates">
 					<LayoutTemplate size={20} className="mr-3" />
 					{open && <span>Templates</span>}
 				</li>

@@ -52,9 +52,8 @@ const MyResumes = () => {
 
   const filteredResumes = resumes.filter(resume => {
     const searchString = searchTerm.toLowerCase();
-    const name = resume.personalDetails?.name?.toLowerCase() || '';
-    const email = resume.personalDetails?.email?.toLowerCase() || '';
-    return name.includes(searchString) || email.includes(searchString);
+    const title = resume.personalDetails?.title?.toLowerCase() || '';
+    return title.includes(searchString);
   });
 
   return (
@@ -126,10 +125,10 @@ const MyResumes = () => {
                 <div className="p-4 sm:p-6">
                   <div className="mb-4">
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 truncate">
-                      {resume.personalDetails?.name || 'Untitled Resume'}
+                      {resume.personalDetails?.title || 'Untitled Resume'}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 truncate">
-                      {resume.personalDetails?.email || 'No email provided'}
+                      {resume?.updatedAt || 'No last date updated provided'}
                     </p>
                   </div>
                   
@@ -144,7 +143,7 @@ const MyResumes = () => {
                       </button>
                       <PDFDownloadLink
                         document={<MyDocument formData={resume} />}
-                        fileName={`${resume?.personalDetails?.name || 'resume'}.pdf`}
+                        fileName={`${resume?.personalDetails?.title || 'resume'}.pdf`}
                         className="inline-flex items-center justify-center px-3 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       >
                         {({ loading }) => (

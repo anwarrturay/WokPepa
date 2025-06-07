@@ -3,6 +3,7 @@ import { X,  CircleUserRound, AppWindowMac, FileUser, Bell, Contact } from "luci
 import logo from "../../../assets/ultraResume-book.png";
 import useToggleSidebar from "../hooks/useToggleSidebar"
 import useAuth from '../../../hooks/useAuth';
+import Preferences from './Preferences';
 const Sidebar = () => {
     const { activeSection, setActiveSection, isOpen} = useAuth();
     const toggleSidebar  = useToggleSidebar();
@@ -29,32 +30,10 @@ const Sidebar = () => {
                 Account
             </li>
             <li 
-                className={`flex p-2 cursor-pointer ${activeSection === "resume" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
-                onClick={() => setActiveSection("resume")}
+                className={`flex p-2 cursor-pointer ${activeSection === "preferences" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
+                onClick={() => setActiveSection("preferences")}
             >
-                <AppWindowMac size={20} className="mr-2"/>
-                Resume Preferences
-            </li>
-            <li 
-                className={`flex p-2 cursor-pointer ${activeSection === "manage-resumes" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
-                onClick={() => setActiveSection("manage-resumes")}
-            >
-                <FileUser size={20} className='mr-2'/>
-                Manage Resumes
-            </li>
-            <li 
-                className={`flex p-2 cursor-pointer ${activeSection === "notifications" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
-                onClick={() => setActiveSection("notifications")}
-            >
-                <Bell size={20} className='mr-2'/>
-                Notification Settings
-            </li>
-            <li 
-                className={`flex p-2 cursor-pointer ${activeSection === "contact-us" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
-                onClick={() => setActiveSection("contact-us")}
-            >
-                <Contact size={20} className='mr-2'/>
-                Contact Us
+                <Preferences size={20} className='mr-2'/>
             </li>
         </ul>
     </div>

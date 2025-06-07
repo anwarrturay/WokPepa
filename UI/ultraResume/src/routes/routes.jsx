@@ -13,9 +13,9 @@ import Account from "../views/settings/components/Account";
 import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
 import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
-import GeneratePdf from "../views/components/new-resume/resumepdf/GeneratePdf";
 import OAuthRedirect from "../views/components/OAuthRedirect";
 import MyResumes from "../views/components/MyResumes";
+import Templates from "../views/components/Templates";
 const routes = [
     {
         path: '/',
@@ -49,7 +49,11 @@ const routes = [
                     <Layout />
                 </RequireAuth>
             </PersistentLogin>
-        )
+        ),
+    },
+    {
+        path: 'templates',
+        element: <Templates />
     },
     {
         path: 'create-new-resume',
@@ -112,6 +116,16 @@ const routes = [
         )
     },
     {
+        path: '/my-resumes',
+        element: (
+            <PersistentLogin>
+                <RequireAuth allowedRoles={[Roles_List.USER]}>
+                    <MyResumes />
+                </RequireAuth>
+            </PersistentLogin>
+        )
+    },
+    {
         path: '/admin-ui',
         element: (
             <PersistentLogin>
@@ -121,16 +135,6 @@ const routes = [
             </PersistentLogin>
         )
     },
-    {
-        path: '/my-resumes',
-        element: (
-            <PersistentLogin>
-                <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <MyResumes />
-                </RequireAuth>
-            </PersistentLogin>
-        )
-    }
 ]
 
 export default routes;

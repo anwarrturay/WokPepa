@@ -1,7 +1,6 @@
-import React from 'react'
-import Sidebar from './Sidebar';
-import Dashboard from './Dashboard';
 import Header from './Header';
+import Dashboard from './Dashboard';
+import Sidebar from './Sidebar';
 const Layout = () => {
   return (
     <section>
