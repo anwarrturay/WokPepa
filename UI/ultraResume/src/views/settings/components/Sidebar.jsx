@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { X,  CircleUserRound, AppWindowMac, FileUser, Bell, Contact } from "lucide-react";
+import { X,  CircleUserRound, Sliders } from "lucide-react";
 import logo from "../../../assets/ultraResume-book.png";
 import useToggleSidebar from "../hooks/useToggleSidebar"
 import useAuth from '../../../hooks/useAuth';
@@ -30,9 +30,10 @@ const Sidebar = () => {
                 Account
             </li>
             <li 
-                className={`flex p-2 cursor-pointer ${activeSection === "preferences" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
+                className={`flex p-2 cursor-pointer mt-2 ${activeSection === "preferences" ? "bg-gray-200 rounded" : "hover:bg-gray-200 hover:rounded"}`} 
                 onClick={() => setActiveSection("preferences")}
             >
+                <Sliders size={20} className='mr-2'/>
                 <Preferences size={20} className='mr-2'/>
             </li>
         </ul>
