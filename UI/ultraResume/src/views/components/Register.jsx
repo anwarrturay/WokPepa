@@ -123,7 +123,7 @@ const Register = () => {
                     />
                     {errors.firstname &&
                         <div className={`flex items-center`}>
-                            <p className='text-start error-msg ml-2 mt-2'>{errors.firstname?.message}</p>
+                            <p className='text-start error-msg'>{errors.firstname?.message}</p>
                         </div>
                     }
                 </div>
@@ -137,7 +137,7 @@ const Register = () => {
                     />
                     {errors.lastname &&
                         <div className={`flex items-center ${marginBottom}`}>
-                            <p className='error-msg ml-2 mt-2'>{errors.lastname?.message}</p>
+                            <p className='error-msg'>{errors.lastname?.message}</p>
                         </div>
                     }
                 </div>
@@ -151,7 +151,7 @@ const Register = () => {
                     />
                     {errors.email && 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <p className='error-msg ml-2 mt-2'>{errors.email?.message}</p>
+                            <p className='error-msg'>{errors.email?.message}</p>
                         </div>
                     }
                 </div>
@@ -167,7 +167,7 @@ const Register = () => {
                     {errors.telephone &&
                         
                         <div className={`flex items-start ${marginBottom}`}>
-                            <p className='error-msg w-[240px] ml-2 mt-2'>{errors.telephone?.message}</p>
+                            <p className='error-msg w-[240px]'>{errors.telephone?.message}</p>
                         </div>
                     }
                 </div>
@@ -187,7 +187,7 @@ const Register = () => {
                     {errors.password &&
 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <p className='error-msg ml-2 mt-2'>{errors.password?.message}</p>
+                            <p className='error-msg'>{errors.password?.message}</p>
                         </div>
                     }
                 </div>
@@ -201,7 +201,7 @@ const Register = () => {
                     />
                     {errors.profession && 
                         <div className={`flex items-center ${marginBottom}`}>
-                            <p className='error-msg ml-2 mt-2'>{errors.profession?.message}</p>
+                            <p className='error-msg'>{errors.profession?.message}</p>
                         </div>
                     }
                 </div>
@@ -214,7 +214,7 @@ const Register = () => {
                     />
                     { errors.image &&
                         <div className={`flex items-start ${marginBottom}`}>
-                            <p className='error-msg w-[200px] ml-2 mt-2'>{errors.image?.message}</p>
+                            <p className='error-msg w-[200px]'>{errors.image?.message}</p>
                         </div>
                     }
                 </div>

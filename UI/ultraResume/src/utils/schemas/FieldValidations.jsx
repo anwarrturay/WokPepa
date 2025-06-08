@@ -15,7 +15,7 @@ export const schema = yup.object().shape({
         .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
         .matches(/[a-z]/, "Password must contain at least one lowercase letter")
         .matches(/\d/, "Password must contain at least one number")
-        .matches(/[@$!%*?&]/, "Password must contain at least one special character"),
+        .matches(/[@$!%*?&.]/, "Password must contain at least one special character"),
     profession: yup.string().required(),
     image: yup
         .mixed()
