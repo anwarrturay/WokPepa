@@ -55,7 +55,6 @@ const ResumeSchema = new Schema(
       {
         title: { type: String, required: true, trim: true },
         description: { type: String, required: true, trim: true },
-        tools: [{ type: String, trim: true }],
       },
     ],
     certifications: [
@@ -63,7 +62,6 @@ const ResumeSchema = new Schema(
         name: { type: String, required: true, trim: true },
         issuingOrganization: { type: String, required: true, trim: true },
         issueDate: { type: String, required: true },
-        expirationDate: { type: String, trim: true },
       },
     ],
     languages: [{ 

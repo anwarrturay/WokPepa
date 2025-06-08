@@ -1,10 +1,15 @@
-import { StyleSheet } from '@react-pdf/renderer';
+import { StyleSheet, Font } from '@react-pdf/renderer';
+Font.register({
+    family:'Open Sans',
+    src: "http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf",
+    fontWeight: 700
+})
 
 export const styles = StyleSheet.create({
     page: {
         padding: '40 30',
         backgroundColor: '#F4F1F8',
-        fontFamily: 'Helvetica',
+        fontFamily: 'Open Sans',
     },
     section: {
         display: 'flex',
@@ -19,6 +24,7 @@ export const styles = StyleSheet.create({
         gap: 8,
         borderBottom: '1px solid #E5E7EB',
         paddingBottom: 6,
+        fontWeight: "bold"
     },
     sectionHeaderIcon: {
         width: 16,
@@ -39,8 +45,8 @@ export const styles = StyleSheet.create({
 
         header: {
             display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: 'column',
+            alignItems: 'start',
             marginBottom: 30,
             gap: 20,
         },
@@ -53,22 +59,22 @@ export const styles = StyleSheet.create({
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            borderRadius: 55,
+            borderRadius: 10,
         },
         nameprofessionCont: {
             flex: 1,
         },
         username: {
-            fontSize: 26,
+            fontSize: 16,
             fontWeight: 'bold',
-            marginBottom: 6,
+            marginTop: -10,
             color: '#1a365d',
             letterSpacing: 0.5,
         },
-        profession: {
-            fontSize: 15,
+        jobtitle:{
+            fontSize: 11,
+            marginTop: 9,
             color: '#4a5568',
-            letterSpacing: 0.3,
         },
         profileSection: {
             marginBottom: 28,

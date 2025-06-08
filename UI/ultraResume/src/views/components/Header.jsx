@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import logo from "../../assets/ultraResume-book.png";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
+import { X } from "lucide-react";
 import { 
   CircleUserRound, LogOut, AppWindowMac, 
   CircleHelp, Eye, ChevronRight 
@@ -100,7 +101,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white relative w-full py-2 flex justify-between">
+    <div className="bg-white fixed w-full py-2 flex justify-between">
       {/* Logo Section */}
       <div className="flex items-center ml-2">
         <img src={logo} alt="logo" className="w-[30px]"/>
@@ -108,7 +109,6 @@ const Header = () => {
           WokPepa
         </div>
       </div>
-
       {/* User Profile Section */}
       <div className="relative flex items-center mr-4">
         <img
@@ -196,15 +196,18 @@ const Header = () => {
             onClick={closeProfileModal}
           >
             <div
-              className="flex flex-col items-center rounded-lg"
+              className="flex flex-col items-center rounded-lg relative"
               onClick={(e) => e.stopPropagation()}
             >
+              <button onClick={closeProfileModal} className="bg-white p-2 rounded-3xl z-50 absolute left-2 top-2 cursor-pointer">
+                  <X size={20} strokeWidth={3}/>
+              </button>
               <img
                 src={previewImage || (watch("image") instanceof File 
-            ? URL.createObjectURL(watch("image")) 
-            : watch("image"))}
-                alt="profile-full"
-                className="w-[600px] h-[600px] object-cover mb-4 rounded-lg"
+                ? URL.createObjectURL(watch("image")) 
+                : watch("image"))}
+                    alt="profile-full"
+                    className="w-[600px] h-[600px] object-cover mb-4 rounded-lg"
               />
             </div>
           </div>

@@ -72,7 +72,7 @@ const PersonalDetails = ({
               autoComplete="title"
               value={formData.personalDetails.title}
               onChange={(e) => handleChange("personalDetails", "title", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-[#2A5D9E] sm:text-sm"
+              className="resume-field"
               placeholder="job resume"
             />
           </div>
@@ -86,7 +86,7 @@ const PersonalDetails = ({
               autoComplete="name"
               value={formData.personalDetails.name}
               onChange={(e) => handleChange("personalDetails", "name", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-[#2A5D9E] sm:text-sm"
+              className="resume-field"
               placeholder="joeboy"
             />
           </div>
@@ -101,7 +101,7 @@ const PersonalDetails = ({
               autoComplete="email"
               value={formData.personalDetails.email}
               onChange={(e) => handleChange("personalDetails", "email", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
               placeholder="john@example.com"
             />
           </div>
@@ -116,7 +116,7 @@ const PersonalDetails = ({
               autoComplete="tel"
               value={formData.personalDetails.phone}
               onChange={(e) => handleChange("personalDetails", "phone", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
               placeholder="+232 011-111-555"
             />
           </div>
@@ -131,7 +131,7 @@ const PersonalDetails = ({
               autoComplete="street-address"
               value={formData.personalDetails.address}
               onChange={(e) => handleChange("personalDetails", "address", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
               placeholder="12 Craze yard, Country"
             />
           </div>
@@ -145,7 +145,7 @@ const PersonalDetails = ({
               id="nationality"
               value={formData.personalDetails.nationality}
               onChange={(e) => handleChange("personalDetails", "nationality", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
               placeholder="Your Nationality"
             />
           </div>
@@ -159,7 +159,7 @@ const PersonalDetails = ({
               id="dob"
               value={formData.personalDetails.dob}
               onChange={(e) => handleChange("personalDetails", "dob", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
             />
           </div>
 
@@ -172,7 +172,7 @@ const PersonalDetails = ({
               name="country"
               value={formData.personalDetails.country}
               onChange={(e) => handleChange("personalDetails", "country", e.target.value)}
-              className="mt-1 block w-full outline-none rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className="resume-field"
             >
               <option value="">Select a Country</option>
               {countries.map((country, index) => (

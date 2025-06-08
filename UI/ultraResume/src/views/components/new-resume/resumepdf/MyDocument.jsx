@@ -67,7 +67,13 @@ const MyDocument = ({ formData }) => {
               </View>
               <View style={styles.leftSection.nameprofessionCont}>
                 <Text style={styles.leftSection.username}>{personalDetails?.name}</Text>
-                <Text style={styles.leftSection.profession}>{experience?.jobTitle}</Text>
+                {experience && (
+                  experience.map((job, idx)=>(
+                    <View key={idx}>
+                      <Text style={styles.leftSection.jobtitle}>{job?.jobTitle}</Text>
+                    </View>
+                  ))
+                )}
               </View>
             </View>
 
@@ -129,7 +135,7 @@ const MyDocument = ({ formData }) => {
                   <View key={idx} style={styles.leftSection.cert1}>
                     <Text style={styles.leftSection.cert}>{cert.name}</Text>
                     <Text style={styles.leftSection.organization}>
-                      {cert.issuingOrganization} ({cert.issueDate} to {cert.expirationDate})
+                      {cert.issuingOrganization} ({cert.issueDate})
                     </Text>
                   </View>
                 ))}

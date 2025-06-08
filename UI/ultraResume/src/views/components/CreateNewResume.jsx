@@ -59,13 +59,11 @@ const CreateNewResume = () => {
     projects: [{
       title: "",
       description: "",
-      tools: []
     }],
     certifications: [{ 
       name: "",
       issuingOrganization: "",
       issueDate: "",
-      expirationDate: ""
     }],
     languages: [],
     references: [{

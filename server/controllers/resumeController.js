@@ -73,13 +73,11 @@ const createNewResume = asyncHandler(async (req, res) => {
             projects: parsedProjects.map(project => ({
                 title: project.title,
                 description: project.description,
-                tools: project.tools || []
             })),
             certifications: parsedCertifications.map(cert => ({
                 name: cert.name,
                 issuingOrganization: cert.issuingOrganization,
-                issueDate: cert.issueDate,
-                expirationDate: cert.expirationDate || "" 
+                issueDate: cert.issueDate
             })),
             languages: parsedLanguages || "", 
             references: parsedReferences || "",
