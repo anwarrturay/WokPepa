@@ -101,7 +101,7 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white fixed w-full h-15 py-2 flex justify-between">
+    <div className="bg-white fixed h-15 w-full py-2 flex justify-between">
       {/* Logo Section */}
       <div className="flex items-center ml-2">
         <img src={logo} alt="logo" className="w-[30px]"/>

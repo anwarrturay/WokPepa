@@ -18,7 +18,7 @@ const Sidebar = () => {
 	}
 
 	return (
-		<div style={{ height: "calc(100vh - 60rem)"}} className="flex font-montserrat relative top-14">
+		<div className="flex font-montserrat relative top-14">
 			<div
 			className={`bg-white text-white h-full transition-all duration-300 ${
 				open ? "w-60" : "w-16"

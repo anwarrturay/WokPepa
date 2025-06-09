@@ -2,7 +2,7 @@ import { Plus } from 'lucide-react'
 import { Link } from 'react-router';
 const MainContent = () => {
   return (
-    <section  style={{ height: "calc(100vh - 60rem)"}} className='flex flex-col items-center justify-center text-[#333333] font-montserrat'>
+    <section style={{height: 'calc(100vh - 60px)'}} className='flex flex-col items-center justify-center text-[#333333] font-montserrat'>
         <h1 className="font-bold text-lg w-[280px] text-center">Start a new resume with Us</h1>
         <h3 className='text-sm font-medium relative top-5'>Build a new resume with us</h3>
         <div className="flex flex-col items-center justify-center xl:flex-row lg:flex-row md:flex-row">
