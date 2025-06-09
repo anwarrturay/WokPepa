@@ -8,7 +8,7 @@ Font.register({
 export const styles = StyleSheet.create({
     page: {
         padding: '40 30',
-        backgroundColor: '#F4F1F8',
+        backgroundColor: '#f5f5f5',
         fontFamily: 'Open Sans',
     },
     section: {

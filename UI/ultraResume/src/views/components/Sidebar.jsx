@@ -18,7 +18,7 @@ const Sidebar = () => {
 	}
 
 	return (
-		<div className="flex font-montserrat top-14 bottom-0 z-50 fixed">
+		<div className="flex font-montserrat top-14 bottom-0 fixed">
 			<div
 			className={`bg-white text-white h-full transition-all duration-300 ${
 				open ? "w-60" : "w-16"

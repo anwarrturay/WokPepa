@@ -11,15 +11,13 @@ const PDFPreview = ({ formData }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    let isCanceled = false; // flag to indicate if effect cleanup has been called
-    let renderTask = null;  // variable to hold the current render task
+    let isCanceled = false; 
+    let renderTask = null; 
 
     const generateAndRenderPDF = async () => {
       try {
-        // Generate the PDF blob from your document component
         const blob = await pdf(<MyDocument formData={formData} />).toBlob();
-        if (isCanceled) return; // if canceled, exit early
-
+        if (isCanceled) return; 
         const url = URL.createObjectURL(blob);
 
         // Load the PDF via pdf.js

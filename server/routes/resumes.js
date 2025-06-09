@@ -13,10 +13,10 @@ const ROLES_LIST = require("../config/roles_list");
 const upload = require("../middleware/multerConfig");
 router.route("/")
     .get(verifyRoles(ROLES_LIST.USER), getAllResumes)
-    .put(verifyRoles(ROLES_LIST.USER), updateResume)        
 router.route("/:id")
     .post(upload.single("image"), verifyRoles(ROLES_LIST.USER), createNewResume)
-    .delete(verifyRoles(ROLES_LIST.USER), deleteResume);
+    .delete(verifyRoles(ROLES_LIST.USER), deleteResume)
+    .patch(verifyRoles(ROLES_LIST.USER), updateResume)        
 router.post("/my-resumes/:id", upload.single("image"), verifyRoles(ROLES_LIST.USER), savedResume);
 router.route("/user-pdfs/:id").get(verifyRoles(ROLES_LIST.USER), getUserResumes);
 

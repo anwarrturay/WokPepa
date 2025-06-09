@@ -36,7 +36,6 @@ router.get(
     )
 
     res.redirect(`${process.env.CLIENT_URL}/oauth-redirect?accessToken=${accessToken}`);
-    // Or res.json({ token });
   }
 );
 

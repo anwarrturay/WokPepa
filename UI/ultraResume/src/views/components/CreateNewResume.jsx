@@ -320,6 +320,7 @@ const CreateNewResume = () => {
                 <div className="w-full">
                     <PDFPreview formData={formData}/>
                 </div>
+                <p className="text-sm mt-2">Click Download to see full resume</p>
               </div>
 
               {/* Buttons below PDF */}

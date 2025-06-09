@@ -84,7 +84,7 @@ const MyResumes = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search resumes by name or email"
+                placeholder="Search resumes by title"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-2 pl-10 pr-4 text-sm sm:text-base text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2A5D9E] focus:border-transparent"
