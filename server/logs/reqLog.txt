@@ -9687,3 +9687,7 @@
 20250611	01:14:17	dc773110-0b63-45f7-a124-e8a03cecff48	GET	http://localhost:5173	/resumes/6846a10fd7ac7c4cda3fbf8f
 20250611	01:14:17	4c69eb84-0fb2-43aa-9e0e-adf5b1f1d891	GET	http://localhost:5173	/resumes/user-pdfs/683ecf6e6344e24377e05b11
 20250611	01:14:17	d87de6f8-b18a-4fd9-94d4-e8fc848c2d4d	GET	http://localhost:5173	/resumes/user-pdfs/683ecf6e6344e24377e05b11
+20250611	01:14:17	608f9a4d-9c96-4822-a032-c565351efc65	GET	http://localhost:5173	/resumes/user-pdfs/683ecf6e6344e24377e05b11
+20250611	01:14:17	68dce9ae-cce5-416d-af6a-90e28ea65858	GET	http://localhost:5173	/users/683ecf6e6344e24377e05b11
+20250611	01:14:17	f9c03c46-9b53-4fee-8966-f0f3339bd747	GET	http://localhost:5173	/users/683ecf6e6344e24377e05b11
+20250611	01:14:17	a8a245d5-4812-4780-bacd-72dac70d99b1	POST	http://localhost:5173	/resumes/683ecf6e6344e24377e05b11
