@@ -186,7 +186,6 @@ const CreateNewResume = () => {
                   <PersonalDetails 
                     handleChange={handleChange} 
                     formData={formData}
-                    setSelectedFile={setSelectedFile}
                     setStep={() => {}}
                   />
                 </div>
@@ -311,7 +310,10 @@ const CreateNewResume = () => {
             <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 space-y-4 sm:space-y-6">
               <div className="relative p-2 sm:p-4">
                 <button
-                  onClick={() => setShowForm(true)}
+                  onClick={() => {
+                    setSaved(false)
+                    setShowForm(true)
+                  }}
                   className="absolute -right-2 sm:-right-3 -top-2 sm:-top-3 p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition-colors cursor-pointer z-10"
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />

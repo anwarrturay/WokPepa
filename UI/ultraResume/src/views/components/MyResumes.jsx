@@ -39,12 +39,9 @@ const MyResumes = () => {
     }
   };
 
-  const handleEdit = async (resumeId) => {
+  const editResume = async (resumeId) => {
     try {
-      const response = await axiosPrivate.get(`/resumes/${resumeId}`);
-      if (response.status === 200) {
-        navigate('/create-resume', { state: { resumeData: response.data } });
-      }
+      if(resumeId) navigate(`/my-resumes/edit/${resumeId}`)
     } catch (err) {
       console.error("Error fetching resume for edit:", err);
     }
@@ -96,8 +93,9 @@ const MyResumes = () => {
 
         {/* Content Section */}
         {loading ? (
-          <div className="flex justify-center items-center h-64">
+          <div className="flex flex-col justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#2A5D9E]"></div>
+            <p className='mt-2'>Fetching resumes...</p>
           </div>
         ) : resumes.length === 0 ? (
           <div className="text-center py-12 sm:py-16 bg-white rounded-lg shadow-sm px-4">
@@ -135,7 +133,7 @@ const MyResumes = () => {
                   <div className="flex flex-col space-y-2 sm:space-y-3">
                     <div className="grid grid-cols-2 gap-2">
                       <button
-                        onClick={() => handleEdit(resume._id)}
+                        onClick={() => editResume(resume._id)}
                         className="inline-flex items-center justify-center px-3 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-[#2A5D9E] bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2A5D9E]"
                       >
                         <Edit2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />

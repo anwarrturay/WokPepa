@@ -16,6 +16,7 @@ import Settings from "../views/settings/components/Settings";
 import OAuthRedirect from "../views/components/OAuthRedirect";
 import MyResumes from "../views/components/MyResumes";
 import Templates from "../views/components/Templates";
+import EditResume from "../views/components/EditResume";
 const routes = [
     {
         path: '/',
@@ -121,6 +122,16 @@ const routes = [
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.USER]}>
                     <MyResumes />
+                </RequireAuth>
+            </PersistentLogin>
+        )
+    },
+    {
+        path: '/my-resumes/edit/:resumeId',
+        element: (
+            <PersistentLogin>
+                <RequireAuth allowedRoles={[Roles_List.USER]}>
+                    <EditResume />
                 </RequireAuth>
             </PersistentLogin>
         )

@@ -104,9 +104,22 @@ const createNewResume = asyncHandler(async (req, res) => {
     }
 });
 
-const updateResume = async (req, res) => {
-    const resumeId = req.body?.id;
+const getSpecificResume = asyncHandler(async(req, res)=>{
+    const resumeId  = req?.params?.id;
+    if(!resumeId) return res.status(404).json({message: `Resume Id not found `});
+    console.log("ResumeId: ", resumeId);
+    try{
+        const foundResumeData = await Resume.findById({_id:resumeId}).exec();
+        if(!foundResumeData) return res.status(404).json({message: "No Resume not found in DB"});
+        return res.status(200).json(foundResumeData);
+    }catch(err){
+        console.error("error getting resume", err?.message)
+    }
+})
 
+const updateResume = async (req, res) => {
+    const resumeId = req?.params?.id;
+    console.log("ResumeId: ", resumeId);
     if (!resumeId) {
         return res.status(400).json({ message: "ID parameter is required" });
     }
@@ -159,9 +172,38 @@ const updateResume = async (req, res) => {
         if (Array.isArray(req.body.hobbies)) {
             resume.hobbies = req.body.hobbies;
         }
-
+       
         if (req.file) {
-            resume.image = req.file.filename;
+            try {
+                // Upload new image to Cloudinary
+                const cloudinaryResult = await cloudinary.uploader.upload(req.file.path, {
+                    folder: "wokpepa-resumeprofiles",
+                    public_id: uuidv4()
+                });
+
+                // Delete old image from Cloudinary if it exists
+                if (resume.cloudinaryId) {
+                    try {
+                        await cloudinary.uploader.destroy(resume.cloudinaryId);
+                    } catch (cloudinaryError) {
+                        console.error("Error deleting old image from Cloudinary:", cloudinaryError);
+                        // Continue execution even if delete fails
+                    }
+                }
+
+                // Clean up local file after successful upload
+                fs.unlinkSync(req.file.path);
+
+                // Update with new image details
+                resume.image = cloudinaryResult.secure_url;
+                resume.cloudinaryId = cloudinaryResult.public_id;
+            } catch (uploadError) {
+                // Clean up local file if upload fails
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+                throw new Error(`Image upload failed: ${uploadError.message}`);
+            }
         }
 
         const updatedResume = await resume.save();
@@ -283,5 +325,6 @@ module.exports = {
     updateResume,
     deleteResume,
     savedResume,
-    getUserResumes
+    getUserResumes,
+    getSpecificResume
 };

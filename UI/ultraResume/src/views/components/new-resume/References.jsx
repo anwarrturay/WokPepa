@@ -1,6 +1,6 @@
 import { Plus, X } from 'lucide-react';
 
-const References = ({ formData, setFormData, setStep }) => {
+const References = ({ formData, setFormData }) => {
   const handleReferenceChange = (index, field, value) => {
     const updatedReferences = [...formData.references];
     updatedReferences[index][field] = value;
@@ -26,62 +26,64 @@ const References = ({ formData, setFormData, setStep }) => {
     <div className="space-y-6 font-Montserrat">
       <div>
         <h2 className="text-xl font-semibold text-gray-900 mb-4">References</h2>
-        <div className="space-y-8">
-          {formData.references.map((reference, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
-              {index > 0 && (
-                <button
-                  type="button"
-                  onClick={() => removeReference(index)}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
-                >
-                  <X size={20} strokeWidth={3} className='mr-2' />
-                </button>
-              )}
+        {formData && (
+          <div className="space-y-8">
+            {formData.references.map((reference, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
+                {index > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => removeReference(index)}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+                  >
+                    <X size={20} strokeWidth={3} className='mr-2' />
+                  </button>
+                )}
 
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={reference.name}
-                    onChange={(e) => handleReferenceChange(index, "name", e.target.value)}
-                    className="resume-field"
-                    placeholder="e.g., John Smith"
-                  />
-                </div>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      value={reference.name}
+                      onChange={(e) => handleReferenceChange(index, "name", e.target.value)}
+                      className="resume-field"
+                      placeholder="e.g., John Smith"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Position/Title
-                  </label>
-                  <input
-                    type="text"
-                    value={reference.position}
-                    onChange={(e) => handleReferenceChange(index, "position", e.target.value)}
-                    className="resume-field"
-                    placeholder="e.g., Senior Manager"
-                  />
-                </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Position/Title
+                    </label>
+                    <input
+                      type="text"
+                      value={reference.position}
+                      onChange={(e) => handleReferenceChange(index, "position", e.target.value)}
+                      className="resume-field"
+                      placeholder="e.g., Senior Manager"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Contact Information
-                  </label>
-                  <input
-                    type="text"
-                    value={reference.contact}
-                    onChange={(e) => handleReferenceChange(index, "contact", e.target.value)}
-                    className="resume-field"
-                    placeholder="Email or Phone Number"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Contact Information
+                    </label>
+                    <input
+                      type="text"
+                      value={reference.contact}
+                      onChange={(e) => handleReferenceChange(index, "contact", e.target.value)}
+                      className="resume-field"
+                      placeholder="Email or Phone Number"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="mt-6">
           <button

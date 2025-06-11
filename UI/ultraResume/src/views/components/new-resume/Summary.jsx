@@ -1,6 +1,8 @@
-import React from 'react';
 
-const Summary = ({ formData, handleChange }) => {
+const Summary = ({ 
+  formData, 
+  handleChange, 
+}) => {
   return (
     <div className="space-y-6 font-Montserrat">
       <div>
@@ -10,7 +12,7 @@ const Summary = ({ formData, handleChange }) => {
             Write a brief summary of your professional background and career goals
           </label>
           <textarea
-            value={formData.summary}
+            value={formData?.summary}
             onChange={(e) => handleChange("summary", null, e.target.value)}
             rows={4}
             className="resume-field"

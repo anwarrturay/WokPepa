@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus, X } from 'lucide-react';
 
-const Languages = ({ formData, setFormData, setStep }) => {
+const Languages = ({ formData, setFormData}) => {
   const [newLanguage, setNewLanguage] = useState('');
   const [proficiency, setProficiency] = useState('Beginner');
 
@@ -84,34 +84,35 @@ const Languages = ({ formData, setFormData, setStep }) => {
             </button>
           </div>
 
-          {formData.languages.length > 0 && (
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-3">Your Languages</h3>
-              <div className="space-y-2">
-                {formData.languages.map((lang, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between bg-white rounded-lg p-3"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <span className="text-sm font-medium text-gray-900">{lang.name}</span>
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {lang.level}
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => removeLanguage(index)}
-                      className="text-gray-400 hover:text-red-500 focus:outline-none"
+          {formData && (
+            formData.languages.length > 0 && (
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Your Languages</h3>
+                <div className="space-y-2">
+                  {formData.languages.map((lang, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-white rounded-lg p-3"
                     >
-                      <X size={20} strokeWidth={3} className='mr-2'/>
-                    </button>
-                  </div>
-                ))}
+                      <div className="flex items-center space-x-3">
+                        <span className="text-sm font-medium text-gray-900">{lang.name}</span>
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {lang.level}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeLanguage(index)}
+                        className="text-gray-400 hover:text-red-500 focus:outline-none"
+                      >
+                        <X size={20} strokeWidth={3} className='mr-2'/>
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )
           )}
-
           {formData.languages.length === 0 && (
             <p className="text-sm text-gray-500 text-center bg-gray-50 rounded-lg p-4">
               No languages added yet. Start adding your language proficiencies above.

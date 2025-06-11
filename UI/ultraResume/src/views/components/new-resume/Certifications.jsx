@@ -1,6 +1,6 @@
 import { Plus, X } from "lucide-react";
 
-const Certifications = ({ formData, setFormData, setStep }) => {
+const Certifications = ({ formData, setFormData, resume }) => {
   const handleCertificationChange = (index, field, value) => {
     const updatedCertifications = [...formData.certifications];
     updatedCertifications[index][field] = value;
@@ -26,61 +26,63 @@ const Certifications = ({ formData, setFormData, setStep }) => {
     <div className="space-y-6 font-Montserrat">
       <div>
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Certifications</h2>
-        <div className="space-y-8">
-          {formData.certifications.map((cert, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
-              {index > 0 && (
-                <button
-                  type="button"
-                  onClick={() => removeCertification(index)}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
-                >
-                  <X size={20} strokeWidth={3}/>
-                </button>
-              )}
+        {formData && (
+          <div className="space-y-8">
+            {formData.certifications.map((cert, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-6 relative">
+                {index > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => removeCertification(index)}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+                  >
+                    <X size={20} strokeWidth={3}/>
+                  </button>
+                )}
 
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Certification Name
-                  </label>
-                  <input
-                    type="text"
-                    value={cert.name}
-                    onChange={(e) => handleCertificationChange(index, "name", e.target.value)}
-                    className="resume-field"
-                    placeholder="e.g., AWS Solutions Architect, PMP Certification"
-                  />
-                </div>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Certification Name
+                    </label>
+                    <input
+                      type="text"
+                      value={cert.name}
+                      onChange={(e) => handleCertificationChange(index, "name", e.target.value)}
+                      className="resume-field"
+                      placeholder="e.g., AWS Solutions Architect, PMP Certification"
+                    />
+                  </div>
 
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Issuing Organization
-                  </label>
-                  <input
-                    type="text"
-                    value={cert.issuingOrganization}
-                    onChange={(e) => handleCertificationChange(index, "issuingOrganization", e.target.value)}
-                    className="resume-field"
-                    placeholder="e.g., Amazon Web Services, PMI"
-                  />
-                </div>
+                  <div className="sm:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Issuing Organization
+                    </label>
+                    <input
+                      type="text"
+                      value={cert.issuingOrganization}
+                      onChange={(e) => handleCertificationChange(index, "issuingOrganization", e.target.value)}
+                      className="resume-field"
+                      placeholder="e.g., Amazon Web Services, PMI"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Issue Date
-                  </label>
-                  <input
-                    type="date"
-                    value={cert.issueDate}
-                    onChange={(e) => handleCertificationChange(index, "issueDate", e.target.value)}
-                    className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Issue Date
+                    </label>
+                    <input
+                      type="date"
+                      value={cert.issueDate}
+                      onChange={(e) => handleCertificationChange(index, "issueDate", e.target.value)}
+                      className="mt-1 block w-full outline-none rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="mt-6">
           <button
