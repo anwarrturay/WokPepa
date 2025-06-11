@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { pdf } from '@react-pdf/renderer';
 import * as pdfjsLib from 'pdfjs-dist';
 import MyDocument from './MyDocument';
