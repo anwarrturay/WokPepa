@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import {useNavigate} from "react-router";
 import PersonalDetails from "./new-resume/PersonalDetails";
 import Experience from "./new-resume/Experience";
@@ -328,14 +328,14 @@ const CreateNewResume = () => {
                 {!pdfReady && (
                   <div className="flex items-center justify-center p-10 text-gray-600">
                     <LoaderCircle className="animate-spin mr-2" />
-                    <p className="mt-2">Preparing Resume Preview...</p>
+                    <p>Preparing Resume Preview...</p>
                   </div>
                 )}
                 
                 <div className={pdfReady ? "block" : "hidden"}>
                   <PDFPreview formData={formData} onReady={onPdfReady} />
+                  <p className="text-sm mt-2 font-semibold">Click Download to see full resume</p>
                 </div>
-                <p className="text-sm mt-2 font-semibold">Click Download to see full resume</p>
               </div>
 
               {/* Buttons below PDF */}
