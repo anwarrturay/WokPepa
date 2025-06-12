@@ -4,7 +4,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import MyDocument from './MyDocument';
 
 // Set the PDF.js worker source
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.0.375/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.0.375/pdf.worker.min.mjs';
 
 const PDFPreview = ({ formData, onReady  }) => {
   const canvasRef = useRef(null);
