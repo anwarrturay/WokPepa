@@ -1,7 +1,7 @@
 import { StyleSheet, Font } from '@react-pdf/renderer';
 Font.register({
     family:'Open Sans',
-    src: "http://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf",
+    src:'https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf',
     fontWeight: 700
 })
 

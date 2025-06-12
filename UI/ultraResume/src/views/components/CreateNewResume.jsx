@@ -12,7 +12,7 @@ import Hobbies from "./new-resume/Hobbies"
 import References from "./new-resume/References";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
-import { LoaderCircle, X, Download, Save, CheckCheck, LoaderPinwheel } from "lucide-react";
+import { LoaderCircle, X, Download, Save, CheckCheck, LoaderPinwheel, Plus } from "lucide-react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "./new-resume/resumepdf/MyDocument";
 import NewResumeHeader from "./new-resume/NewResumeHeader";
@@ -300,7 +300,10 @@ const CreateNewResume = () => {
                       <LoaderPinwheel className="animate-spin"/>
                       <p className="ml-2">Generating...</p>
                     </div> : 
-                    "Create Resume"
+                    <div className="flex items-center">                    
+                      <Plus size={20} strokeWidth={3} className="mr-2"/>
+                      <p>Create Resume</p>
+                    </div>
                   }
                 </button>
               </div>

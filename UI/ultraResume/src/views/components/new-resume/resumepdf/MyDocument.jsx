@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer';
+globalThis.Buffer = Buffer;
+
 import React, { useEffect, useState } from 'react';
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import UserIcon from "./icons/user.png";
