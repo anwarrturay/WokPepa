@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, Download, Trash2, Edit2, Search, Plus } from 'lucide-react';
+import { ArrowLeft, Download, Trash2, Edit2, Search, Plus, LoaderCircle } from 'lucide-react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -10,6 +10,7 @@ const MyResumes = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isDeleting, setIsDeleting] = useState({status:false, id:null});
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
@@ -31,11 +32,14 @@ const MyResumes = () => {
   }, [userId, axiosPrivate]);
 
   const handleDelete = async (resumeId) => {
+    setIsDeleting({status:true, id:resumeId})
     try {
       await axiosPrivate.delete(`/resumes/${resumeId}`);
       setResumes(resumes.filter(resume => resume._id !== resumeId));
     } catch (err) {
       console.error("Error deleting resume:", err);
+    }finally{
+      setIsDeleting({status:false, id:null});
     }
   };
 
@@ -154,10 +158,19 @@ const MyResumes = () => {
                     </div>
                     <button
                       onClick={() => handleDelete(resume._id)}
-                      className="w-full inline-flex items-center justify-center px-3 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      className="w-full inline-flex items-center justify-center px-3 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 cursor-pointer"
                     >
-                      <Trash2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
-                      Delete
+                      {isDeleting.status === true && isDeleting.id === resume?._id ? (
+                        <div className="flex items-center text-red-500">
+                          <LoaderCircle className='h-3 w-3 sm:h-4 mr-1.5 sm:mr-2 animate-spin'/>
+                          <p>Deleting...</p>
+                        </div>
+                      ): (
+                        <div className='flex items-center'>
+                          <Trash2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
+                          Delete
+                        </div>
+                      )}
                     </button>
                   </div>
                 </div>

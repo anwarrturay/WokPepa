@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import Footer from '../../../components/Footer';
 import { useNavigate } from "react-router";
 import ChannelReports from './ChannelReports';
 import TermsConditions from './TermsConditions';
@@ -15,7 +14,7 @@ const HelpSupport = () => {
     <section className='font-montserrat'>
       {activeSectionHS !== "menu" && (
         <header className='flex m-3'>
-          <ArrowLeft onClick={() => setActiveSectionHS("menu")} size={20} className='mr-3 cursor-pointer' />
+          <ArrowLeft size={20} onClick={() => setActiveSectionHS("menu")} strokeWidth={3}  className='mr-3 cursor-pointer' />
         </header>
       )}
 
@@ -34,8 +33,6 @@ const HelpSupport = () => {
       {activeSectionHS === "terms" && (
         <TermsConditions />
       )}
-
-      {activeSectionHS === "menu" && <Footer />}
     </section>
   );
 };

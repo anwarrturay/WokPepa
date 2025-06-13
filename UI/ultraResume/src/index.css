@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Sora:wght@100..800&display=swap');
 @import "tailwindcss";
 
 @theme{
@@ -24,7 +24,7 @@ body{
 }
 .input-field{
    @apply mb-2 w-[280px] border border-[#ccc] rounded-md focus:ring-1 
-    focus:border-blue-600 px-2 py-2.5 outline-none xs:w-[312px] text-base font-[480] sm:w-[385px] placeholder:text-sm
+    focus:border-blue-600 px-2 py-2.5 outline-none xs:w-[312px] text-base font-[480] sm:w-[385px] placeholder:text-base shadow-sm drop-shadow-2xl
 }
 .resume-field{
     @apply mt-1 block w-full outline-none border rounded-md border-[#ccc] focus:border-[#2A5D9E] sm:text-sm py-2 px-2 focus:ring-[#2A5D9E]

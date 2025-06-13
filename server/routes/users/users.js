@@ -9,6 +9,10 @@ router.route("/")
     
 router.route("/:id")
     .get(verifyRoles(ROLES_LIST.USER), usersController.getSpecificUser)
-    .delete(verifyRoles(ROLES_LIST.ADMIN), usersController.deleteUsers)    
+    .delete(verifyRoles(ROLES_LIST.ADMIN), usersController.deleteUsers) 
+
+// router.get("/me", verifyRoles(ROLES_LIST.USER), usersController.googleUserProfile) 
+router.route('/is-new')
+    .patch(verifyRoles(ROLES_LIST.USER), usersController.isNewUser);   
 
 module.exports = router;

@@ -199,7 +199,7 @@ const Header = () => {
               className="flex flex-col items-center rounded-lg relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={closeProfileModal} className="bg-white p-2 rounded-3xl z-50 absolute left-2 top-2 cursor-pointer">
+              <button onClick={closeProfileModal} className="bg-[#f5f5f5] p-2 rounded-3xl z-50 absolute left-2 top-2 cursor-pointer">
                   <X size={20} strokeWidth={3}/>
               </button>
               <img

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link, useParams } from 'react-router';
-import ultraResumeLogo from "../../assets/ultraResume-full.png";
+import ultraResumeLogo from "../../assets/ultraResume-book.png";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../utils/LoginValidation';
@@ -25,7 +25,6 @@ const Auth = () => {
     const { token } = useParams();
     const auth_url = token ? `/auth/${token}` : "/auth";
     // Determine where to redirect after login; default to dashboard.
-    const from = location.state?.from?.pathname || "/user-resume-dashboard";
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         resolver: yupResolver(loginSchema)
@@ -55,6 +54,9 @@ const Auth = () => {
         const accessToken = response.data?.accessToken;
         const decodedToken = jwtDecode(accessToken);
         const userId = decodedToken.UserInfo.id;
+        const isNewUser = decodedToken?.isNewUser;
+        const from = isNewUser ? "/tips" : location.state?.from?.pathname || "/user-resume-dashboard";
+        
         setAuth({ accessToken, email: data.email, userId });
         
         if (response.status === 200) {

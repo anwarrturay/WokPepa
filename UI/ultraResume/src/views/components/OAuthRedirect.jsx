@@ -7,25 +7,23 @@ import { jwtDecode } from "jwt-decode";
 const OAuthRedirect = () => {
     const navigate = useNavigate();
     const { setAuth, auth } = useAuth();
-    console.log("Current Auth State: ", {
-        authCurrentAccessToken: auth?.accessToken
-    })
 
     useEffect(()=>{
         const params = new URLSearchParams(window.location.search);
         const accessToken = params.get("accessToken")
-        console.log("AccessToken from URL: ", accessToken);
 
         if (accessToken && typeof accessToken === "string") {
             try {
                 const decodedToken = jwtDecode(accessToken);
-                console.log("DecodedToken: ", decodedToken);
-
                 const userId = decodedToken.UserInfo?.id;
                 const email = decodedToken.UserInfo?.email;
+                const isNewUser = decodedToken.UserInfo?.isNewUser;
 
                 setAuth({ accessToken, userId, email });
-                setTimeout(() => navigate("/user-resume-dashboard"), 1000);
+                {isNewUser 
+                    ? setTimeout(() => navigate("/tips"), 1000) 
+                    : setTimeout(() => navigate("/user-resume-dashboard"), 1000)
+                }
             } catch (err) {
                 console.error("Token decode error:", err.message);
                 navigate("/");
@@ -39,7 +37,7 @@ const OAuthRedirect = () => {
   return (
     <div className="flex flex-col justify-center items-center font-montserrat relative top-[300px]">
         <LoaderCircle className="animate-spin text-[#2A5D9E]" size={36} strokeWidth={2}/>
-        <p className="text-xl mt-2 font-medium">Redirecting...</p>
+        <p className="text-xl mt-2 font-medium">Signing in...</p>
     </div>
   )
 }

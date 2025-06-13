@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const MyResumes = require("../models/MyResumes");
 const cloudinary = require("../config/cloudinary");
 const { v4: uuidv4 } = require('uuid'); 
+const fs = require("fs")
 require("dotenv").config();
 
 const getAllResumes = async (req, res) => {
@@ -119,7 +120,6 @@ const getSpecificResume = asyncHandler(async(req, res)=>{
 
 const updateResume = async (req, res) => {
     const resumeId = req?.params?.id;
-    console.log("ResumeId: ", resumeId);
     if (!resumeId) {
         return res.status(400).json({ message: "ID parameter is required" });
     }
@@ -172,7 +172,7 @@ const updateResume = async (req, res) => {
         if (Array.isArray(req.body.hobbies)) {
             resume.hobbies = req.body.hobbies;
         }
-       
+
         if (req.file) {
             try {
                 // Upload new image to Cloudinary
@@ -205,7 +205,6 @@ const updateResume = async (req, res) => {
                 throw new Error(`Image upload failed: ${uploadError.message}`);
             }
         }
-
         const updatedResume = await resume.save();
 
         return res.status(200).json({
@@ -291,8 +290,7 @@ const getUserResumes = async (req, res) => {
     if(!userId) {
         return res.status(404).json({ message: "User Id not found" });
     }
-    console.log("userId: ", userId);
-
+    
     try {
         const foundUser = await MyResumes.findOne({ userId })
             .populate({

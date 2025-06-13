@@ -8,7 +8,7 @@ const PersonalDetails = ({
 }) => {
   const [imagePreview, setImagePreview] = useState('');
 
-  const userImage = formData?.image 
+  const userImage = formData?.image
   useEffect(() => {
     if (userImage && typeof userImage === "object" && (userImage instanceof Blob || userImage instanceof File)) {
       const previewURL = URL.createObjectURL(userImage);

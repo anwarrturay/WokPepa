@@ -9,12 +9,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 const PDFPreview = ({ formData, onReady  }) => {
   const canvasRef = useRef(null);
   const [rendered, setRendered] = useState(false);
-
   
   useEffect(() => {
-    // Simulate PDF render delay or wait for actual event if possible
-    // If you have an event from the PDF renderer you can hook into, call onReady there.
-    // For now, we do it once component mounts.
     if (!rendered) {
       setRendered(true);
       if (onReady) onReady();

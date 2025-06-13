@@ -126,30 +126,41 @@ const EditResume = () => {
   };
 
   // Save resume data
-  const saveResume = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    
+const saveResume = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const response = await axiosPrivate.patch(`/resumes/${resumeId}`, formData);
-      if (response.status === 200) {
-        alert("Resume saved successfully!");
-        navigate("/my-resumes");
-      }
-    } catch (err) {
-      console.error("Error saving resume:", err);
-      alert(err.response?.data?.message || "Unable to save resume. Please try again.");
-    } finally {
-      setLoading(false);
+  try {
+    const formDataToSend = new FormData();
+    if (formData.image instanceof File) {
+      formDataToSend.append("image", formData.image);
     }
-  };
+    // Append all other fields as JSON string
+    const otherData = { ...formData };
+    delete otherData.image; 
+    formDataToSend.append("data", JSON.stringify(otherData));
+
+    const response = await axiosPrivate.patch(
+      `/resumes/${resumeId}`,
+      formDataToSend,
+    );
+    if (response.status === 200) {
+      alert("Resume saved successfully!");
+      navigate("/my-resumes");
+    }
+  } catch (err) {
+    console.error("Error saving resume:", err);
+    alert(err.response?.data?.message || "Unable to save resume. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50 font-montserrat">
       {/* Header */}
       <NewResumeHeader />
-      {/* Add padding to account for fixed header */}
       <div className="pt-12 sm:pt-16">
         {isFetchingData ? (
           <div className="flex flex-col items-center justify-center relative top-52">

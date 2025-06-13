@@ -12,6 +12,10 @@ const usersSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isNewUser: {
+    type: Boolean,
+    default: true
+  },
   isVerified:{
     type:Boolean,
     default: false

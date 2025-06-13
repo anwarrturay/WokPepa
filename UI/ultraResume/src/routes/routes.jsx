@@ -9,14 +9,13 @@ import Roles_List from "../utils/Roles_List"
 import AdminUI from "../views/admin/AdminUI";
 import PersistentLogin from "../utils/PersistentLogin";
 import Preferences from "../views/settings/components/Preferences"
-import Account from "../views/settings/components/Account";
-import PrivacyPolicy from "../views/settings/components/PrivacyPolicy";
 import HelpSupport from "../views/settings/components/help&Support/HelpSupport";
 import Settings from "../views/settings/components/Settings";
 import OAuthRedirect from "../views/components/OAuthRedirect";
 import MyResumes from "../views/components/MyResumes";
 import Templates from "../views/components/Templates";
 import EditResume from "../views/components/EditResume";
+import Tips from "../views/components/Tips";
 const routes = [
     {
         path: '/',
@@ -41,6 +40,16 @@ const routes = [
     {
         path: "oauth-redirect",
         element: <OAuthRedirect />
+    },
+    {
+        path: 'tips',
+        element: (
+            <PersistentLogin>
+                <RequireAuth allowedRoles={[Roles_List.USER]}>
+                    <Tips />
+                </RequireAuth>
+            </PersistentLogin>
+        ),
     },
     {
         path: 'user-resume-dashboard',
@@ -87,31 +96,11 @@ const routes = [
         )
     },
     {
-        path: 'account',
-        element: (
-            <PersistentLogin>
-                <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <Account />
-                </RequireAuth>
-            </PersistentLogin>
-        )
-    },
-    {
         path: 'help-support',
         element: (
             <PersistentLogin>
                 <RequireAuth allowedRoles={[Roles_List.USER]}>
                     <HelpSupport />
-                </RequireAuth>
-            </PersistentLogin>
-        )
-    },
-    {
-        path: 'privacy-policy',
-        element: (
-            <PersistentLogin>
-                <RequireAuth allowedRoles={[Roles_List.USER]}>
-                    <PrivacyPolicy />
                 </RequireAuth>
             </PersistentLogin>
         )

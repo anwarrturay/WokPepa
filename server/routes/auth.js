@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const handleLogin = require("../controllers/AuthController");
+const {handleLogin, oAuthLogin} = require("../controllers/AuthController");
 const resetPassword = require("../controllers/resetPasswordController");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
@@ -20,23 +20,7 @@ router.get(
     failureRedirect: `${process.env.CLIENT_URL}`,
     session: true,
   }),
-  (req, res) => {
-    const user = req.user;
-    const roles = Object.values(user.roles).filter(Boolean);
-    const accessToken = jwt.sign(
-        {
-            UserInfo:{
-                id: user._id,
-                email: user.email,
-                roles: roles
-            }
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5h"}
-    )
-
-    res.redirect(`${process.env.CLIENT_URL}/oauth-redirect?accessToken=${accessToken}`);
-  }
+  oAuthLogin
 );
 
 module.exports = router;

@@ -1,12 +1,31 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const upload = require("../middleware/multerConfig");
 const generateToken = require("./generateTokenController");
 const sendMail = require("../service/sendEmail");
 const fs = require("fs");
-const path = require("path");
 const cloudinary = require("../config/cloudinary");
 const { v4: uuidv4 } = require("uuid");
+
+// const googleUserProfile = async (req, res) => {
+//     console.log("User Object: ", req?.user);
+//     // try {
+//     //     const userId = req?.user?.id;
+//     //     console.log("UserId: ", userId);
+//     //     if (!userId) return res.sendStatus(401);
+    
+//     //     const foundUser = await User.findById(userId);
+//     //     if (!foundUser) return res.status(404).json({ message: "User not found" });
+    
+//     //     res.status(200).json({
+//     //         id: foundUser.id,
+//     //         email: foundUser.email,
+//     //         roles: foundUser.roles,
+//     //     });
+//     // } catch (err) {
+//     //   console.error("Profile fetch error:", err.message);
+//     //   res.sendStatus(500);
+//     // }
+// };
 
 const getAllUsers = async (req, res) =>{
     const users = await User.find();
@@ -63,7 +82,6 @@ const updateUserDetails = async (req, res) => {
                         // Continue execution even if delete fails
                     }
                 }
-
                 // Clean up local file after successful upload
                 fs.unlinkSync(req.file.path);
 
@@ -127,4 +145,14 @@ const forgotPassword = async (req, res)=>{
     }
 }
 
-module.exports = { updateUserDetails, getAllUsers, deleteUsers, getSpecificUser, forgotPassword };
+const isNewUser = async (req, res) => {
+    const {id} = req?.body;
+    if(!id) return res.status(400).json({"message": "Id is required!"});
+    const user = await User.findById(id).exec();
+    if(!user) return res.status(404).json({"message": `User with id ${id} does not exist!`});
+    user.isNewUser = false;
+    const result = await user.save();
+    res.status(200).json(result)
+}
+
+module.exports = { updateUserDetails, getAllUsers, deleteUsers, getSpecificUser, forgotPassword, isNewUser };

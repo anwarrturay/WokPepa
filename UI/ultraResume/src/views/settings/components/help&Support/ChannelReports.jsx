@@ -1,48 +1,62 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import SubmitReport from './SubmitReport';
+
 const ChannelReports = () => {
-  const [isHidden, setIsHidden] = useState(true);
+  const [showForm, setShowForm] = useState(false);
 
   return (
-    <>
-      <main className={`${isHidden === false ? "hidden" : "flex flex-col"} m-3 bg-gray-100 rounded-lg`}>
-        <h2 className="text-lg font-semibold mb-2 text-center">Channel Reports</h2>
-        <div className="mb-6">
-          <h3 className="text-md font-medium mb-2">Overview</h3>
-          <p className="text-sm text-gray-700">
-            Here you can track and manage reports related to UltraResume. This includes issue tracking,
-            user feedback, and system performance insights.
-          </p>
-        </div>
-        
-        {/* Report Categories */}
-        <div className="mb-6">
-          <h3 className="text-md font-medium mb-2">Report Categories</h3>
-          <ul className="text-sm text-gray-700 space-y-2">
-            <li>📌 <strong>Bug Reports:</strong> Users can report technical issues for resolution.</li>
-            <li>📌 <strong>User Feedback:</strong> Review suggestions and improvement requests.</li>
-            <li>📌 <strong>System Performance:</strong> Monitor uptime and server status.</li>
-            <li>📌 <strong>Feature Requests:</strong> Track requested features from users.</li>
-            <li>📌 <strong>Security Issues:</strong> Reports on potential security vulnerabilities.</li>
-          </ul>
-        </div>
-        
-        {/* Submit a Report */}
-        <div className="mb-6">
-          <h3 className="text-md font-medium mb-2">Submit a Report</h3>
-          <p className="text-sm text-gray-700">
-            Encountered an issue? Help us improve UltraResume by submitting a report.
-          </p>
-          <button onClick={()=> setIsHidden(false)} className="mt-3 bg-[#2A5D9E] text-white py-2 px-4 rounded-md text-sm">Submit a Report</button>
-        </div>
+    <section className="m-4 p-6 shadow-sm border border-[#ccb] max-w-3xl mx-auto">
+      {!showForm ? (
+        <>
+          <h2 className="text-2xl font-semibold text-center mb-4">Channel Reports</h2>
 
-      </main>
-      {/* Submit report form */}
-      <div className={`${isHidden === true ? "hidden" : "flex flex-col"}`}>
-        <SubmitReport />
-      </div>
-    </>
-  )
-}
+          {/* Overview Section */}
+          <div className="mb-6">
+            <h3 className="text-lg font-medium mb-2">Overview</h3>
+            <p className="text-sm text-gray-600">
+              Track and manage reports related to UltraResume. This includes bug tracking, user suggestions, performance monitoring, and more.
+            </p>
+          </div>
 
-export default ChannelReports
+          {/* Categories */}
+          <div className="mb-6">
+            <h3 className="text-lg font-medium mb-2">Report Categories</h3>
+            <ul className="text-sm text-gray-700 space-y-2 list-inside list-disc ml-3">
+              <li><strong>Bug Reports:</strong> Users can report technical issues.</li>
+              <li><strong>User Feedback:</strong> Suggestions and improvements.</li>
+              <li><strong>System Performance:</strong> Monitor uptime and metrics.</li>
+              <li><strong>Feature Requests:</strong> Ideas for new features.</li>
+              <li><strong>Security Issues:</strong> Vulnerability reporting.</li>
+            </ul>
+          </div>
+
+          {/* CTA to Submit */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium mb-2">Submit a Report</h3>
+            <p className="text-sm text-gray-600">
+              Found something that needs attention? Help us improve by submitting a report.
+            </p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-4 bg-[#2A5D9E] hover:bg-[#2a5c9ecf] text-white px-4 py-2 rounded-md text-sm transition cursor-pointer"
+            >
+              Submit a Report
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col">
+          <button
+            onClick={() => setShowForm(false)}
+            className="self-start text-blue-600 hover:underline text-sm mb-4"
+          >
+            ← Back to Channel Reports
+          </button>
+          <SubmitReport />
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default ChannelReports;

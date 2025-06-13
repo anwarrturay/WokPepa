@@ -28,7 +28,8 @@ const handleLogin = async (req, res) => {
                 UserInfo:{
                     id: matchUser._id,
                     email: matchUser.email,
-                    roles: roles
+                    roles: roles,
+                    isNewUser: matchUser.isNewUser
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
@@ -56,4 +57,28 @@ const handleLogin = async (req, res) => {
     }
 }
 
-module.exports = handleLogin;
+const oAuthLogin = async (req, res) => {
+    const user = req?.user;
+    const roles = Object.values(user.roles).filter(Boolean);
+    const accessToken = jwt.sign(
+        {
+            UserInfo:{
+                id: user._id,
+                email: user.email,
+                roles: roles,
+                isNewUser: user.isNewUser
+            }
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "5h"}
+    )
+    // res.cookie("accessToken", accessToken, {
+    //     httpOnly: true,
+    //     // secure: true, // Make sure your site is served over HTTPS
+    //     // sameSite: 'Strict', // or 'Lax' depending on your needs
+    //     maxAge: 1000 * 60 * 60 * 24, 
+    // });
+    return res.redirect(`${process.env.CLIENT_URL}/oauth-redirect?accessToken=${accessToken}`);
+}
+
+module.exports = {handleLogin, oAuthLogin};

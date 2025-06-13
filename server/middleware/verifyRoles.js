@@ -9,5 +9,6 @@ const verifyRoles = (...allowedRoles)=>{
         next()
     })
 }
+
 module.exports = verifyRoles;
 
