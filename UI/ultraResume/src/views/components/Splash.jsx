@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import logo from "../../assets/ultraResume-full.png";
+import WokPepaLogoPng from "../../assets/WokPepaLogoPng.png";
 import useAuth from "../../hooks/useAuth";
 const Splash = () => {
   const { setShowSplash } = useAuth();
@@ -19,8 +19,8 @@ const Splash = () => {
       exit={{ opacity: 0 }}
     >
       <motion.img
-        src={logo}
-        alt="UltraResume Logo"
+        src={WokPepaLogoPng}
+        alt="WokPepa Logo"
         className="w-[100px]"
         animate={{
           scale: [1, 1.2, 1], // Scale up to 1.2x and back to normal

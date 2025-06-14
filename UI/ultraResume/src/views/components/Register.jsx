@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router';
-import ultraResumeLogo from "../../assets/ultraResume-full.png";
+import WokPepaLogoPng from "../../assets/WokPepaLogoPng.png";
 import axios from "../../api/axios";
 import VerificationLinkMsg from "../../utils/messages/VerificationLinkMsg"
 import FailedMsg from "../../utils/messages/FailedMsg"
@@ -83,7 +83,7 @@ const Register = () => {
     <div className="flex items-center justify-center flex-col scroll-smooth">
         <div className='flex flex-col relative top-10 font-montserrat mb-24'>
             <div className="flex flex-col items-center justify-center">
-                <img src={ultraResumeLogo} alt="" className='w-[50px]'/>
+                <img src={WokPepaLogoPng} alt="WokPepaLogo" className='w-[50px]'/>
             </div>
             <div className="font-bold text-xl text-center mt-3 text-[#333333]">Create a WokPepa Account</div>
             <p className='font-Montserrat ml-2 mt-2 mb-3 text-base text-center'>

@@ -80,6 +80,9 @@ const ResumeSchema = new Schema(
       type: String,
       required: true
     },
+    resumeUrl: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -1,6 +1,6 @@
-import React, { useState,  } from 'react';
+import { useState,  } from 'react';
 import { PanelRightOpen } from "lucide-react"
-import logo from "../../../assets/ultraResume-book.png";
+import WokPepaLogo from "../../../assets/WokPepaLogo.png";
 import { useNavigate } from 'react-router';
 import Sidebar from './Sidebar';
 import useToggleSidebar from '../hooks/useToggleSidebar';
@@ -9,7 +9,6 @@ import MyDetails from './MyDetails'
 import Password from './Password';
 import useAuth from '../../../hooks/useAuth';
 const Settings = () => {
-
     const [activeSubSection, setActiveSubSection] = useState("my-details");
     const  toggleSidebar  = useToggleSidebar();
    
@@ -31,7 +30,7 @@ const Settings = () => {
                             </button>
                             <h1 className='text-lg'>Settings</h1>
                             <button onClick={()=> navigate("/user-resume-dashboard")}>
-                                <img src={logo} alt="UltraResume" className='w-[30px] cursor-pointer'/>
+                                <img src={WokPepaLogo} alt="UltraResume" className='w-[30px] cursor-pointer'/>
                             </button>
                         </div>
                         {/* Sidebar */}

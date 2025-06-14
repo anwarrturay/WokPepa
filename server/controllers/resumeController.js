@@ -18,7 +18,7 @@ const createNewResume = asyncHandler(async (req, res) => {
     const userId = req.params?.id
     if(!userId) return res.status(404).json({message: "User Id Not Found"});
 
-    if ( !personalDetails || !experience || !education || !skills || !summary || !projects || !certifications || !languages || !references || !hobbies) {
+    if( !personalDetails || !experience || !education || !skills || !summary || !projects || !certifications || !languages || !references || !hobbies) {
         return res.status(400).json({ message: "All required fields must be provided" });
     }
 
@@ -35,8 +35,6 @@ const createNewResume = asyncHandler(async (req, res) => {
         folder: "wokpepa-resumeprofiles",
         public_id: uuidv4(),
     });
-    console.log(experience)
-    console.log(education)
     const parsedExperience = JSON.parse(experience)
     const parsedEducation = JSON.parse(education)
     const parsedProjects = JSON.parse(projects)
@@ -88,17 +86,16 @@ const createNewResume = asyncHandler(async (req, res) => {
             image: cloudinaryResult.secure_url,
             cloudinaryId: cloudinaryResult.public_id
         });
-
         const savedResume = await newResume.save();
-        console.log("Resume Generated is: ", savedResume);
-        const resumeUrl = `/resumes/${savedResume._id}.pdf`;
+        const resumeUrl = `${process.env.CLIENT_URL}/resumes/${savedResume._id}`;
+        savedResume.resumeUrl = resumeUrl;
+        await savedResume.save();
 
         return res.status(201).json({ 
             message: "Resume created successfully", 
             resumeUrl, 
             savedResume 
         });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal server error" });

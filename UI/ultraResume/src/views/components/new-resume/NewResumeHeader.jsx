@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router';
-import logo from "../../../assets/ultraResume-book.png";
+import WokPepaLogo from "../../../assets/WokPepaLogo.png";
 import { ArrowLeft } from 'lucide-react';
 const NewResumeHeader = () => {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ const NewResumeHeader = () => {
             <div className="flex items-center">
                 {location.pathname === "/create-new-resume" ? (
                     <>                    
-                    <img src={logo} alt="UltraResume" className="h-6 sm:h-8 w-auto" />
+                    <img src={WokPepaLogo} alt="WokPepaLogo" className="h-6 sm:h-8 w-auto" />
                     <span className="text-[#2A5D9E] font-semibold text-lg sm:text-xl lg:hidden">WP</span>
                     <span className="text-[#2A5D9E] font-semibold text-xl hidden lg:block">WokPepa</span>
                     </>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link, useParams } from 'react-router';
-import ultraResumeLogo from "../../assets/ultraResume-book.png";
+import WokPepaLogoPng from "../../assets/WokPepaLogoPng.png";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../utils/LoginValidation';
@@ -97,7 +97,7 @@ const Auth = () => {
 
     return (
         <div className="flex flex-col items-center justify-center scroll-smooth relative top-12">
-            <img src={ultraResumeLogo} alt="Ultra Resume Logo" className="relative w-[50px] top-12" />
+            <img src={WokPepaLogoPng} alt="WokPepaLogo" className="relative w-[50px] top-12" />
             <div className='flex flex-col relative top-12 font-montserrat'>
                 <div className="flex flex-col items-center justify-center">
                     <h2 className="font-bold font-Montserrat m-2 text-lg text-[#333333] text-center">

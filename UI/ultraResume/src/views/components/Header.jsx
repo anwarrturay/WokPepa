@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import logo from "../../assets/ultraResume-book.png";
+import WokPepaLogo from "../../assets/WokPepaLogo.png";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 import { X } from "lucide-react";
@@ -104,8 +104,8 @@ const Header = () => {
     <div className="bg-white fixed h-15 w-full py-2 flex justify-between font-montserrat">
       {/* Logo Section */}
       <div className="flex items-center ml-2">
-        <img src={logo} alt="logo" className="w-[30px]" />
-        <div className="text-lg font-montserrat font-semibold ml-1">
+        <img src={WokPepaLogo} alt="logo" className="w-[30px]" />
+        <div className="text-lg text-[#2A5D9E] font-montserrat font-semibold ml-1">
           <span className="block lg:hidden">WP</span>
           <span className="hidden lg:block">WokPepa</span>
         </div>

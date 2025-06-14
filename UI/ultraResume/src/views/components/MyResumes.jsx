@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { ArrowLeft, Download, Trash2, Edit2, Search, Plus, LoaderCircle } from 'lucide-react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import MyDocument from './new-resume/resumepdf/MyDocument';
-
 const MyResumes = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +26,6 @@ const MyResumes = () => {
         setLoading(false);
       }
     };
-
     fetchResumes();
   }, [userId, axiosPrivate]);
 
@@ -52,6 +50,7 @@ const MyResumes = () => {
   };
 
   const filteredResumes = resumes.filter(resume => {
+    console.log(resume?.resumeUrl);
     const searchString = searchTerm.toLowerCase();
     const title = resume.personalDetails?.title?.toLowerCase() || '';
     return title.includes(searchString);
