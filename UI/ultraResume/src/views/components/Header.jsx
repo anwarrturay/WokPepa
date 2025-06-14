@@ -101,16 +101,23 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-white fixed h-15 w-full py-2 flex justify-between">
+    <div className="bg-white fixed h-15 w-full py-2 flex justify-between font-montserrat">
       {/* Logo Section */}
       <div className="flex items-center ml-2">
-        <img src={logo} alt="logo" className="w-[30px]"/>
-        <div className="text-lg font-montserrat font-semibold ml-2">
-          WokPepa
+        <img src={logo} alt="logo" className="w-[30px]" />
+        <div className="text-lg font-montserrat font-semibold ml-1">
+          <span className="block lg:hidden">WP</span>
+          <span className="hidden lg:block">WokPepa</span>
         </div>
       </div>
+
+      <div className="flex flex-col items-center justify-center mx-2">
+        <h1 className="text-[13px] sm:text-lg font-semibold">Welcome to WokPepa</h1>
+        <p className="text-[11px] sm:text-sm text-gray-500">Create professional resumes with ease</p>
+      </div>
+
       {/* User Profile Section */}
-      <div className="relative flex items-center mr-4">
+      <div className="relative flex items-center mr-3">
         <img
           src={previewImage || (watch("image") instanceof File 
             ? URL.createObjectURL(watch("image")) 
